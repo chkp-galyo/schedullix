@@ -1,5 +1,5 @@
 <template>
-  <div class="list-daily-appts" v-if="availableTime">
+  <div class="list-daily-appts">
       <h3>List Time:</h3>
       {{availableTimeList}}
   </div>
@@ -19,12 +19,12 @@ export default {
   },
   computed: {
     availableTimeList() {
-      console.log("logggggggg", dateSelected);
+      console.log("logggggggg", this.dateSelected);
       return "111111";
-      //   return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
+    //   return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
     }
   },
-  created: {},
+  created() {},
   methods: {}
 };
 </script>
