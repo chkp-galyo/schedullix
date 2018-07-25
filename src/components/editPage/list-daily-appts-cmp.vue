@@ -19,7 +19,9 @@ export default {
   },
   computed: {
     availableTimeList() {
-      return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
+      console.log("logggggggg", dateSelected);
+      return "111111";
+      //   return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
     }
   },
   created: {},
