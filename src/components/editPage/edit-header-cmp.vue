@@ -17,4 +17,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.edit-header {
+  height: 40vh;
+
+  background-repeat: no-repeat;
+}
 </style>
