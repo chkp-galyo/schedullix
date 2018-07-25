@@ -117,7 +117,7 @@ function getUser() {
             },
             schedule: {
                 isActive: true,
-                color: "",
+                colorHeader: "blue",
                 colorAvailable: "",
                 colorBusy: "",
                 styleObj: {
@@ -128,6 +128,22 @@ function getUser() {
                     'font-weight': "700",
                     'text-align': "center",
                     'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
+                },
+                styleDate: {
+                    colorHeader: "white",
+                    colorBody: "red",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                },
+                styleApptsList: {
+                    color: "white",
+                    background: "red",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
                 }
             },
             map: {
