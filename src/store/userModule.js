@@ -47,7 +47,12 @@ export default {
             };
         },
         [GETTER_AVAILABLE_TIME_LIST]: (state) => (date) => {
-            return date;
+            // var filter = state.user.customers.filter(customer => {
+            //     return customer
+            // });
+            // console.log(filter);
+            // return filter;
+            return Date.parse(date);
         }
     },
     actions: {
