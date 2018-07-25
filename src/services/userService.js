@@ -18,6 +18,7 @@ function getUser() {
         timeAppt: 30,
         workingHours: [{
             isOpen: true,
+            day: 'Mon',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -25,6 +26,7 @@ function getUser() {
         },
         {
             isOpen: true,
+            day: 'Tue',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -32,6 +34,7 @@ function getUser() {
         },
         {
             isOpen: true,
+            day: 'Wed',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -39,6 +42,7 @@ function getUser() {
         },
         {
             isOpen: true,
+            day: 'Thu',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -46,6 +50,7 @@ function getUser() {
         },
         {
             isOpen: true,
+            day: 'Fri',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -53,6 +58,7 @@ function getUser() {
         },
         {
             isOpen: true,
+            day: 'Sat',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -60,6 +66,7 @@ function getUser() {
         },
         {
             isOpen: true,
+            day: 'Sun',
             hours: {
                 from: "08:30",
                 to: "17:00"
@@ -96,9 +103,9 @@ function getUser() {
             },
             about: {
                 isActive: true,
-                imgUrl: "....",
-                titleTxt: "....",
-                mainTxt: "....",
+                imgUrl: "http://laboutiquedelabiere.com/image/image%20biere/barbar/RJ-Barbar-200.jpg",
+                titleTxt: "About us!",
+                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
                 styleObj: {
                     color: "white",
                     background: "red",
