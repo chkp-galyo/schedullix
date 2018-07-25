@@ -76,13 +76,13 @@ function getUser() {
         customers: [{
             name: "AliBaba",
             Phone: "065-346346",
-            time: 54354354,
+            time: 1532563200000,
             isDone: true
         },
         {
             "name": "AliJounson",
             "Phone": "065-45654654",
-            "time": 45245354,
+            "time": 1532563200000,
             "isDone": false
         }
         ],

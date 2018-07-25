@@ -1,33 +1,16 @@
 <template>
-  <div class="list-daily-appts">
+  <div class="list-daily-appts" v-if="dateSelected">
       <h3>List Time:</h3>
       {{availableTimeList}}
   </div>
 </template>
 
-// <script>
-// import { GETTER_AVAILABLE_TIME_LIST } from "../store/userModule.js";
+<script>
+import {
+  GETTER_CUSTOMERS_FOR_DATE,
+  GETTER_TIMES_FOR_DATE
+} from "@/store/userModule.js";
 
-<<<<<<< HEAD
-// export default {
-//   name: "listDailyAppts",
-//   components: {},
-//   props: {
-//     dateSelected: String
-//   },
-//   data() {
-//     return {};
-//   },
-//   computed: {
-//     availableTimeList() {
-//       return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
-//     }
-//   },
-//   created() {},
-//   methods: {}
-// };
-// </script>
-=======
 export default {
   name: "listDailyAppts",
   components: {},
@@ -39,16 +22,23 @@ export default {
   },
   computed: {
     availableTimeList() {
-      console.log("logggggggg", this.dateSelected);
-      return "111111";
-    //   return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
+      var customersForDate = this.$store.getters[GETTER_CUSTOMERS_FOR_DATE](
+        Date.parse(this.dateSelected)
+      );
+      console.log(customersForDate);
+      console.log(
+        this.$store.getters[GETTER_TIMES_FOR_DATE](
+          Date.parse(this.dateSelected)
+        )
+      );
+
+      return 111;
     }
   },
   created() {},
   methods: {}
 };
 </script>
->>>>>>> a4e1f358bdb0032b108f993978b75c93e99f4e5c
 
 <style scoped lang="scss">
 </style>
