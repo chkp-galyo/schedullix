@@ -1,8 +1,6 @@
 <template>
   <div class="edit-header" :style="headerConfig.styleObj">
-    <h1>{{headerConfig.titleText}}</h1>
-    <img :src="headerConfig.imgUrl"/>
-
+    <h1>{{headerConfig.titleTxt}}</h1>
   </div>
 </template>
 
