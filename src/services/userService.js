@@ -83,7 +83,6 @@ function getUser() {
         configElements: {
             header: {
                 isActive: true,
-                imgUrl: "https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg",
                 titleTxt: "....",
                 styleObj: {
                     color: "white",
@@ -91,7 +90,8 @@ function getUser() {
                     'font-size': "16px",
                     'font-family': "Arial",
                     'font-weight': "700",
-                    'text-align': "center"
+                    'text-align': "center",
+                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
                 }
             },
             about: {
@@ -99,32 +99,42 @@ function getUser() {
                 imgUrl: "....",
                 titleTxt: "....",
                 mainTxt: "....",
-                color: "",
-                bgColor: "",
-                sizeFont: "",
-                font: "",
-                bold: "",
-                align: "center / left / right"
+                styleObj: {
+                    color: "white",
+                    background: "red",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                }
             },
             schedule: {
                 isActive: true,
                 color: "",
                 colorAvailable: "",
                 colorBusy: "",
-                bgColor: "",
-                sizeFont: "",
-                font: "",
-                bold: ""
+                styleObj: {
+                    color: "white",
+                    background: "red",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
+                }
             },
             map: {
                 isActive: true,
                 titleTxt: "....",
-                color: "",
-                bgColor: "",
-                sizeFont: "",
-                font: "",
-                bold: "",
-                align: "center / left / right"
+                styleObj: {
+                    color: "white",
+                    background: "red",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
+                }
             }
         }
     }
