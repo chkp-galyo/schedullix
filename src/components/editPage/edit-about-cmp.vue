@@ -39,6 +39,7 @@ export default {
 .edit-about {
   display: flex;
   justify-content: space-around;
+  padding: 20px;
   max-height: 40vh;
 }
 .about-text {
