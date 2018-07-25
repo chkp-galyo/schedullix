@@ -3,17 +3,14 @@
       <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       <about-cmp :aboutConfig="user.configElements.about" v-if="user.configElements.about.isActive" /> 
     {{user}}
+    <map-cmp></map-cmp>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-import headerCmp from '@/components/editPage/edit-header-cmp.vue'
-import aboutCmp from '@/components/editPage/edit-about-cmp.vue'
-=======
 import headerCmp from '../components/editPage/edit-header-cmp.vue'
 import aboutCmp from '../components/editPage/edit-about-cmp.vue'
->>>>>>> a1b4d3e0c2673740bea54f0a00d350f91c8d1d4f
+import mapCmp from '../components/editPage/edit-map-cmp.vue'
 
 import { GETTER_USER } from '../store/userModule.js'
 
@@ -26,7 +23,8 @@ export default {
   },
   components: {
       headerCmp,
-      aboutCmp
+      aboutCmp,
+      mapCmp,
   }
 }
 </script>

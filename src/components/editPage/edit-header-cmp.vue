@@ -19,7 +19,7 @@ export default {
 <style scoped lang="scss">
 .edit-header {
   height: 40vh;
-
+  background-size: cover;
   background-repeat: no-repeat;
 }
 </style>
