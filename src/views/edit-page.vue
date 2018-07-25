@@ -5,7 +5,6 @@
         <schedule-cmp :schedule="user.configElements.schedule" />
         <edit-map-cmp :location="user.location" />
     {{user}}
-    <map-cmp></map-cmp>
   </div>
 </template>
 
@@ -29,7 +28,8 @@ export default {
       headerCmp,
       aboutCmp,
       scheduleCmp,
-      editMapCmp
+      editMapCmp,
+
   }
 }
 </script>
