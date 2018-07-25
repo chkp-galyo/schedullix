@@ -12,8 +12,8 @@ function getUser() {
         phone: "054-2886838",
         businessName: "AliBaba Hakim",
         location: {
-            lat: 6354343,
-            lng: 3453453
+            lat: 36.778259,
+            lng: -119.417931
         },
         timeAppt: 30,
         workingHours: [{

@@ -1,6 +1,7 @@
 <template>
   <section class="edit-map">
-    <div>
+    <div class="side-map">
+        <h1>{{this.address}}</h1>
       <h2>Search and add a pin</h2>
       <label>
         <gmap-autocomplete
@@ -42,6 +43,7 @@ export default {
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
       places: [],
+      address:'',
       currentPlace: null
     };
   },
@@ -49,11 +51,17 @@ export default {
       mapService.query()
   },
   mounted() {
-    if (this.location) {
-      this.currentPlace = { ...this.location };
-    }
-    this.geolocate();
-    //   this.addMarker()
+      
+      this.geolocate();
+        if (this.location) {
+            console.log(this.location);
+            this.currentPlace = this.location
+            mapService.getAddress(this.location)
+            .then(address=>{
+                this.address = address
+            })
+        }
+        
   },
 
   methods: {
@@ -62,26 +70,27 @@ export default {
       this.currentPlace = place;
     },
     addMarker() {
-      console.log(arguments);
-      console.log(this.currentPlace);
-
-      const marker = {
-        lat: this.currentPlace.lat,
-        lng: this.currentPlace.lng
-      };
-      this.markers.push({ position: marker });
-      this.places.push(this.currentPlace);
-      this.center = marker;
-      this.currentPlace = null;
+            const marker = {
+                lat: this.currentPlace.lat,
+                lng: this.currentPlace.lng
+            };
+            this.markers.push({ position: marker });
+            this.places.push(this.currentPlace);
+            this.center = marker;
+            console.log('center',this.center);
+            
+            this.currentPlace = null;
     },
     geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
+          if(!this.center){
+              this.center = {
+                  lat: position.coords.latitude,
           lng: position.coords.longitude
-        };
-        if (!this.currentPlace) {
-          this.currentPlace = {
+            }
+        }
+        if (this.currentPlace) {
+            this.currentPlace = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
@@ -93,7 +102,6 @@ export default {
     currentPlace() {
       if (this.currentPlace) {
         console.log(this.currentPlace);
-
         this.addMarker();
       }
     }
@@ -102,6 +110,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.side-map{
+    
+}
 .edit-map {
   padding: 1em;
   display: flex;
