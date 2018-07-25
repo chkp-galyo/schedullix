@@ -3,7 +3,8 @@ import userService from '../services/userService.js'
 //------------------------------ ACTIONS ------------------------------
 // export const ACT_LOAD_USER = 'todo/actions/loadUser'
 //------------------------------ GETTERS ------------------------------
-export const GETTER_AVAILABLE_TIME_LIST = 'user/getters/availableTimeList'
+export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
+export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
 //------------------------------ MUTATIONS ----------------------------
 // export const MUT_SET_USER = 'todo/mutations/setUser'
@@ -38,21 +39,19 @@ export default {
         //     return state.user.prefs;
         // },
 
-        // [GETTER_USER_NAME](state) {
-        //     return state.user.fullName;
-        // },
+        [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
+            return state.user.workingHours[new Date(dateSelectedTimestamp).getDay()];
+            // return day.
+        },
 
         [GETTER_USER](state) {
             return { ...state.user
             };
         },
-        [GETTER_AVAILABLE_TIME_LIST]: (state) => (date) => {
-            // var filter = state.user.customers.filter(customer => {
-            //     return customer
-            // });
-            // console.log(filter);
-            // return filter;
-            return Date.parse(date);
+        [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
+            return state.user.customers.filter(customer => {
+                return new Date(customer.time).toLocaleDateString() === new Date(dateSelectedTimestamp).toLocaleDateString()
+            });
         }
     },
     actions: {

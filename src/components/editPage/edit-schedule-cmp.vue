@@ -1,28 +1,39 @@
 <template>
-<section>
-<v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" event-color="orange" />
-<appts-list />
-{{schedule}}
+<section class="schedule" :style="schedule.styleObj">
+<v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
+:landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
+:dark="schedule.styleDate.dark" :width="350" show-current="2017-02-04"/>
+<list-daily-appts :dateSelected="dateSelected" />
+
 </section>
 </template>
  
 <script>
-import ApptsList from "./list-daily-appts-cmp.vue";
+import listDailyAppts from './list-daily-appts-cmp.vue';
 
 export default {
     props: {
         schedule: Object
     },
   data() {
-    return {};
+    return {
+        dateSelected: ''
+    };
   },
   methods: {
     handleInput(ev) {
-      console.log(typeof ev, ev);
+      this.dateSelected = ev
     }
   },
   components: {
-    ApptsList
+    listDailyAppts
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.schedule {
+    display: flex;
+    justify-content: space-around;
+}
+</style>

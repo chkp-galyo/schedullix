@@ -1,12 +1,15 @@
 <template>
-  <div class="list-daily-appts" v-if="availableTime">
+  <div class="list-daily-appts" v-if="dateSelected">
       <h3>List Time:</h3>
       {{availableTimeList}}
   </div>
 </template>
 
 <script>
-import { GETTER_AVAILABLE_TIME_LIST } from "../../store/userModule.js";
+import {
+  GETTER_CUSTOMERS_FOR_DATE,
+  GETTER_TIMES_FOR_DATE
+} from "@/store/userModule.js";
 
 export default {
   name: "listDailyAppts",
@@ -19,10 +22,20 @@ export default {
   },
   computed: {
     availableTimeList() {
-      return this.$store.getters[GETTER_AVAILABLE_TIME_LIST](dateSelected);
+      var customersForDate = this.$store.getters[GETTER_CUSTOMERS_FOR_DATE](
+        Date.parse(this.dateSelected)
+      );
+      console.log(customersForDate);
+      console.log(
+        this.$store.getters[GETTER_TIMES_FOR_DATE](
+          Date.parse(this.dateSelected)
+        )
+      );
+
+      return 111;
     }
   },
-  created: {},
+  created() {},
   methods: {}
 };
 </script>

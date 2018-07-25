@@ -76,13 +76,13 @@ function getUser() {
         customers: [{
             name: "AliBaba",
             Phone: "065-346346",
-            time: 54354354,
+            time: 1532563200000,
             isDone: true
         },
         {
             "name": "AliJounson",
             "Phone": "065-45654654",
-            "time": 45245354,
+            "time": 1532563200000,
             "isDone": false
         }
         ],
@@ -108,7 +108,7 @@ function getUser() {
                 mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
                 styleObj: {
                     color: "white",
-                    background: "red",
+                    background: "darkblue",
                     'font-size': "16px",
                     'font-family': "Arial",
                     'font-weight': "700",
@@ -121,17 +121,18 @@ function getUser() {
                 colorAvailable: "",
                 colorBusy: "",
                 styleObj: {
-                    color: "white",
-                    background: "red",
+                    color: "darkblue",
+                    background: "lightyellow",
                     'font-size': "16px",
                     'font-family': "Arial",
                     'font-weight': "700",
                     'text-align': "center",
-                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
                 },
                 styleDate: {
-                    colorHeader: "white",
-                    colorBody: "red",
+                    colorHeader: "blue",
+                    landscape: true,
+                    dark: true,
+                    light: false,
                     'font-size': "16px",
                     'font-family': "Arial",
                     'font-weight': "700",
