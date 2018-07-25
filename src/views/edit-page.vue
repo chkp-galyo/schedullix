@@ -7,13 +7,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import headerCmp from '../components/editPage/edit-header-cmp.vue'
-import aboutCmp from '../components/editPage/edit-about-cmp.vue'
-=======
 import headerCmp from '@/components/editPage/edit-header-cmp.vue'
 import aboutCmp from '@/components/editPage/edit-about-cmp.vue'
->>>>>>> 2d61530f0f60aaa761a65c996eed4f317bccd6c9
 
 import { GETTER_USER } from '../store/userModule.js'
 
