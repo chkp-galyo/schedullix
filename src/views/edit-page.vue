@@ -4,7 +4,6 @@
       <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" v-if="user.configElements.about.isActive" /> 
         <schedule-cmp :schedule="user.configElements.schedule" />
         <edit-map-cmp :location="user.location" />
-    {{user}}
   </div>
 </template>
 
@@ -33,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.edit-page {
+    margin: 10px;
+}
+</style>

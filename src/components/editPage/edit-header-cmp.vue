@@ -21,7 +21,8 @@ export default {
 <style scoped lang="scss">
 .edit-header {
   border: 1px solid black;
-  height: 40vh;
+  height: 50vh;
+  margin: 15px;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;
