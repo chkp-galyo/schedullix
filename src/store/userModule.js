@@ -31,38 +31,6 @@ export default {
         // },
     },
     getters: {
-        // [GETTER_ACTIVITIES_LIST](state) {
-        //     return state.user.activities;
-        // },
-
-        // [GETTER_PREFS_USER](state) {
-        //     return state.user.prefs;
-        // },
-
-        // [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
-        //     var day = state.user.workingHours[new Date(dateSelectedTimestamp).getDay()];
-
-        //     var time = { ...day.hoursOpen.startTime
-        //     };
-
-        //     var listForDay = [];
-        //     listForDay.push({ ...time
-        //     })
-
-        //     while (time.hours < day.hoursOpen.endTime.hours ||
-        //         (time.minutes < day.hoursOpen.endTime.minutes && time.hours === day.hoursOpen.endTime.hours)) {
-
-        //         time.minutes += state.user.timePerCustomer;
-        //         if (time.minutes >= 60) {
-        //             time.hours++;
-        //             time.minutes = 0;
-        //         }
-        //         listForDay.push({ ...time
-        //         })
-        //     }
-        //     return listForDay;
-        // },
-
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
             var selectDateObj = new Date(dateSelectedTimestamp);
 
