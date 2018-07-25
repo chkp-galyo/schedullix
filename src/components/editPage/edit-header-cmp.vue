@@ -8,7 +8,9 @@
 export default {
   name: "editHeader",
   components: {},
-  props: ["headerConfig"],
+  props: {
+    headerConfig: Object
+  },
   data() {
     return {};
   },
@@ -18,8 +20,10 @@ export default {
 
 <style scoped lang="scss">
 .edit-header {
+  border: 1px solid black;
   height: 40vh;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
 }
 </style>

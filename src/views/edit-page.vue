@@ -1,16 +1,20 @@
 <template>
   <div class="edit-page">
       <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
-      <about-cmp :aboutConfig="user.configElements.about" v-if="user.configElements.about.isActive" /> 
+      <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" v-if="user.configElements.about.isActive" /> 
+        <schedule-cmp :schedule="user.configElements.schedule" />
+        <edit-map-cmp :location="user.location" />
     {{user}}
     <map-cmp></map-cmp>
   </div>
 </template>
 
 <script>
-import headerCmp from '../components/editPage/edit-header-cmp.vue'
-import aboutCmp from '../components/editPage/edit-about-cmp.vue'
-import mapCmp from '../components/editPage/edit-map-cmp.vue'
+import headerCmp from '@/components/editPage/edit-header-cmp.vue'
+import aboutCmp from '@/components/editPage/edit-about-cmp.vue'
+import scheduleCmp from '@/components/editPage/edit-schedule-cmp.vue'
+import editMapCmp from '@/components/editPage/edit-map-cmp.vue'
+
 
 import { GETTER_USER } from '../store/userModule.js'
 
@@ -24,7 +28,8 @@ export default {
   components: {
       headerCmp,
       aboutCmp,
-      mapCmp,
+      scheduleCmp,
+      editMapCmp
   }
 }
 </script>
