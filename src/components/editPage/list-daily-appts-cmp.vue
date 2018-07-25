@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { GETTER_AVAILABLE_TIME_LIST } from "../store/userModule.js";
+import { GETTER_AVAILABLE_TIME_LIST } from "../../store/userModule.js";
 
 export default {
   name: "listDailyAppts",
