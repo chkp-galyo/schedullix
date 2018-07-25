@@ -1,18 +1,12 @@
 import userService from '../services/userService.js'
 
-// //------------------------------ ACTIONS ------------------------------
+//------------------------------ ACTIONS ------------------------------
 // export const ACT_LOAD_USER = 'todo/actions/loadUser'
-// export const ACT_ADD_ACTIVITY = 'todo/actions/addActivity'
-// export const ACT_UPDATE_USER = 'todo/actions/updateUser'
-// //------------------------------ GETTERS ------------------------------
-// export const GETTER_USER_NAME = 'todo/getters/userName'
-// export const GETTER_PREFS_USER = 'todo/getters/prefsUser'
-// export const GETTER_ACTIVITIES_LIST = 'todo/getters/activitiesList'
+//------------------------------ GETTERS ------------------------------
+export const GETTER_AVAILABLE_TIME_LIST = 'user/getters/availableTimeList'
 export const GETTER_USER = 'user/getters/user'
-// //------------------------------ MUTATIONS ----------------------------
+//------------------------------ MUTATIONS ----------------------------
 // export const MUT_SET_USER = 'todo/mutations/setUser'
-// export const MUT_ADD_ACTIVITY = 'todo/mutations/addActivity'
-
 
 export default {
     state: {
@@ -51,6 +45,9 @@ export default {
         [GETTER_USER](state) {
             return { ...state.user
             };
+        },
+        [GETTER_AVAILABLE_TIME_LIST]: (state) => (date) => {
+            return date;
         }
     },
     actions: {

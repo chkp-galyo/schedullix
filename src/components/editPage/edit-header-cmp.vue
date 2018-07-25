@@ -8,7 +8,9 @@
 export default {
   name: "editHeader",
   components: {},
-  props: ["headerConfig"],
+  props: {
+    headerConfig: Object
+  },
   data() {
     return {};
   },
