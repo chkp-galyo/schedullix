@@ -1,10 +1,10 @@
 <template>
-  <div class="list-daily-appts" v-if="dateSelected">
+  <div class="list-daily-appts animated bounceInRight" v-if="dateSelected">
       <h3>List Time:</h3>
-      <ul>
+      <ul class="clean-list">
           <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp">
-              {{timeDay.hours}}:{{timeDay.minutes}}
-              <button>+</button>
+              <button @click="addCustomer(timeDay)">+</button>
+              <h5>{{timeDay.hours}}:{{timeDay.minutes}}</h5> 
           </li>
       </ul>
 
@@ -49,7 +49,11 @@ export default {
     }
   },
   created() {},
-  methods: {}
+  methods: {
+    addCustomer(timeDay) {
+      console.log("check", timeDay);
+    }
+  }
 };
 </script>
 
@@ -57,10 +61,52 @@ export default {
 .list-daily-appts ul {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  //   flex-wrap: wrap;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 li {
-  border: 1px solid black;
-  margin: 3px;
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+}
+button {
+  width: 15px;
+  height: 15px;
+
+  background-color: beige;
+  color: black;
+}
+h3 {
+  border-bottom: 1px solid black;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkgrey;
+  cursor: pointer;
 }
 </style>

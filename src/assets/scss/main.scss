@@ -1,3 +1,5 @@
+@import './animate.css';
+
 * {
     box-sizing: border-box;
 }
@@ -6,4 +8,69 @@ body {
     margin: 5px;
     padding: 5px;
     background-color: lightblue;
+}
+
+button {
+    border-radius: 5px;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.clean-list {
+    list-style: none;
+    padding: 0;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.sapce-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.padding {
+    padding: 1em;
+}
+
+.cursor-move {
+    cursor: move !important;
+}
+
+.flex-align-start {
+    align-items: flex-start;
+}
+
+.clean-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 1em;
+}
+
+.clean-btn:hover {
+    color: red;
+    transition: all .3s;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
