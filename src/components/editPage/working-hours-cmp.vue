@@ -31,11 +31,15 @@ h2 {
   margin-bottom: 10px;
 }
 table tr td {
-  padding: 3px;
+  padding: 10px 20px;
+  margin: 5px;
+  border-bottom: 1px solid black;
 }
 table {
   border: 1px solid black;
   border-radius: 6px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  
 }
 .working-hours {
   margin: auto;

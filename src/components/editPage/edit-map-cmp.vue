@@ -1,7 +1,7 @@
 
 
 <template>
-  <section class="edit-map">
+  <div class="edit-map">
     <div class="side-map">
         <h1>{{this.address}}</h1>
       <h2>Search and add a pin</h2>
@@ -26,7 +26,7 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-  </section>
+  </div>
 </template>
 
 <script>
