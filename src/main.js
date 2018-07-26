@@ -13,6 +13,8 @@ Vue.use(vueEventCalendar, {
   locale: 'en'
 })
 
+Vue.use(require('vue-moment'));
+
 import '@/assets/scss/main.scss'
 
 Vue.config.productionTip = false
