@@ -194,7 +194,6 @@ function getUser() {
                     'font-family': "Arial",
                     'font-weight': "700",
                     'text-align': "center",
-                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
                 }
             }
         }

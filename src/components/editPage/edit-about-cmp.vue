@@ -41,7 +41,7 @@ export default {
   justify-content: space-around;
   padding: 20px;
   height: 50vh;
-  margin: 5px 0;
+  // margin: 5px 0;
 }
 
 .about-text {
