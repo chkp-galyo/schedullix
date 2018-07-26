@@ -11,7 +11,7 @@
         <schedule-cmp :schedule="user.configElements.schedule" />
       </section>
       <section class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="map">
-        <edit-map-cmp :location="user.location" />
+        <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
       </section>
   </div>
 </template>
