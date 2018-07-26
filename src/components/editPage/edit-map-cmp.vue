@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="edit-map">
+  <div class="edit-map" :style="mapConfig.styleObj">
     <div class="side-map">
         <h1>{{this.address}}</h1>
       <h2>Search and add a pin</h2>
