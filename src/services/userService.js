@@ -81,7 +81,7 @@ function getUser() {
                     },
                     endTime: {
                         hours: 17,
-                        minutes: 30
+                        minutes: 0
                     }
                 }
             },
@@ -119,12 +119,6 @@ function getUser() {
                 Phone: "065-423",
                 time: 1532583000000,
                 isDone: true
-            },
-            {
-                "name": "Kuki",
-                "Phone": "065ds324654654",
-                "time": 1532615400000,
-                "isDone": false
             },
             {
                 "name": "Pipi",

@@ -1,4 +1,7 @@
 import userService from '../services/userService.js'
+import {
+    stat
+} from 'fs';
 
 //------------------------------ ACTIONS ------------------------------
 // export const ACT_LOAD_USER = 'todo/actions/loadUser'
@@ -32,23 +35,23 @@ export default {
     },
     getters: {
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
+            var listForDay = [];
             var selectDateObj = new Date(dateSelectedTimestamp);
-
             var day = state.user.workingHours[selectDateObj.getDay()];
-
+            var endTime = day.hoursOpen.endTime
+            var timePerCustomer = state.user.timePerCustomer
             var time = { ...day.hoursOpen.startTime
             };
 
-            var listForDay = [];
+
             listForDay.push({ ...time
             })
             listForDay[listForDay.length - 1].timestamp = generatorTimestamp(selectDateObj, `${time.hours}:${time.minutes}`);
 
+            while (time.hours < endTime.hours ||
+                (time.minutes + timePerCustomer < endTime.minutes && time.hours === endTime.hours)) {
 
-            while (time.hours < day.hoursOpen.endTime.hours ||
-                (time.minutes < day.hoursOpen.endTime.minutes && time.hours === day.hoursOpen.endTime.hours)) {
-
-                time.minutes += state.user.timePerCustomer;
+                time.minutes += timePerCustomer;
                 if (time.minutes >= 60) {
                     time.hours++;
                     time.minutes = 0;

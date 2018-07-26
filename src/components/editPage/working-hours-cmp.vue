@@ -4,9 +4,9 @@
         <table>
             <tr v-for="workDay in workingHours" :key="workDay.day">
                 <td>{{workDay.day}} : </td>
-                <td>{{workDay.hoursOpen.startTime.hours}}:{{workDay.hoursOpen.startTime.minutes}}
+                <td>{{workDay.hoursOpen.startTime.hours | validTime}}:{{workDay.hoursOpen.startTime.minutes | validTime}}
                     -
-                    {{workDay.hoursOpen.endTime.hours}}:{{workDay.hoursOpen.endTime.minutes}} 
+                    {{workDay.hoursOpen.endTime.hours | validTime}}:{{workDay.hoursOpen.endTime.minutes | validTime}} 
                 </td>
                               
             </tr>
@@ -39,7 +39,6 @@ table {
   border: 1px solid black;
   border-radius: 6px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-  
 }
 .working-hours {
   margin: auto;

@@ -4,7 +4,7 @@
       <ul class="clean-list">
           <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp">
               <button @click="addCustomer(timeDay)">+</button>
-              <h5>{{timeDay.hours}}:{{timeDay.minutes}}</h5> 
+              <h5>{{timeDay.hours | validTime}}:{{timeDay.minutes | validTime}}</h5> 
           </li>
       </ul>
 
