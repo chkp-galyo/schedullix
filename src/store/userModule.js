@@ -8,6 +8,7 @@ export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
 //------------------------------ MUTATIONS ----------------------------
 // export const MUT_SET_USER = 'todo/mutations/setUser'
+export const MUT_SET_USER_LOC = 'todo/mutations/setUserLocation'
 
 export default {
     state: {
@@ -19,7 +20,11 @@ export default {
         //     state.user.fullName = payload.user.fullName;
         //     state.user.prefs = payload.user.prefs;
         // },
-
+        
+        [MUT_SET_USER_LOC](state, payload) {
+            state.user.location = payload.userLocation
+            console.log(state.user.location);
+        }
         // [MUT_ADD_ACTIVITY](state, payload) {
         //     state.user.activities.unshift(payload.activity);
         // },
