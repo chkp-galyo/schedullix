@@ -3,9 +3,11 @@
 <template>
   <div class="edit-map" :style="mapConfig.styleObj">
     <div class="side-map">
-        <h1>{{this.address}}</h1>
-      <h2>Search and add a pin</h2>
+        <div>
+        <h1>Address: {{this.address}}</h1>
+        </div>
       <label>
+      <h2>Search and add a pin</h2>
         <gmap-autocomplete
           @place_changed="setPlace">
         </gmap-autocomplete>
@@ -17,7 +19,7 @@
     <gmap-map
       :center="center"
       :zoom="16"  
-      style="width:50vw;  height:50vh ;"
+      style="width:50vh;  height:50vh ;"
     >
       <gmap-marker
         :key="index"
@@ -36,6 +38,9 @@
         name: "editMap",
         props: {
             location: {
+                type: Object
+            },
+            mapConfig: {
                 type: Object
             }
         },
@@ -124,7 +129,20 @@
 
 <style lang="scss" scoped>
 .side-map{
-
+    width:50%;
+    min-width: 300px;
+    margin-bottom: 20px;
+    display:flex;
+    flex-direction: column;
+}
+.side-map *{
+    padding:0.5em
+}
+input{
+    padding: 1em;
+    background-color: white;
+    color: black;
+    margin-right: 10px
 }
 .edit-map {
   padding: 1em;
