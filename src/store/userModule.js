@@ -7,13 +7,10 @@ export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
 //------------------------------ MUTATIONS ----------------------------
-<<<<<<< HEAD
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 
-=======
 // export const MUT_SET_USER = 'todo/mutations/setUser'
 export const MUT_SET_USER_LOC = 'todo/mutations/setUserLocation'
->>>>>>> 614a20195fab3189f06d915297819c9d9f2d2cd2
 
 export default {
     state: {
@@ -25,12 +22,10 @@ export default {
         //     state.user.fullName = payload.user.fullName;
         //     state.user.prefs = payload.user.prefs;
         // },
-<<<<<<< HEAD
 
         [MUT_ADD_CUSTOMER](state, payload) {
             state.user.customers.unshift(payload.customer);  
         },
-=======
         
         [MUT_SET_USER_LOC](state, payload) {
             state.user.location = payload.userLocation
@@ -39,7 +34,6 @@ export default {
         // [MUT_ADD_ACTIVITY](state, payload) {
         //     state.user.activities.unshift(payload.activity);
         // },
->>>>>>> 614a20195fab3189f06d915297819c9d9f2d2cd2
 
         // [MUT_SET_USER](state, {
         //     user

@@ -1,5 +1,5 @@
 <template>
-    <section class="register-customer" >
+    <section class="register-customer"  @click.stop >
 
         <h1>Register Oppintment</h1>
 
@@ -109,7 +109,7 @@ input:focus {
   outline: none;
 }
 
-h1{
+h1 {
   font-size: 30px;
 }
 </style>
