@@ -1,10 +1,15 @@
 <template>
   <div class="edit-page">
+      <div class="register-container" v-if="showRegisterMenu" @click="showRegisterMenu = false">
+        <register-customer :timeCustomer="timeCustomerReg"></register-customer>
+      </div>
+      
+
       <section class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="header">
-      <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
+        <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       </section>
       <section class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="about">
-      <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
+        <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
                     v-if="user.configElements.about.isActive" /> 
       </section>
       <section class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="schedule">
@@ -21,13 +26,28 @@ import headerCmp from "@/components/editPage/edit-header-cmp.vue";
 import aboutCmp from "@/components/editPage/edit-about-cmp.vue";
 import scheduleCmp from "@/components/editPage/edit-schedule-cmp.vue";
 import editMapCmp from "@/components/editPage/edit-map-cmp.vue";
-
+import registerCustomer from "@/components/register-customer-cmp.vue";
+import {
+  eventBus,
+  EVENT_TOGGLE_REG_MENU,
+  EVENT_ADD_CUSTOMER
+} from "@/services/event-bus-service.js";
 import { GETTER_USER } from "../store/userModule.js";
 
 export default {
+  components: {
+    headerCmp,
+    aboutCmp,
+    scheduleCmp,
+    editMapCmp,
+    registerCustomer
+  },
   name: "edit-page",
   data() {
     return {
+      modePage: "edit",
+      showRegisterMenu: false,
+      timeCustomerReg: null,
       user: this.$store.getters[GETTER_USER],
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
@@ -36,10 +56,15 @@ export default {
     };
   },
   created() {
-      console.log('smps:',this.cmps)
+    eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
+      this.showRegisterMenu = !this.showRegisterMenu;
+    });
+    eventBus.$on(EVENT_ADD_CUSTOMER, time => {
+      this.timeCustomerReg = time;
+    });
   },
   methods: {
-    dragCmp(ev) {        
+    dragCmp(ev) {
       this.dragOriginOrderCmp = ev.target.style.order;
       this.draggedCmp = ev.target;
     },
@@ -52,12 +77,6 @@ export default {
     allowDrop(ev) {
       ev.preventDefault();
     }
-  },
-  components: {
-    headerCmp,
-    aboutCmp,
-    scheduleCmp,
-    editMapCmp
   }
 };
 </script>
@@ -80,5 +99,16 @@ export default {
   width: 160px;
   height: 160px;
   border: 1px solid black;
+}
+.register-container {
+  width: 100vw;
+  height: 120vh;
+  background-color: #39373799;
+  position: fixed;
+  z-index: 10000;
+  top: -30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
