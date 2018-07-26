@@ -1,4 +1,3 @@
-
 export default {
     getUser
 }
@@ -15,82 +14,130 @@ function getUser() {
             lat: 36.778259,
             lng: -119.417931
         },
-        timeAppt: 30,
+        timePerCustomer: 30,
         workingHours: [{
-            isOpen: true,
-            day: 'Mon',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
-        {
-            isOpen: true,
-            day: 'Tue',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
-        {
-            isOpen: true,
-            day: 'Wed',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
-        {
-            isOpen: true,
-            day: 'Thu',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
-        {
-            isOpen: true,
-            day: 'Fri',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
-        {
-            isOpen: true,
-            day: 'Sat',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
-        {
-            isOpen: true,
-            day: 'Sun',
-            hours: {
-                from: "08:30",
-                to: "17:00"
-            }
-        },
+                isOpen: true,
+                day: 'Mon',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Tue',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Wed',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Thu',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Fri',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Sat',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Sun',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
         ],
         customers: [{
-            name: "AliBaba",
-            Phone: "065-346346",
-            time: 1532563200000,
-            isDone: true
-        },
-        {
-            "name": "AliJounson",
-            "Phone": "065-45654654",
-            "time": 1532563200000,
-            "isDone": false
-        }
+                name: "AliBaba",
+                Phone: "065-423",
+                time: 1532583000000,
+                isDone: true
+            },
+            {
+                "name": "Kuki",
+                "Phone": "065ds324654654",
+                "time": 1532615400000,
+                "isDone": false
+            },
+            {
+                "name": "Pipi",
+                "Phone": "065gdfgdfg54",
+                "time": 1532599200000,
+                "isDone": false
+            }
         ],
 
         configElements: {
             header: {
                 isActive: true,
-                titleTxt: "....",
+                titleTxt: "Welcom to my Bussiness!",
                 styleObj: {
                     color: "white",
                     background: "red",
@@ -98,20 +145,20 @@ function getUser() {
                     'font-family': "Arial",
                     'font-weight': "700",
                     'text-align': "center",
-                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
+                    'background-image': "url('https://media.ultimahora.com/adjuntos/161/imagenes/000/705/0000705263.jpg')",
                 }
             },
             about: {
                 isActive: true,
-                imgUrl: "http://laboutiquedelabiere.com/image/image%20biere/barbar/RJ-Barbar-200.jpg",
+                imgUrl: "http://www.mimejornegocio.com/wp-content/uploads/2017/08/Barbershop_034smoke_c_Lupi_Spuma-2-570x342.jpg",
                 titleTxt: "About us!",
-                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
                 styleObj: {
                     color: "white",
-                    background: "darkblue",
+                    background: "#4b3e3b",
                     'font-size': "16px",
                     'font-family': "Arial",
-                    'font-weight': "700",
+                    'font-weight': "200",
                     'text-align': "center",
                 }
             },
@@ -121,22 +168,18 @@ function getUser() {
                 colorAvailable: "",
                 colorBusy: "",
                 styleObj: {
-                    color: "darkblue",
-                    background: "lightyellow",
+                    color: "white",
+                    background: "#4b3e3b",
                     'font-size': "16px",
                     'font-family': "Arial",
                     'font-weight': "700",
                     'text-align': "center",
                 },
                 styleDate: {
-                    colorHeader: "blue",
+                    colorHeader: "brown",
                     landscape: true,
                     dark: true,
                     light: false,
-                    'font-size': "16px",
-                    'font-family': "Arial",
-                    'font-weight': "700",
-                    'text-align': "center",
                 },
                 styleApptsList: {
                     color: "white",

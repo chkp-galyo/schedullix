@@ -1,20 +1,20 @@
 <template>
-  <section class="edit-about" :style="aboutConfig.styleObj">
+  <div class="edit-about" :style="aboutConfig.styleObj">
 
-    <section class="about-text">
+    <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
         <p>{{aboutConfig.mainTxt}}</p>
-    </section>
+    </div>
 
-    <section class="img-container">
+    <div class="img-container">
         <img :src="aboutConfig.imgUrl">
-    </section>
+    </div>
 
-    <section class="working-hours">
+    <div class="working-hours">
         <workingHoursCmp :workingHours="workingHours" />
-    </section>
+    </div>
 
-  </section>
+  </div>
 </template>
 
 <script>
@@ -40,15 +40,26 @@ export default {
   display: flex;
   justify-content: space-around;
   padding: 20px;
-  max-height: 40vh;
+  height: 50vh;
+  margin: 5px 0;
 }
+
 .about-text {
   display: flex;
   flex-direction: column;
   width: 33%;
+  line-height: 1.6;
+  background-color: rgb(95, 40, 40);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
+
 .img-container {
   width: 33%;
   margin: auto;
+}
+
+.img-container img {
+  width: 100%;
 }
 </style>

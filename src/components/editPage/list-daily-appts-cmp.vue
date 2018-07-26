@@ -1,7 +1,14 @@
 <template>
   <div class="list-daily-appts" v-if="dateSelected">
       <h3>List Time:</h3>
-      {{availableTimeList}}
+      <ul>
+          <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp">
+              {{timeDay.hours}}:{{timeDay.minutes}}
+              <button>+</button>
+          </li>
+      </ul>
+
+      <h3 v-if="availableTimeList.length<=0 && dateSelected">There is no space available at the selected time! </h3>
   </div>
 </template>
 
@@ -15,7 +22,7 @@ export default {
   name: "listDailyAppts",
   components: {},
   props: {
-    dateSelected: String
+    dateSelected: Number
   },
   data() {
     return {};
@@ -23,16 +30,22 @@ export default {
   computed: {
     availableTimeList() {
       var customersForDate = this.$store.getters[GETTER_CUSTOMERS_FOR_DATE](
-        Date.parse(this.dateSelected)
+        this.dateSelected
       );
-      console.log(customersForDate);
-      console.log(
-        this.$store.getters[GETTER_TIMES_FOR_DATE](
-          Date.parse(this.dateSelected)
-        )
+      var freeTimeInDay = this.$store.getters[GETTER_TIMES_FOR_DATE](
+        this.dateSelected
       );
 
-      return 111;
+      customersForDate.forEach(customer => {
+        var idx = freeTimeInDay.findIndex(freeTime => {
+          return freeTime.timestamp === customer.time;
+        });
+
+        if (idx !== -1) {
+          freeTimeInDay.splice(idx, 1);
+        }
+      });
+      return freeTimeInDay;
     }
   },
   created() {},
@@ -41,4 +54,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.list-daily-appts ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+li {
+  border: 1px solid black;
+  margin: 3px;
+}
 </style>

@@ -3,26 +3,31 @@
 <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
 :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
 :dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"/>
-<list-daily-appts :dateSelected="dateSelected" />
 
+
+  <div class="edit-schedule" :style="schedule.styleObj">
+
+    <list-daily-appts :dateSelected="Date.parse(dateSelected)" />
+
+  </div>
 </section>
 </template>
  
 <script>
-import listDailyAppts from './list-daily-appts-cmp.vue';
+import listDailyAppts from "./list-daily-appts-cmp.vue";
 
 export default {
-    props: {
-        schedule: Object
-    },
+  props: {
+    schedule: Object
+  },
   data() {
     return {
-        dateSelected: ''
+      dateSelected: ""
     };
   },
   methods: {
     handleInput(ev) {
-      this.dateSelected = ev
+      this.dateSelected = ev;
     }
   },
   components: {
@@ -32,8 +37,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.schedule {
-    display: flex;
-    justify-content: space-around;
+.edit-schedule {
+  display: flex;
+  justify-content: space-around;
+}
+
+.list-daily-appts {
+  max-height: 200px;
 }
 </style>

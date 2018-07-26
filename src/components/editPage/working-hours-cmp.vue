@@ -4,8 +4,11 @@
         <table>
             <tr v-for="workDay in workingHours" :key="workDay.day">
                 <td>{{workDay.day}} : </td>
-                <td>From : {{workDay.hours.from}}</td>
-                <td>To : {{workDay.hours.to}}</td>                
+                <td>{{workDay.hoursOpen.startTime.hours}}:{{workDay.hoursOpen.startTime.minutes}}
+                    -
+                    {{workDay.hoursOpen.endTime.hours}}:{{workDay.hoursOpen.endTime.minutes}} 
+                </td>
+                              
             </tr>
         </table>
   </section>
@@ -13,25 +16,32 @@
 
 <script>
 export default {
-  name: 'working-hours-cmp',
+  name: "working-hours-cmp",
   props: {
     workingHours: Array
   },
   data() {
-      return {
-
-      }
+    return {};
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
+h2 {
+  margin-bottom: 10px;
+}
 table tr td {
-    border: 1px solid black;
-    padding: 2px;
+  padding: 10px 20px;
+  margin: 5px;
+  border-bottom: 1px solid black;
+}
+table {
+  border: 1px solid black;
+  border-radius: 6px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  
 }
 .working-hours {
-    margin: auto;
+  margin: auto;
 }
-
 </style>
