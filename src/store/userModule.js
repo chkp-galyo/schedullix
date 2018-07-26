@@ -31,23 +31,40 @@ export default {
         // },
     },
     getters: {
-        // [GETTER_ACTIVITIES_LIST](state) {
-        //     return state.user.activities;
-        // },
-
-        // [GETTER_PREFS_USER](state) {
-        //     return state.user.prefs;
-        // },
-
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
-            return state.user.workingHours[new Date(dateSelectedTimestamp).getDay()];
-            // return day.
+            var selectDateObj = new Date(dateSelectedTimestamp);
+
+            var day = state.user.workingHours[selectDateObj.getDay()];
+
+            var time = { ...day.hoursOpen.startTime
+            };
+
+            var listForDay = [];
+            listForDay.push({ ...time
+            })
+            listForDay[listForDay.length - 1].timestamp = generatorTimestamp(selectDateObj, `${time.hours}:${time.minutes}`);
+
+
+            while (time.hours < day.hoursOpen.endTime.hours ||
+                (time.minutes < day.hoursOpen.endTime.minutes && time.hours === day.hoursOpen.endTime.hours)) {
+
+                time.minutes += state.user.timePerCustomer;
+                if (time.minutes >= 60) {
+                    time.hours++;
+                    time.minutes = 0;
+                }
+                listForDay.push({ ...time
+                })
+                listForDay[listForDay.length - 1].timestamp = generatorTimestamp(selectDateObj, `${time.hours}:${time.minutes}`);
+            }
+            return listForDay;
         },
 
         [GETTER_USER](state) {
             return { ...state.user
             };
         },
+
         [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
             return state.user.customers.filter(customer => {
                 return new Date(customer.time).toLocaleDateString() === new Date(dateSelectedTimestamp).toLocaleDateString()
@@ -95,4 +112,8 @@ export default {
         //         })
         // }
     }
+}
+
+function generatorTimestamp(dateObj, strTime) {
+    return new Date(`${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()} ${strTime}`).getTime();
 }
