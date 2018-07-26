@@ -189,7 +189,7 @@ function getUser() {
                 titleTxt: "....",
                 styleObj: {
                     color: "white",
-                    background: "red",
+                    background: "#4b3e3b",
                     'font-size': "16px",
                     'font-family': "Arial",
                     'font-weight': "700",

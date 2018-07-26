@@ -1,7 +1,4 @@
 import userService from '../services/userService.js'
-import {
-    stat
-} from 'fs';
 
 //------------------------------ ACTIONS ------------------------------
 // export const ACT_LOAD_USER = 'todo/actions/loadUser'

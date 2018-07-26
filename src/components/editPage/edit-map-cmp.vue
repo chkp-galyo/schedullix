@@ -1,9 +1,13 @@
+
+
 <template>
-  <div class="edit-map">
+  <div class="edit-map" :style="mapConfig.styleObj">
     <div class="side-map">
-        <h1>{{this.address}}</h1>
-      <h2>Search and add a pin</h2>
+        <div>
+        <h1>Address: {{this.address}}</h1>
+        </div>
       <label>
+      <h2>Search and add a pin</h2>
         <gmap-autocomplete
           @place_changed="setPlace">
         </gmap-autocomplete>
@@ -15,7 +19,7 @@
     <gmap-map
       :center="center"
       :zoom="16"  
-      style="width:50vw;  height:50vh ;"
+      style="width:50vh;  height:50vh ;"
     >
       <gmap-marker
         :key="index"
@@ -28,90 +32,117 @@
 </template>
 
 <script>
-import mapService from '../../services/mapService.js'
-export default {
-  name: "editMap",
-  props: {
-    location: {
-      type: Object
-    }
-  },
-  data() {
-    return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
-      center: { lat: 45.508, lng: -73.587 },
-      markers: [],
-      places: [],
-      address:'',
-      currentPlace: null
-    };
-  },
-  created() {
-  },
-  mounted() {
-      
-      this.geolocate();
-        if (this.location) {
-            console.log(this.location);
-            this.currentPlace = this.location
-            mapService.getAddress(this.location)
-            .then(address=>{
-                this.address = address
-            })
-        }
-        
-  },
+    import mapService from '../../services/mapService.js'
 
-  methods: {
-    // receives a place object via the autocomplete component
-    setPlace(place) {
-      this.currentPlace = place;
-    },
-    addMarker(){
-        console.log('enterd location', arguments);
-            const marker = {
-                lat: this.currentPlace.lat,
-                lng: this.currentPlace.lng
+    export default {
+        name: "editMap",
+        props: {
+            location: {
+                type: Object
+            },
+            mapConfig: {
+                type: Object
+            }
+        },
+        data() {
+            return {
+                // default to Montreal to keep it simple
+                // change this to whatever makes sense
+                center: {},
+                markers: [],
+                places: [],
+                address: '',
+                currentPlace: null
             };
-            this.markers.push({ position: marker });
-            this.places.push(this.currentPlace);
-            this.center = marker;
-            console.log('center',this.center);
-            
-            this.currentPlace = null;
-    },
-    geolocate() {
-      navigator.geolocation.getCurrentPosition(position => {
-          if(!this.center){
-              this.center = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude
-               }
+        },
+
+        mounted() {
+            this.geolocate();
+            if (this.location) {
+                console.log(this.location);
+                this.currentPlace = this.location
+                mapService.getAddress(this.location)
+                    .then(address => {
+                        this.address = address
+                    })
+                         this.addMarker()
+            }
+        },
+
+        methods: {
+            // receives a place object via the autocomplete component
+            setPlace(place) {
+                console.log(place);
+                    this.currentPlace = place;
+                var userLocation = {
+                        lat: this.currentPlace.geometry.location.lat(),
+                        lng: this.currentPlace.geometry.location.lng()
+                }
+                mapService.getAddress(userLocation)
+                    .then(address => {
+                        this.address = address
+                    })
+                this.$store.commit({type:'changeUserLocation', userLocation:{...userLocation} })
+                this.markers.splice(0,1,userLocation)
+            },
+            addMarker() {
+                console.log(this.currentPlace);
+                if (this.markers.length === 0) {
+                    var marker = {
+                        lat: this.currentPlace.lat,
+                        lng: this.currentPlace.lng
+                    }
+                } else {
+                    var marker = {
+                        lat: this.currentPlace.geometry.location.lat(),
+                        lng: this.currentPlace.geometry.location.lng()
+                    }
+                }
+                this.markers.push({
+                    position: marker
+                });
+                this.places.push(this.currentPlace);
+                this.center = marker;
+                this.currentPlace = null;
+            },
+
+            geolocate() {
+                console.log(this.location);
+                if (this.location) {
+                    this.center = {
+                        lat: this.location.lat,
+                        lng: this.location.lng
+                    }
+
+                } else {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        this.center = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                    });
+                }
+            }
         }
-        if (this.currentPlace) {
-            this.currentPlace = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-        }
-      });
     }
-  },
-  watch: {
-    currentPlace() {
-      if (this.currentPlace) {
-        console.log(this.currentPlace);
-        this.addMarker();
-      }
-    }
-  }
-};
 </script>
 
 <style lang="scss" scoped>
 .side-map{
-
+    width:50%;
+    min-width: 300px;
+    margin-bottom: 20px;
+    display:flex;
+    flex-direction: column;
+}
+.side-map *{
+    padding:0.5em
+}
+input{
+    padding: 1em;
+    background-color: white;
+    color: black;
+    margin-right: 10px
 }
 .edit-map {
   padding: 1em;
