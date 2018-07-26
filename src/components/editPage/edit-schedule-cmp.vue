@@ -2,7 +2,7 @@
 <section class="schedule" :style="schedule.styleObj">
 <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
 :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
-:dark="schedule.styleDate.dark" :width="350" show-current="2017-02-04"/>
+:dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"/>
 <list-daily-appts :dateSelected="dateSelected" />
 
 </section>
