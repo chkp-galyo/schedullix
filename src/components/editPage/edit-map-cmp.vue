@@ -33,7 +33,7 @@
 
 <script>
     import mapService from '../../services/mapService.js'
-
+    import {MUT_SET_USER_LOC} from '../../store/userModule.js'
     export default {
         name: "editMap",
         props: {
@@ -72,17 +72,16 @@
         methods: {
             // receives a place object via the autocomplete component
             setPlace(place) {
-                console.log(place);
-                    this.currentPlace = place;
+                this.currentPlace = place;
                 var userLocation = {
                         lat: this.currentPlace.geometry.location.lat(),
                         lng: this.currentPlace.geometry.location.lng()
                 }
+                this.$store.commit({type: MUT_SET_USER_LOC , userLocation:{...userLocation}})
                 mapService.getAddress(userLocation)
                     .then(address => {
                         this.address = address
                     })
-                this.$store.commit({type:'changeUserLocation', userLocation:{...userLocation} })
                 this.markers.splice(0,1,userLocation)
             },
             addMarker() {

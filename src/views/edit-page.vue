@@ -1,10 +1,15 @@
 <template>
   <div class="edit-page">
-      <section class="cmp header" @click="toggleEdit" style="order: 1" draggable="false" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="header">
-      <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
+      <div class="register-container" v-if="showRegisterMenu" @click="showRegisterMenu = false">
+        <register-customer :timeCustomer="timeCustomerReg"></register-customer>
+      </div>
+      
+
+      <section class="cmp header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="header">
+        <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       </section>
-      <section class="cmp about" @click="toggleEdit" style="order: 2" draggable="false" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="about">
-      <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
+      <section class="cmp about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="about">
+        <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
                     v-if="user.configElements.about.isActive" /> 
       </section>
       <section class="cmp schedule" @click="toggleEdit" style="order: 3" draggable="false" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="schedule">
@@ -37,28 +42,43 @@ import headerCmp from "@/components/editPage/edit-header-cmp.vue";
 import aboutCmp from "@/components/editPage/edit-about-cmp.vue";
 import scheduleCmp from "@/components/editPage/edit-schedule-cmp.vue";
 import editMapCmp from "@/components/editPage/edit-map-cmp.vue";
-import dragService from '@/services/dragService.js'
-import toolbarCmp from '@/components/editPage/edit-toolbar-cmp.vue'
+import dragService from "@/services/dragService.js";
+import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
 
+import registerCustomer from "@/components/register-customer-cmp.vue";
+
+import {
+  eventBus,
+  EVENT_TOGGLE_REG_MENU,
+  EVENT_ADD_CUSTOMER
+} from "@/services/event-bus-service.js";
 import { GETTER_USER } from "../store/userModule.js";
 
 export default {
   name: "edit-page",
   data() {
     return {
+      modePage: "edit",
+      showRegisterMenu: false,
+      timeCustomerReg: null,
       user: this.$store.getters[GETTER_USER],
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
       isToolbarShow: false,
-      cmps: [headerCmp, aboutCmp, scheduleCmp, editMapCmp ]
+      cmps: [headerCmp, aboutCmp, scheduleCmp, editMapCmp]
     };
   },
   created() {
-      console.log('smps:',this.cmps)
+    eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
+      this.showRegisterMenu = !this.showRegisterMenu;
+    });
+    eventBus.$on(EVENT_ADD_CUSTOMER, time => {
+      this.timeCustomerReg = time;
+    });
   },
   methods: {
-    dragCmp(ev) {        
+    dragCmp(ev) {
       this.dragOriginOrderCmp = ev.target.style.order;
       this.draggedCmp = ev.target;
     },
@@ -72,10 +92,10 @@ export default {
       ev.preventDefault();
     },
     toggleEdit(ev) {
-        var currCmp = ev.target.classList
-        var isEdit = currCmp.contains('edit-cmp')
-        if (!isEdit) currCmp.add('edit-cmp')
-        else currCmp.remove('edit-cmp')
+      var currCmp = ev.target.classList;
+      var isEdit = currCmp.contains("edit-cmp");
+      if (!isEdit) currCmp.add("edit-cmp");
+      else currCmp.remove("edit-cmp");
     }
   },
   components: {
@@ -83,7 +103,8 @@ export default {
     aboutCmp,
     scheduleCmp,
     editMapCmp,
-    toolbarCmp
+    toolbarCmp,
+    registerCustomer
   }
 };
 </script>
@@ -108,16 +129,27 @@ export default {
   border: 1px solid black;
 }
 .cmp {
-    margin-bottom: 5px;
-    cursor: pointer;
-    background-color: #fff;
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: #fff;
 }
 .open-toolbar {
-    position: fixed;
-    right: 5%;
-    z-index: 100000;
+  position: fixed;
+  right: 5%;
+  z-index: 100000;
 }
 .edit-cmp {
-    outline: 5px dashed blue;
+  outline: 5px dashed blue;
+}
+.register-container {
+  width: 100vw;
+  height: 120vh;
+  background-color: #39373799;
+  position: fixed;
+  z-index: 10000;
+  top: -30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

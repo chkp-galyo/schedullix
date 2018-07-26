@@ -1,13 +1,16 @@
 import userService from '../services/userService.js'
 
 //------------------------------ ACTIONS ------------------------------
-// export const ACT_LOAD_USER = 'todo/actions/loadUser'
+export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
 //------------------------------ MUTATIONS ----------------------------
+export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
+
 // export const MUT_SET_USER = 'todo/mutations/setUser'
+export const MUT_SET_USER_LOC = 'todo/mutations/setUserLocation'
 
 export default {
     state: {
@@ -20,6 +23,14 @@ export default {
         //     state.user.prefs = payload.user.prefs;
         // },
 
+        [MUT_ADD_CUSTOMER](state, payload) {
+            state.user.customers.unshift(payload.customer);  
+        },
+        
+        [MUT_SET_USER_LOC](state, payload) {
+            state.user.location = payload.userLocation
+            console.log(state.user.location);
+        }
         // [MUT_ADD_ACTIVITY](state, payload) {
         //     state.user.activities.unshift(payload.activity);
         // },
@@ -86,20 +97,15 @@ export default {
         //         })
         // },
 
-        // [ACT_ADD_ACTIVITY](context, payload) {
-        //     var activity = {
-        //         txt: payload.activityTxt,
-        //         at: new Date().getTime()
-        //     }
-
-        //     return userService.addActivity(activity)
-        //         .then(() => {
-        //             context.commit({
-        //                 type: MUT_ADD_ACTIVITY,
-        //                 activity
-        //             })
-        //         })
-        // },
+        [ACT_ADD_CUSTOMER](context, payload) {
+            return userService.addCustomer(payload.customer)
+                .then(() => {
+                    context.commit({
+                        type: MUT_ADD_CUSTOMER,
+                        customer: payload.customer
+                    })
+                })
+        },
 
 
         // [ACT_UPDATE_USER](context, payload) {

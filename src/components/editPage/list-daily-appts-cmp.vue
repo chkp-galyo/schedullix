@@ -3,7 +3,7 @@
       <h3>List Time:</h3>
       <ul class="clean-list">
           <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp">
-              <button @click="addCustomer(timeDay)">+</button>
+              <button @click="addCustomer(timeDay.timestamp)">+</button>
               <h5>{{timeDay.hours | validTime}}:{{timeDay.minutes | validTime}}</h5> 
           </li>
       </ul>
@@ -15,8 +15,17 @@
 <script>
 import {
   GETTER_CUSTOMERS_FOR_DATE,
-  GETTER_TIMES_FOR_DATE
+  GETTER_TIMES_FOR_DATE,
+  ACT_ADD_CUSTOMER
 } from "@/store/userModule.js";
+
+import {
+  eventBus,
+  EVENT_ADD_CUSTOMER,
+  EVENT_TOGGLE_REG_MENU
+} from "@/services/event-bus-service.js";
+
+import userService from "@/services/userService.js";
 
 export default {
   name: "listDailyAppts",
@@ -50,8 +59,16 @@ export default {
   },
   created() {},
   methods: {
-    addCustomer(timeDay) {
-      console.log("check", timeDay);
+    addCustomer(timestampForCustomer) {
+      eventBus.$emit(EVENT_TOGGLE_REG_MENU);
+      eventBus.$emit(EVENT_ADD_CUSTOMER, timestampForCustomer);
+
+      //   this.$store
+      //     .dispatch({
+      //       type: ACT_ADD_CUSTOMER,
+      //       customer
+      //     })
+      //     .then(() => {});
     }
   }
 };

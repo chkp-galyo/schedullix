@@ -1,7 +1,18 @@
 export default {
-    getUser
+    getUser,
+    addCustomer
 }
 
+function addCustomer(customer) {
+    console.log('service add Customer: ', customer);
+    // TODO: להוסיף את הלקוח בסרבר
+    return Promise.resolve();
+
+    // return axios.post(BUG_URL, bug)
+    // .then(res => res.data)
+    // .catch(err => console.log('Problem talking to server', err))
+
+}
 
 function getUser() {
     return {
