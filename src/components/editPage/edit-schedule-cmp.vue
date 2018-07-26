@@ -1,7 +1,6 @@
 <template>
   <div class="edit-schedule" :style="schedule.styleObj">
 
-    
     <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
                     :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
                       :dark="schedule.styleDate.dark" :width="200" show-current="2017-02-04"/>
@@ -38,9 +37,13 @@ export default {
 .edit-schedule {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  padding: 10px;
 }
 
 .list-daily-appts {
-  max-height: 200px;
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 20%;
 }
 </style>
