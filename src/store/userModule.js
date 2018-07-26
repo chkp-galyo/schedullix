@@ -1,4 +1,5 @@
 import userService from '../services/userService.js'
+import { stat } from 'fs';
 
 //------------------------------ ACTIONS ------------------------------
 // export const ACT_LOAD_USER = 'todo/actions/loadUser'
@@ -19,6 +20,10 @@ export default {
         //     state.user.fullName = payload.user.fullName;
         //     state.user.prefs = payload.user.prefs;
         // },
+        changeUserLocation(state ,{userLocation}){
+            state.user.location = userLocation
+            console.log(state.user.location);
+        }
 
         // [MUT_ADD_ACTIVITY](state, payload) {
         //     state.user.activities.unshift(payload.activity);
