@@ -151,14 +151,19 @@ function getUser() {
             about: {
                 isActive: true,
                 imgUrl: "http://www.mimejornegocio.com/wp-content/uploads/2017/08/Barbershop_034smoke_c_Lupi_Spuma-2-570x342.jpg",
+<<<<<<< HEAD
                 titleTxt: "About us:",
                 mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+=======
+                titleTxt: "About us!",
+                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+>>>>>>> c57d466061f1dcb758972c36519fd3e4031464e6
                 styleObj: {
                     color: "white",
                     background: "#4b3e3b",
-                    'font-size': "13px",
+                    'font-size': "16px",
                     'font-family': "Arial",
-                    'font-weight': "700",
+                    'font-weight': "200",
                     'text-align': "center",
                 }
             },
@@ -176,14 +181,10 @@ function getUser() {
                     'text-align': "center",
                 },
                 styleDate: {
-                    colorHeader: "blue",
+                    colorHeader: "brown",
                     landscape: true,
                     dark: true,
                     light: false,
-                    'font-size': "16px",
-                    'font-family': "Arial",
-                    'font-weight': "700",
-                    'text-align': "center",
                 },
                 styleApptsList: {
                     color: "white",

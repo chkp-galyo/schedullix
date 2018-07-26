@@ -43,12 +43,17 @@ export default {
   height: 50vh;
   margin: 5px 0;
 }
+
 .about-text {
   display: flex;
   flex-direction: column;
   width: 33%;
-  
+  line-height: 1.6;
+  background-color: rgb(95, 40, 40);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
+
 .img-container {
   width: 33%;
   margin: auto;

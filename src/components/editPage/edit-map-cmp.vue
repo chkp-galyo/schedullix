@@ -1,5 +1,5 @@
 <template>
-  <section class="edit-map">
+  <div class="edit-map">
     <div class="side-map">
         <h1>{{this.address}}</h1>
       <h2>Search and add a pin</h2>
@@ -14,7 +14,7 @@
     </div>
     <gmap-map
       :center="center"
-      :zoom="16"
+      :zoom="16"  
       style="width:50vw;  height:50vh ;"
     >
       <gmap-marker
@@ -24,13 +24,13 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-  </section>
+  </div>
 </template>
 
 <script>
 import mapService from '../../services/mapService.js'
 export default {
-  name: "GoogleMap",
+  name: "editMap",
   props: {
     location: {
       type: Object
@@ -48,7 +48,6 @@ export default {
     };
   },
   created() {
-      mapService.query()
   },
   mounted() {
       
@@ -69,7 +68,8 @@ export default {
     setPlace(place) {
       this.currentPlace = place;
     },
-    addMarker() {
+    addMarker(){
+        console.log('enterd location', arguments);
             const marker = {
                 lat: this.currentPlace.lat,
                 lng: this.currentPlace.lng
@@ -86,8 +86,8 @@ export default {
           if(!this.center){
               this.center = {
                   lat: position.coords.latitude,
-          lng: position.coords.longitude
-            }
+                  lng: position.coords.longitude
+               }
         }
         if (this.currentPlace) {
             this.currentPlace = {
@@ -111,7 +111,7 @@ export default {
 
 <style lang="scss" scoped>
 .side-map{
-    
+
 }
 .edit-map {
   padding: 1em;
