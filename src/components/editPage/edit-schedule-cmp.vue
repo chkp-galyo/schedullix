@@ -1,22 +1,13 @@
 <template>
-<section class="schedule" :style="schedule.styleObj">
-<v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
-:landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
-:dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"/>
+  <section class="schedule" :style="schedule.styleObj">
 
-
-<<<<<<< HEAD
     <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
                     :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
-                      :dark="schedule.styleDate.dark" :width="200" show-current="2017-02-04"/>
-=======
-  <div class="edit-schedule" :style="schedule.styleObj">
->>>>>>> c57d466061f1dcb758972c36519fd3e4031464e6
+                      :dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"/>
 
     <list-daily-appts :dateSelected="Date.parse(dateSelected)" />
-
-  </div>
-</section>
+    
+  </section>
 </template>
  
 <script>

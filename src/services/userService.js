@@ -151,8 +151,8 @@ function getUser() {
             about: {
                 isActive: true,
                 imgUrl: "http://www.mimejornegocio.com/wp-content/uploads/2017/08/Barbershop_034smoke_c_Lupi_Spuma-2-570x342.jpg",
-                titleTxt: "About us!",
-                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+                titleTxt: "About us:",
+                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
                 styleObj: {
                     color: "white",
                     background: "#4b3e3b",
