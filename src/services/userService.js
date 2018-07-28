@@ -46,6 +46,7 @@ function login(loginInfo) {
             _setLoggedinUser(res.data.userName)
             return (res.data)
         })
+        .catch(err => {console.log(err)})
 }
 
 
