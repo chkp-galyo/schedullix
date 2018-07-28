@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/store'
 import './registerServiceWorker'
+import axios from 'axios'
 
 
 import 'vue-event-calendar/dist/style.css' //^1.1.10, CSS has been extracted as one file, so you can easily update it.
@@ -31,6 +32,8 @@ Vue.filter('validTime', (num) => {
   var str = num.toString();
   return str.length === 1 ? "0" + str : str;
 })
+
+axios.defaults.withCredentials = true
 
 new Vue({
   router,

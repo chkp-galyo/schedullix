@@ -8,6 +8,8 @@ export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
+export const MUT_UPDATE_ABOUT_TXT = 'user/mutations/updateAboutTxt'
+export const MUT_UPDATE_HEADER_IMG = 'user/mutations/updateHeaderImg'
 
 // export const MUT_SET_USER = 'todo/mutations/setUser'
 export const MUT_SET_USER_LOC = 'todo/mutations/setUserLocation'
@@ -30,6 +32,13 @@ export default {
         [MUT_SET_USER_LOC](state, payload) {
             state.user.location = payload.userLocation
             console.log(state.user.location);
+        },
+        [MUT_UPDATE_ABOUT_TXT](state, {aboutTxt}) {
+            state.user.configElements.about.mainTxt = aboutTxt
+        },
+        [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
+            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`  
+            console.log(state.user)
         }
         // [MUT_ADD_ACTIVITY](state, payload) {
         //     state.user.activities.unshift(payload.activity);

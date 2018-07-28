@@ -8,26 +8,31 @@ function setNotesPos(notes) {
             w: note.offsetWidth, h: note.offsetHeight, idx
         }
     })
+    console.log(notesPos)
     return notesPos
 }
 
-function dragElement(elmnt) {
+function reOrganizeNotes(currIdx, dirIdx) {
+    // let tempNote = notes.splice(currIdx, 1)
+    // notes.splice(dirIdx, 0, tempNote[0])
+}
+
+function dragElement(elmnt, notesPos) {
     var posLeft = 0,
         posTop = 0;
-    elmnt = elmnt.target
-    console.log(elmnt)
+    // elmnt = elmnt.path[2]
+
     elmnt.onmousedown = dragMouseDown;
 
 
     function dragMouseDown(e) {
-        // if (!notesPos) return
+        if (!notesPos) return
         
         document.onmousemove = elementDrag;
         document.onmouseup = closeDragElement;
     }
 
     function elementDrag(e) {
-        document.querySelector('html').classList.add('cursor-move')
         posLeft = e.clientX;
         posTop = window.pageYOffset + e.clientY;
         elmnt.style.left = (posLeft) + "px";
@@ -36,13 +41,16 @@ function dragElement(elmnt) {
 
     function closeDragElement() {
         notesPos.forEach(note => {
-            if (posLeft >= note.l - 50 && posLeft <= note.l + note.w &&
-                posTop >= note.t - 50 && posTop <= note.t + note.h &&
+            if (posLeft >= note.l && posLeft <= note.l + note.w &&
+                posTop >= note.t && posTop <= note.t + note.h &&
                 note.idx !== elmnt.style.order) {
                 // elmnt.style.position = ''
                 elmnt.style.left = note.l
                 elmnt.style.top = note.t
-                keepService.reOrganizeNotes(elmnt.style.order, note.idx)                
+                console.log('this is my order: ', elmnt.parentNode.style.order)
+                // reOrganizeNotes(elmnt.parentNode.style.order, note.idx)     
+                elmnt.parentNode.style.order = note.idx + 1
+
             } else {
                 // elmnt.style.position = ''
                 elmnt.style.left = 0;

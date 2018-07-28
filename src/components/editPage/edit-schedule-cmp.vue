@@ -3,15 +3,16 @@
 
     <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
                     :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
-                      :dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"/>
+                      :dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"
+                       :min="minDate"/>
 
     <list-daily-appts :dateSelected="Date.parse(dateSelected)" />
-    
   </section>
 </template>
  
 <script>
 import listDailyAppts from "./list-daily-appts-cmp.vue";
+import moment from 'moment'
 
 export default {
   props: {
@@ -19,13 +20,19 @@ export default {
   },
   data() {
     return {
-      dateSelected: ""
+      dateSelected: "",
     };
+  },
+  computed: {
+          minDate(){
+            return moment().format().split('T')[0].toString()
+          },
   },
   methods: {
     handleInput(ev) {
+      console.log(ev)
       this.dateSelected = ev;
-    }
+    },
   },
   components: {
     listDailyAppts

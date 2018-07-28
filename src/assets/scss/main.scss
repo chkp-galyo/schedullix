@@ -5,9 +5,7 @@
 }
 
 body {
-    margin: 5px;
-    padding: 5px;
-    background-color: lightblue;
+    background-color: white;
 }
 
 button {
@@ -73,4 +71,8 @@ button {
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
