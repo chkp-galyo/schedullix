@@ -1,4 +1,4 @@
-import StorageService from '@/service/StorageService.js'
+import storageService from '@/services/storageService.js'
 const STORAGE_KEY = 'loggedinUser';
 
 const axios = require('axios')
@@ -6,13 +6,14 @@ const URL = (process.env.NODE_ENV !== 'development') ?
     '/users' :
     '//localhost:3000/users';
 
-var loggedinUser = StorageService.loadFromStorage(STORAGE_KEY) || null;
+var loggedinUser = storageService.loadFromStorage(STORAGE_KEY) || null;
 
 export default {
+    login,
     getUser,
     addCustomer,
-    checkLoginUser,
-    logout
+    logout,
+    getLoggedInUser
 }
 
 function addCustomer(customer) {
@@ -27,7 +28,7 @@ function addCustomer(customer) {
 }
 
 function logout() {
-    StorageService.clearStorage(STORAGE_KEY)
+    storageService.clearStorage(STORAGE_KEY)
 }
 
 function getLoggedInUser() {
@@ -36,17 +37,13 @@ function getLoggedInUser() {
 
 function _setLoggedinUser(user) {
     loggedinUser = user;
-    StorageService.saveToStorage(STORAGE_KEY, loggedinUser)
+    storageService.saveToStorage(STORAGE_KEY, loggedinUser)
 }
 
-function checkLoginUser(loginInfo) {
-
-}
-
-function login({ username }) {
-    return axios.post(URL + '/setUser', { username })
+function login(loginInfo) {
+    return axios.post(URL + '/login', loginInfo)
         .then(res => {
-            _setLoggedinUser(res.data)
+            _setLoggedinUser(res.data.userName)
             return (res.data)
         })
 }
@@ -249,6 +246,6 @@ function getUser() {
             }
         }
     }
-    console.log(JSON.stringify(a));
+    // console.log(JSON.stringify(a));
     return a;
 }

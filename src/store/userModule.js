@@ -31,7 +31,6 @@ export default {
 
         [MUT_SET_USER_LOC](state, payload) {
             state.user.location = payload.userLocation
-            console.log(state.user.location);
         },
         [MUT_UPDATE_ABOUT_TXT](state, {
             aboutTxt
@@ -42,17 +41,16 @@ export default {
             imgUrl
         }) {
             state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
-            console.log(state.user)
-        }
+        },
         // [MUT_ADD_ACTIVITY](state, payload) {
         //     state.user.activities.unshift(payload.activity);
         // },
 
-        // [MUT_SET_USER](state, {
-        //     user
-        // }) {
-        //     state.user = user;
-        // },
+        [MUT_SET_USER](state, {
+            user
+        }) {
+            state.user = user;
+        }
     },
     getters: {
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -97,7 +95,9 @@ export default {
     },
     actions: {
         [ACT_LOAD_USER](context, payload) {
-            return userService.checkLoginUser(payload.loginInfo)
+            console.log('ACT_LOAD_USER :', payload.loginInfo);
+
+            return userService.login(payload.loginInfo)
                 .then(user => {
                     context.commit({
                         type: MUT_SET_USER,
@@ -105,9 +105,12 @@ export default {
                     })
                     return user;
                 })
-            // .finally(err => {
-
-            // })
+                .catch(
+                    err => {
+                        console.log('Wrong user to login!');
+                        return err;
+                    }
+                )
         },
 
         [ACT_ADD_CUSTOMER](context, payload) {
