@@ -16,7 +16,7 @@ export const MUT_SET_USER_LOC = 'user/mutations/setUserLocation'
 
 export default {
     state: {
-        user: userService.getUser()
+        user: null
     },
     mutations: {
         // changeUser(state, payload) {
