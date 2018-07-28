@@ -49,5 +49,6 @@ export default new Router({
       name: 'bussinessPage',
       component: bussinessPage
     },
+    { path: '/*', redirect: '/' },
   ]
 })
