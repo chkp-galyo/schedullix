@@ -1,24 +1,33 @@
 <template>
     <section class="working-hours">
         <h2>Working hours</h2>
+        <button @click.stop="openEditor">Edit</button>
         <table>
             <tr v-for="workDay in workingHours" :key="workDay.day">
                 <td>{{workDay.day}} : </td>
                 <td>{{workDay.hoursOpen.startTime.hours | validTime}}:{{workDay.hoursOpen.startTime.minutes | validTime}}
                     -
                     {{workDay.hoursOpen.endTime.hours | validTime}}:{{workDay.hoursOpen.endTime.minutes | validTime}} 
-                </td>
-                              
+                </td>         
             </tr>
         </table>
   </section>
 </template>
 
 <script>
+import {eventBus,
+  EVENT_OPEN_EDITOR_WORKING_HOURS} from '@/services/event-bus-service.js'
+
 export default {
   name: "working-hours-cmp",
   props: {
     workingHours: Array
+  },
+  methods: {
+    openEditor(){
+      console.log('Emiting open editor')
+      eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS)
+    }
   },
   data() {
     return {};

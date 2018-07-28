@@ -1,5 +1,6 @@
 <template>
   <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader" @click="openInputFile">
+    <div class="cmp-cover"></div>
     <input type="file" class="hidden" ref="upload" @input="onInputFile">
     <h1>{{headerConfig.titleTxt}}</h1>
   </div>
@@ -34,7 +35,7 @@ export default {
       if (file) reader.readAsDataURL(file);
         // this.$store.commit({type: MUT_UPDATE_HEADER_IMG, imgUrl})      
       // editService.onInputFile(reader, file)
-    }
+    },
   }
 };
 </script>
@@ -49,4 +50,5 @@ export default {
   background-size: cover !important;
   background-position: center !important;
 }
+
 </style>
