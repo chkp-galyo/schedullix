@@ -3,6 +3,7 @@ import userService from '../services/userService.js'
 //------------------------------ ACTIONS ------------------------------
 export const ACT_LOAD_USER = 'user/actions/loadUser'
 export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
+export const ACT_ADD_USER = 'user/actions/addUser'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -113,13 +114,15 @@ export default {
                 )
         },
 
-        [ACT_ADD_CUSTOMER](context, payload) {
-            return userService.addCustomer(payload.customer)
-                .then(() => {
+        [ACT_ADD_USER](context, payload) {
+            return userService.addUser(payload.user)
+                .then((res) => {
+                    // console.log(res.ops[0]);
                     context.commit({
-                        type: MUT_ADD_CUSTOMER,
-                        customer: payload.customer
+                        type: MUT_SET_USER,
+                        user: res.ops[0]
                     })
+                    return res.ops[0]
                 })
         },
 
