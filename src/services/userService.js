@@ -15,7 +15,9 @@ function addCustomer(customer) {
 }
 
 function getUser() {
-    return {
+
+
+    var a = {
         id: "fdgdfg",
         userName: "IdanHakim123",
         password: "123456",
@@ -209,4 +211,6 @@ function getUser() {
             }
         }
     }
+    console.log(JSON.stringify(a));
+    return a;
 }
