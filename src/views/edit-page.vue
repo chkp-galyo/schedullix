@@ -2,40 +2,48 @@
  
 
   <div class="edit-page">
+
       <div class="register-container" v-if="showRegisterMenu" @click="showRegisterMenu = false">
         <register-customer :timeCustomer="timeCustomerReg"></register-customer>
       </div>
-      
 
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
-        <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
+          <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       </section>
+
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
-        <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
+          <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
                     v-if="user.configElements.about.isActive" /> 
       </section>
+
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
-        <schedule-cmp :schedule="user.configElements.schedule" />
+          <schedule-cmp :schedule="user.configElements.schedule" />
       </section>
+
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
-        <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
+          <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
       </section>
 
       <section>
           <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
       </section>
+
       <section v-if="isAdmin" class="edit-btns">
-        <v-btn fab dark color="green" class="save-page" title="Save and Publish"
-            @click="isAdmin = !isAdmin">
-            <v-icon dark>save</v-icon>
-        </v-btn>
-        <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-                @click="isToolbarShow = !isToolbarShow">
-            <v-icon dark>edit</v-icon>
-        </v-btn>
-        <v-btn fab dark color="blue" class="open-toolbar" title="Add area">
-            <v-icon dark>add</v-icon>
-        </v-btn>
+        
+          <v-btn fab dark color="green" class="save-page" title="Save and Publish"
+              @click="isAdmin = !isAdmin">
+              <v-icon dark>save</v-icon>
+          </v-btn>
+
+          <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
+                  @click="isToolbarShow = !isToolbarShow">
+              <v-icon dark>edit</v-icon>
+          </v-btn>
+
+          <v-btn fab dark color="blue" class="open-toolbar" title="Add area">
+              <v-icon dark>add</v-icon>
+          </v-btn>
+
       </section>
       <!-- <section>
        <ul ref="cmps">
@@ -55,7 +63,6 @@ import editMapCmp from "@/components/editPage/edit-map-cmp.vue";
 import dragService from "@/services/dragService.js";
 import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
 import toolbarService from "@/services/toolbarService.js";
-
 import registerCustomer from "@/components/register-customer-cmp.vue";
 
 import {
@@ -123,14 +130,14 @@ export default {
       ev.preventDefault();
     },
     toggleEdit(ev) {
-      this.cmps.forEach((cmp) => {
-          cmp.classList.remove('edit-cmp')
-      })
+      this.cmps.forEach(cmp => {
+        cmp.classList.remove("edit-cmp");
+      });
       this.selectedCmp = ev.target.parentNode;
       var isEdit = this.selectedCmp.classList.contains("edit-cmp");
       if (!isEdit) this.selectedCmp.classList.add("edit-cmp");
       else this.selectedCmp.classList.remove("edit-cmp");
-      eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);      
+      eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);
     }
     // dragCmp(ev) {
     //   console.log(

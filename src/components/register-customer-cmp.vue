@@ -8,14 +8,21 @@
           <h3>{{customer.time | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</h3>
         </section>
 
-        <form>
+        <form @submit.prevent="registerCustomer">
             <section class="inputs-container">
-              <input type="text" v-model="customer.fullName" placeholder="Enter full name" required />
-              <input type="text" v-model="customer.phone" placeholder="Enter phone" required /> 
+                <v-text-field v-validate="'required'" v-model="customer.name"
+                                 :error-messages="errors.collect('name')"
+                                  label="Full Name" data-vv-name="name" required>
+                </v-text-field>
+
+                <v-text-field v-validate="'required|max:10'" v-model="customer.phone"
+                                :counter="10" :error-messages="errors.collect('phone')"
+                                  label="Phone Number" data-vv-name="phone" required>
+                </v-text-field>
             </section>
             
             <section>
-                <button @click.prevent="registerCustomer">Confirm</button>
+                <button type="submit">Confirm</button>
                 <button @click.prevent="cancelRegisterCustomer">Cancel</button>
             </section>
         </form>
@@ -30,28 +37,42 @@ import {
   EVENT_TOGGLE_REG_MENU
 } from "@/services/event-bus-service.js";
 
+import { ACT_ADD_CUSTOMER, GETTER_USER_ID } from "@/store/userModule.js";
+
 export default {
   name: "register-customer-cmp",
   props: {
     timeCustomer: Number
   },
-  computed: {
-    detailsRegisterion() {
-      return "111";
-    }
-  },
   data() {
     return {
       customer: {
-        fullName: "",
+        name: "",
         phone: "",
         time: this.timeCustomer,
         isDone: false
       }
     };
   },
+  computed: {},
   created() {},
   methods: {
+    registerCustomer() {
+      this.$store
+        .dispatch({
+          type: ACT_ADD_CUSTOMER,
+          customer: this.customer,
+          userId: this.$store.getters[GETTER_USER_ID]
+        })
+        .then(_ => {
+          console.log("success to add customer");
+        })
+        .catch(_ => {
+          onsole.log("Fail to add customer");
+        });
+      eventBus.$emit(EVENT_TOGGLE_REG_MENU);
+      this.customer = null;
+    },
     cancelRegisterCustomer() {
       eventBus.$emit(EVENT_TOGGLE_REG_MENU);
       this.customer = null;
