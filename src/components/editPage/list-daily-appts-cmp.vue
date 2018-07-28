@@ -16,7 +16,8 @@
 import {
   GETTER_CUSTOMERS_FOR_DATE,
   GETTER_TIMES_FOR_DATE,
-  ACT_ADD_CUSTOMER
+  ACT_ADD_CUSTOMER,
+  GETTER_USER_ID
 } from "@/store/userModule.js";
 
 import {

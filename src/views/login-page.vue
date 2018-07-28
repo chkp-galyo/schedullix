@@ -22,8 +22,7 @@ export default {
     };
   },
   methods: {
-    login(ev) {
-      //   console.log(ev)
+    login() {
       this.$store
         .dispatch({ type: ACT_LOAD_USER, loginInfo: this.loginInfo })
         .then(user => {
