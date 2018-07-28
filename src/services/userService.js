@@ -1,4 +1,4 @@
-import StorageService from '@/service/StorageService.js'
+import StorageService from '@/services/storageService.js'
 const STORAGE_KEY = 'loggedinUser';
 
 const axios = require('axios')
