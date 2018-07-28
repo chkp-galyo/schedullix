@@ -130,7 +130,7 @@
 .side-map{
     width:50%;
     min-width: 300px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     display:flex;
     flex-direction: column;
 }
@@ -141,7 +141,7 @@ input{
     padding: 1em;
     background-color: white;
     color: black;
-    margin-right: 10px
+    padding-right: 10px
 }
 .edit-map {
   padding: 1em;

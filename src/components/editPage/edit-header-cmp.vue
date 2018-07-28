@@ -20,10 +20,10 @@ export default {
 
 <style scoped lang="scss">
 .edit-header {
-  margin: 5px 0 !important;
+  // margin: 5px 0 !important;
   border: 1px solid black;
   height: 50vh;
-  margin: 15px;
+  // margin: 15px;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;

@@ -15,7 +15,9 @@ function addCustomer(customer) {
 }
 
 function getUser() {
-    return {
+
+
+    var a = {
         id: "fdgdfg",
         userName: "IdanHakim123",
         password: "123456",
@@ -205,9 +207,10 @@ function getUser() {
                     'font-family': "Arial",
                     'font-weight': "700",
                     'text-align': "center",
-                    'background-image': "url('https://pngstocks.com/wp-content/uploads/2018/03/cb-background-10.jpeg')",
                 }
             }
         }
     }
+    console.log(JSON.stringify(a));
+    return a;
 }

@@ -1,6 +1,5 @@
 <template>
     <section class="register-customer"  @click.stop >
-
         <h1>Register Oppintment</h1>
 
         <section>

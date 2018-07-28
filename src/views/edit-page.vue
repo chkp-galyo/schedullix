@@ -5,19 +5,35 @@
       </div>
       
 
-      <section class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="header">
+      <section class="cmp header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="header">
         <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       </section>
-      <section class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="about">
+      <section class="cmp about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="about">
         <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
                     v-if="user.configElements.about.isActive" /> 
       </section>
-      <section class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="schedule">
+      <section class="cmp schedule" @click="toggleEdit" style="order: 3" draggable="false" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="schedule">
         <schedule-cmp :schedule="user.configElements.schedule" />
       </section>
-      <section class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="map">
+      <section class="cmp map" @click="toggleEdit" style="order: 4" draggable="false" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop" ref="map">
         <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
       </section>
+
+      <section>
+          <toolbar-cmp v-show="isToolbarShow"/>
+      </section>
+        <v-btn fab dark color="indigo" class="open-toolbar" 
+                @click="isToolbarShow = !isToolbarShow">
+            <v-icon dark>edit</v-icon>
+        </v-btn>
+
+      <!-- <section>
+       <ul ref="cmps">
+           <li v-for="cmp in cmps">
+                <component :is="cmp" :user="user"></component>
+           </li>
+        </ul> 
+      </section> -->
   </div>
 </template>
 
@@ -26,7 +42,11 @@ import headerCmp from "@/components/editPage/edit-header-cmp.vue";
 import aboutCmp from "@/components/editPage/edit-about-cmp.vue";
 import scheduleCmp from "@/components/editPage/edit-schedule-cmp.vue";
 import editMapCmp from "@/components/editPage/edit-map-cmp.vue";
+import dragService from "@/services/dragService.js";
+import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
+
 import registerCustomer from "@/components/register-customer-cmp.vue";
+
 import {
   eventBus,
   EVENT_TOGGLE_REG_MENU,
@@ -35,13 +55,6 @@ import {
 import { GETTER_USER } from "../store/userModule.js";
 
 export default {
-  components: {
-    headerCmp,
-    aboutCmp,
-    scheduleCmp,
-    editMapCmp,
-    registerCustomer
-  },
   name: "edit-page",
   data() {
     return {
@@ -52,6 +65,7 @@ export default {
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
+      isToolbarShow: false,
       cmps: [headerCmp, aboutCmp, scheduleCmp, editMapCmp]
     };
   },
@@ -76,7 +90,21 @@ export default {
     },
     allowDrop(ev) {
       ev.preventDefault();
+    },
+    toggleEdit(ev) {
+      var currCmp = ev.target.classList;
+      var isEdit = currCmp.contains("edit-cmp");
+      if (!isEdit) currCmp.add("edit-cmp");
+      else currCmp.remove("edit-cmp");
     }
+  },
+  components: {
+    headerCmp,
+    aboutCmp,
+    scheduleCmp,
+    editMapCmp,
+    toolbarCmp,
+    registerCustomer
   }
 };
 </script>
@@ -99,6 +127,19 @@ export default {
   width: 160px;
   height: 160px;
   border: 1px solid black;
+}
+.cmp {
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}
+.open-toolbar {
+  position: fixed;
+  right: 5%;
+  z-index: 100000;
+}
+.edit-cmp {
+  outline: 5px dashed blue;
 }
 .register-container {
   width: 100vw;
