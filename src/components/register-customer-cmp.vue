@@ -8,14 +8,14 @@
           <h3>{{customer.time | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</h3>
         </section>
 
-        <form>
+        <form @submit.prevent="registerCustomer">
             <section class="inputs-container">
-              <input type="text" v-model="customer.fullName" placeholder="Enter full name" required />
-              <input type="text" v-model="customer.phone" placeholder="Enter phone" required /> 
+              <input type="text" v-model="customer.name" placeholder="Enter full name" v-validate="'required'"/>
+              <input type="tel" v-model="customer.phone" placeholder="Enter phone" v-validate="'required'" length:10/> 
             </section>
             
             <section>
-                <button @click.prevent="registerCustomer">Confirm</button>
+                <button type="submit">Confirm</button>
                 <button @click.prevent="cancelRegisterCustomer">Cancel</button>
             </section>
         </form>
@@ -35,23 +35,22 @@ export default {
   props: {
     timeCustomer: Number
   },
-  computed: {
-    detailsRegisterion() {
-      return "111";
-    }
-  },
   data() {
     return {
       customer: {
-        fullName: "",
+        name: "",
         phone: "",
         time: this.timeCustomer,
         isDone: false
       }
     };
   },
+  computed: {},
   created() {},
   methods: {
+    registerCustomer() {
+      console.log("registerCustomer");
+    },
     cancelRegisterCustomer() {
       eventBus.$emit(EVENT_TOGGLE_REG_MENU);
       this.customer = null;
