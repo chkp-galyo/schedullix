@@ -1,6 +1,7 @@
 import userService from '../services/userService.js'
 
 //------------------------------ ACTIONS ------------------------------
+export const ACT_LOAD_USER = 'user/actions/loadUser'
 export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
@@ -10,9 +11,8 @@ export const GETTER_USER = 'user/getters/user'
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 export const MUT_UPDATE_ABOUT_TXT = 'user/mutations/updateAboutTxt'
 export const MUT_UPDATE_HEADER_IMG = 'user/mutations/updateHeaderImg'
-
-// export const MUT_SET_USER = 'todo/mutations/setUser'
-export const MUT_SET_USER_LOC = 'todo/mutations/setUserLocation'
+export const MUT_SET_USER = 'user/mutations/setUser'
+export const MUT_SET_USER_LOC = 'user/mutations/setUserLocation'
 
 export default {
     state: {
@@ -26,18 +26,22 @@ export default {
         // },
 
         [MUT_ADD_CUSTOMER](state, payload) {
-            state.user.customers.unshift(payload.customer);  
+            state.user.customers.unshift(payload.customer);
         },
-        
+
         [MUT_SET_USER_LOC](state, payload) {
             state.user.location = payload.userLocation
             console.log(state.user.location);
         },
-        [MUT_UPDATE_ABOUT_TXT](state, {aboutTxt}) {
+        [MUT_UPDATE_ABOUT_TXT](state, {
+            aboutTxt
+        }) {
             state.user.configElements.about.mainTxt = aboutTxt
         },
-        [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
-            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`  
+        [MUT_UPDATE_HEADER_IMG](state, {
+            imgUrl
+        }) {
+            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
             console.log(state.user)
         }
         // [MUT_ADD_ACTIVITY](state, payload) {
@@ -92,19 +96,19 @@ export default {
         }
     },
     actions: {
-        // [ACT_LOAD_USER](context, payload) {
-        //     return userService.query()
-        //         .then(user => {
-        //             context.commit({
-        //                 type: MUT_SET_USER,
-        //                 user
-        //             })
-        //             return user;
-        //         })
-        //         .finally(err => {
+        [ACT_LOAD_USER](context, payload) {
+            return userService.checkLoginUser(payload.loginInfo)
+                .then(user => {
+                    context.commit({
+                        type: MUT_SET_USER,
+                        user
+                    })
+                    return user;
+                })
+            // .finally(err => {
 
-        //         })
-        // },
+            // })
+        },
 
         [ACT_ADD_CUSTOMER](context, payload) {
             return userService.addCustomer(payload.customer)

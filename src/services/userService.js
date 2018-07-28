@@ -1,6 +1,18 @@
+import StorageService from '@/service/StorageService.js'
+const STORAGE_KEY = 'loggedinUser';
+
+const axios = require('axios')
+const URL = (process.env.NODE_ENV !== 'development') ?
+    '/users' :
+    '//localhost:3000/users';
+
+var loggedinUser = StorageService.loadFromStorage(STORAGE_KEY) || null;
+
 export default {
     getUser,
-    addCustomer
+    addCustomer,
+    checkLoginUser,
+    logout
 }
 
 function addCustomer(customer) {
@@ -13,6 +25,32 @@ function addCustomer(customer) {
     // .catch(err => console.log('Problem talking to server', err))
 
 }
+
+function logout() {
+    StorageService.clearStorage(STORAGE_KEY)
+}
+
+function getLoggedInUser() {
+    return loggedinUser;
+}
+
+function _setLoggedinUser(user) {
+    loggedinUser = user;
+    StorageService.saveToStorage(STORAGE_KEY, loggedinUser)
+}
+
+function checkLoginUser(loginInfo) {
+
+}
+
+function login({ username }) {
+    return axios.post(URL + '/setUser', { username })
+        .then(res => {
+            _setLoggedinUser(res.data)
+            return (res.data)
+        })
+}
+
 
 function getUser() {
 
