@@ -43,10 +43,12 @@ function _setLoggedinUser(user) {
 function login(loginInfo) {
     return axios.post(URL + '/login', loginInfo)
         .then(res => {
-            _setLoggedinUser(res.data.userName)
+            _setLoggedinUser(res.data.email)
             return (res.data)
         })
-        .catch(err => {console.log(err)})
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 
