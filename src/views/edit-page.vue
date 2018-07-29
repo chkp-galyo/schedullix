@@ -2,11 +2,12 @@
  
 
   <div class="edit-page">
-
-      <div class="register-container" v-if="showRegisterMenu" @click="showRegisterMenu = false">
-        <register-customer :timeCustomer="timeCustomerReg"></register-customer>
+    <editMenuCmp :selectedCmp = "selectedCmp" />
+    
+      <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" @click="showRegisterMenu = false, showEditWorkingHours = false">
+        <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"></register-customer>
+        <editWorkingHoursCmp v-else :workingHours="user.workingHours" />
       </div>
-
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
           <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       </section>
@@ -22,28 +23,6 @@
 
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
           <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
-      </section>
-
-      <section>
-          <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
-      </section>
-
-      <section v-if="isAdmin" class="edit-btns">
-        
-          <v-btn fab dark color="green" class="save-page" title="Save and Publish"
-              @click="isAdmin = !isAdmin">
-              <v-icon dark>save</v-icon>
-          </v-btn>
-
-          <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-                  @click="isToolbarShow = !isToolbarShow">
-              <v-icon dark>edit</v-icon>
-          </v-btn>
-
-          <v-btn fab dark color="blue" class="open-toolbar" title="Add area">
-              <v-icon dark>add</v-icon>
-          </v-btn>
-
       </section>
       <!-- <section>
        <ul ref="cmps">
@@ -63,13 +42,17 @@ import editMapCmp from "@/components/editPage/edit-map-cmp.vue";
 import dragService from "@/services/dragService.js";
 import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
 import toolbarService from "@/services/toolbarService.js";
+import editMenuCmp from "@/components/editPage/edit-menu-cmp.vue";
+import editWorkingHoursCmp from '@/components/editPage/edit-work-hours-cmp.vue'
+
 import registerCustomer from "@/components/register-customer-cmp.vue";
 
 import {
   eventBus,
   EVENT_TOGGLE_REG_MENU,
   EVENT_ADD_CUSTOMER,
-  EVENT_SELECTED_CMP
+  EVENT_SELECTED_CMP,
+  EVENT_OPEN_EDITOR_WORKING_HOURS
 } from "@/services/event-bus-service.js";
 import { GETTER_USER } from "../store/userModule.js";
 
@@ -87,7 +70,8 @@ export default {
       isToolbarShow: false,
       cmps: [],
       selectedCmp: null,
-      isAdmin: true
+      isAdmin: true,
+      showEditWorkingHours: false
     };
   },
   created() {
@@ -97,6 +81,10 @@ export default {
     eventBus.$on(EVENT_ADD_CUSTOMER, time => {
       this.timeCustomerReg = time;
     });
+    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
+      console.log('got on open editor')      
+      this.showEditWorkingHours = true
+    })
   },
   mounted() {
     // console.log("headerTop:", this.$refs.header.offsetTop);
@@ -162,7 +150,9 @@ export default {
     scheduleCmp,
     editMapCmp,
     toolbarCmp,
-    registerCustomer
+    registerCustomer,
+    editMenuCmp,
+    editWorkingHoursCmp
   }
 };
 </script>
@@ -191,13 +181,7 @@ export default {
   cursor: pointer;
   background-color: #fff;
 }
-.edit-btns {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  right: 5%;
-  z-index: 100000;
-}
+
 .edit-cmp {
   outline: 5px dashed blue;
 }
