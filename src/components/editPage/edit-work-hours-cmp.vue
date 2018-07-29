@@ -8,41 +8,29 @@
         <ul>
             <li v-for="(workDay, idx) in workingHourEdit" :key="workDay.day">
                 <section class="day flex">
+
                     <v-switch :label="workDay.day" class="switch" :class="{'active': workingHourEdit[idx].isOpen}" 
                                 v-model="workingHourEdit[idx].isOpen">
                     </v-switch>
-                    <section v-if="workingHourEdit[idx].isOpen" class="time">
-                        <section class="hour-minute">
-                            <h1>From: </h1>
-                            <!-- <v-select :items="hours" label="08:30" box></v-select> -->
-                            <select v-model="workingHourEdit[idx].hoursOpen.startTime.hours">
-                                <option v-for="hour in hours" :key="hour">
-                                    {{hour}}
-                                </option>
-                            </select>
-                            :
-                            <select v-model="workingHourEdit[idx].hoursOpen.startTime.minutes">
-                                <option v-for="minute in minutes" :key="minute">
-                                    {{minute}}
-                                </option>
-                            </select>
-                        </section>
-                        <section class="hour-minute">
-                            <h1>To: </h1>
-                            <select v-model="workingHourEdit[idx].hoursOpen.endTime.hours">
-                                <option v-for="hour in hours" :key="hour">
-                                    {{hour}}
-                                </option>
-                            </select>
-                            :
-                            <select v-model="workingHourEdit[idx].hoursOpen.endTime.minutes">
-                                <option v-for="minute in minutes" :key="minute">
-                                    {{minute}}
-                                </option>
-                            </select>
-                        </section>
+                    
+                    <section class="time">
+                        <!-- ="!workingHourEdit[idx].isOpen" -->
+                            <v-app class="sliders">
+                                <v-container fluid grid-list-lg>
+                                    <v-layout row wrap >
+                                        <div class="slider-container flex">
+                                            <h3>{{price[0]}}</h3>
+                                            <!-- <v-flex> -->
+                                                <v-range-slider tick-size="0.5" tick="true" v-model="price" :max="24" :min="0" :step="0.15">
+                                                </v-range-slider>
+                                            <!-- </v-flex> -->
+                                            <h3>{{price[1]}}</h3>
+                                        </div>
+                                    </v-layout>
+                                </v-container> 
+                            </v-app>
                     </section>
-                    <section v-else class="time"></section>
+                    <!-- <section v-else class="time"></section> -->
                     <!-- <v-select :items="hours" label="17:30"></v-select> -->
                 </section>
             </li>
@@ -58,23 +46,29 @@
 </template>
 
 <script>
-import { GETTER_USER,
-        ACT_UPDATE_USER,
-        MUT_UPDATE_WORKING_HOURS } from "@/store/userModule.js";
+import {
+  GETTER_USER,
+  ACT_UPDATE_USER,
+  MUT_UPDATE_WORKING_HOURS
+} from "@/store/userModule.js";
 
 export default {
   name: "workingHours",
   props: { workingHours: Array },
   methods: {
-      updateUser(){
-        //   console.log('Updating', this.user.workingHours[0])
-        //   this.$store.dispatch({type: ACT_UPDATE_USER, user: workingHours})
-          this.$store.commit({type: MUT_UPDATE_WORKING_HOURS, workingHours: this.workingHourEdit})
-      }
+    updateUser() {
+      //   console.log('Updating', this.user.workingHours[0])
+      //   this.$store.dispatch({type: ACT_UPDATE_USER, user: workingHours})
+      this.$store.commit({
+        type: MUT_UPDATE_WORKING_HOURS,
+        workingHours: this.workingHourEdit
+      });
+    }
   },
   data() {
     return {
-        workingHourEdit: JSON.parse(JSON.stringify(this.workingHours)),
+      price: [8, 17],
+      workingHourEdit: JSON.parse(JSON.stringify(this.workingHours)),
       hours: [
         0,
         1,
@@ -101,7 +95,7 @@ export default {
         22,
         23
       ],
-      minutes: ['00', '15', '30', '45'],
+      minutes: ["00", "15", "30", "45"],
       days: [true, true, true, true, true, false, false]
     };
   },
@@ -128,7 +122,7 @@ li {
 }
 
 .time {
-  display: flex;
+  /* display: flex; */
   margin: 0;
   justify-content: space-around;
   align-items: center;
@@ -160,7 +154,7 @@ h1 {
 }
 
 .btns {
-    margin: 20px auto;
+  margin: 20px auto;
 }
 
 button {
@@ -173,14 +167,23 @@ button {
 }
 
 select {
-   -webkit-border-radius: 2px;
-   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-   background-position: 97% center;
-   background-repeat: no-repeat;
-   border: 1px solid #AAA;
-   color: #555;
-   width: 40px;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  background-image: url(http://i62.tinypic.com/15xvbd5.png),
+    -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
+  background-position: 97% center;
+  background-repeat: no-repeat;
+  border: 1px solid #aaa;
+  color: #555;
+  width: 40px;
+}
+.slider-container {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
 }
 
+.sliders {
+  height: 0;
+}
 </style>
