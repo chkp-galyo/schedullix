@@ -12,7 +12,6 @@ export default {
     login,
     logout,
     getLoggedInUser,
-    getUser,
     addUser,
     updateUser,
     addCustomer

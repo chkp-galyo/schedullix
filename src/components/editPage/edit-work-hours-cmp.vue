@@ -51,21 +51,23 @@
     <hr>
     <section class="btns">
 
-     <button>Update</button>
+     <button @click.stop="updateUser">Update</button>
         <button>Cancel</button>
     </section>
 </section>
 </template>
 
 <script>
-import { GETTER_USER } from "@/store/userModule.js";
+import { GETTER_USER,
+        ACT_UPDATE_USER } from "@/store/userModule.js";
 
 export default {
   name: "workingHours",
   props: { workingHours: Array },
   methods: {
       updateUser(){
-          this.$store.dispatch({type: [], user: this.user})
+          console.log('Updating', this.user.workingHours[0])
+          this.$store.dispatch({type: ACT_UPDATE_USER, user: this.user})
       }
   },
   data() {

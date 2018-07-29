@@ -4,6 +4,13 @@
         @click.stop="openToolbar">
         <v-icon dark>edit</v-icon>
     </v-btn>
+
+            <v-range-slider
+          v-model="price"
+          :max="600"
+          :min="20"
+          :step="10"
+        ></v-range-slider>
     <input type="file" class="hidden" ref="upload" @input="onInputFile">
     <h1>{{headerConfig.titleTxt}}</h1>
   </div>
@@ -21,7 +28,9 @@ export default {
     headerConfig: Object
   },
   data() {
-    return {};
+    return {
+      price: 50
+    };
   },
   methods: {
     openInputFile() {

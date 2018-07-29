@@ -128,6 +128,7 @@ export default {
         },
 
         [ACT_UPDATE_USER](context, payload) {
+            console.log('payloda user', payload.user)
             return userService.updateUser(payload.user)
             //     .then(() => {
             //         context.commit({
