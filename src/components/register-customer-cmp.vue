@@ -2,30 +2,34 @@
     <section class="register-customer"  @click.stop >
         <h1>Register Oppintment</h1>
 
-        <section>
-          <p>Your oppintment will be scheduled at :</p>
-          
-          <h3>{{customer.time | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</h3>
-        </section>
-
-        <form @submit.prevent="registerCustomer">
-            <section class="inputs-container">
-                <v-text-field v-validate="'required'" v-model="customer.name"
-                                 :error-messages="errors.collect('name')"
-                                  label="Full Name" data-vv-name="name" required>
-                </v-text-field>
-
-                <v-text-field v-validate="'required|max:10'" v-model="customer.phone"
-                                :counter="10" :error-messages="errors.collect('phone')"
-                                  label="Phone Number" data-vv-name="phone" required>
-                </v-text-field>
-            </section>
-            
+        <div v-if="!isRegisterComplited">
             <section>
-                <button type="submit">Confirm</button>
-                <button @click.prevent="cancelRegisterCustomer">Cancel</button>
+              <p>Your oppintment will be scheduled at :</p>
+              
+              <h3>{{customer.time | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</h3>
             </section>
-        </form>
+
+            <form @submit.prevent="registerCustomer">
+                <section class="inputs-container">
+                    <v-text-field v-validate="'required'" v-model="customer.name"
+                                    :error-messages="errors.collect('name')"
+                                      label="Full Name" data-vv-name="name" required>
+                    </v-text-field>
+
+                    <v-text-field v-validate="'required|max:10'" v-model="customer.phone"
+                                    :counter="10" :error-messages="errors.collect('phone')"
+                                      label="Phone Number" data-vv-name="phone" required>
+                    </v-text-field>
+                </section>
+                
+                <section>
+                    <button type="submit">Confirm</button>
+                    <button @click.prevent="cancelRegisterCustomer">Cancel</button>
+                </section>
+            </form>
+        </div>
+
+        <successCheck v-if="isRegisterComplited"></successCheck>
 
   </section>
 </template>
@@ -36,13 +40,17 @@ import {
   EVENT_ADD_CUSTOMER,
   EVENT_TOGGLE_REG_MENU
 } from "@/services/event-bus-service.js";
-
 import { ACT_ADD_CUSTOMER, GETTER_USER_ID } from "@/store/userModule.js";
+
+import successCheck from "@/components/success-check-cmp.vue";
 
 export default {
   name: "register-customer-cmp",
   props: {
     timeCustomer: Number
+  },
+  components: {
+    successCheck
   },
   data() {
     return {
@@ -51,7 +59,8 @@ export default {
         phone: "",
         time: this.timeCustomer,
         isDone: false
-      }
+      },
+      isRegisterComplited: false
     };
   },
   computed: {},
@@ -70,8 +79,13 @@ export default {
         .catch(_ => {
           onsole.log("Fail to add customer");
         });
-      eventBus.$emit(EVENT_TOGGLE_REG_MENU);
-      this.customer = null;
+
+      this.isRegisterComplited = true;
+
+      setTimeout(() => {
+        eventBus.$emit(EVENT_TOGGLE_REG_MENU);
+        this.customer = null;
+      }, 2000);
     },
     cancelRegisterCustomer() {
       eventBus.$emit(EVENT_TOGGLE_REG_MENU);
