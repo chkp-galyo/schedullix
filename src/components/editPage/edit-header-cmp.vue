@@ -1,11 +1,9 @@
 <template>
-  <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader" >
+  <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader">
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
         @click.stop="openToolbar">
         <v-icon dark>edit</v-icon>
     </v-btn>
-    <input type="file" class="hidden" ref="upload">
-
     <input type="text" disabled="isEditHeaderTxt" class="header-text" :value="headerConfig.titleTxt">
 
     <!-- <h1 contenteditable="true">{{headerConfig.titleTxt}}</h1> -->
@@ -29,25 +27,8 @@ export default {
     };
   },
   methods: {
-    openInputFile() {
-      this.$refs.upload.click()
-    },
     openToolbar(){
       eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'header')
-    },
-    onInputFile() {
-      var reader = new FileReader();
-      var file = this.$refs.upload.files[0];
-      // var imgUrl;
-      reader.onloadend = () => {
-        // this.$refs.divHeader.style = "`background: url(${reader.result})`";
-        // imgUrl = reader.result
-        this.$store.commit({type: MUT_UPDATE_HEADER_IMG, imgUrl: reader.result})      
-        
-      };
-      if (file) reader.readAsDataURL(file);
-        // this.$store.commit({type: MUT_UPDATE_HEADER_IMG, imgUrl})      
-      // editService.onInputFile(reader, file)
     },
   }
 };
@@ -55,10 +36,8 @@ export default {
 
 <style scoped lang="scss">
 .edit-header {
-  // margin: 5px 0 !important;
   border: 1px solid black;
   height: 50vh;
-  // margin: 15px;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;

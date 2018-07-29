@@ -18,10 +18,10 @@
                 <v-icon dark>format_color_text</v-icon>
             </v-btn>
             <input type="color" class="hidden" ref="bgColor" @input="onInputBgColor">
-            <v-btn fab dark small color="blue" title="Background color" @click="openInputBgColor">
+            <v-btn v-if="selectedCmp !== 'header'" fab dark small color="blue" title="Background color" @click="openInputBgColor">
                 <v-icon dark>format_color_fill</v-icon>
             </v-btn>
-                <input type="file" class="hidden" ref="upload" accept="image/*" />
+                <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
             <v-btn fab dark small color="pink" title="Upload image" @click="openInputFile">
                <v-icon dark>add_photo_alternate</v-icon>
                <input type="file">
@@ -42,7 +42,8 @@ import {
   eventBus,
   EVENT_SELECTED_CMP,
 } from "@/services/event-bus-service.js";
-import {MUT_UPDATE_COLOR_CMP} from '@/store/userModule.js'
+import {MUT_UPDATE_COLOR_CMP,
+        MUT_UPDATE_IMG} from '@/store/userModule.js'
 
 export default {
   name: "toolbar",
@@ -57,7 +58,7 @@ export default {
   created(){
     eventBus.$on(EVENT_SELECTED_CMP, cmp => {
         this.currCmp = cmp
-        console.log('mycmp',cmp)
+        console.log('mycmp', cmp)
     })
   },
   methods: {
@@ -83,7 +84,15 @@ export default {
     onInputTxtColor(ev) {
         // console.log(typeOf(ev.target.value))
         this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'color', value: ev.target.value })
-    }
+    },
+    onInputFile() {
+      var reader = new FileReader();
+      var file = this.$refs.upload.files[0];
+      reader.onloadend = () => {
+        this.$store.commit({type: MUT_UPDATE_IMG, cmp: this.selectedCmp, imgUrl: reader.result})
+      };
+      if (file) reader.readAsDataURL(file);
+    },
   }
 };
 </script>

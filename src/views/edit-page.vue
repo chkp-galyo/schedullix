@@ -45,7 +45,7 @@ import dragService from "@/services/dragService.js";
 import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
 import toolbarService from "@/services/toolbarService.js";
 import editMenuCmp from "@/components/editPage/edit-menu-cmp.vue";
-import editWorkingHoursCmp from '@/components/editPage/edit-work-hours-cmp.vue'
+import editWorkingHoursCmp from "@/components/editPage/edit-work-hours-cmp.vue";
 
 import registerCustomer from "@/components/register-customer-cmp.vue";
 
@@ -83,19 +83,18 @@ export default {
     eventBus.$on(EVENT_ADD_CUSTOMER, time => {
       this.timeCustomerReg = time;
     });
-    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {     
-      this.showEditWorkingHours = true
-    })
+    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
+      this.showEditWorkingHours = true;
+    });
     eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
-      this.selectedCmp = selectedCmp
-      this.isToolbarShow = true
-    })
+      this.selectedCmp = selectedCmp;
+      this.isToolbarShow = true;
+    });
   },
   computed: {
-          user() {
-           return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
-          } 
-
+    user() {
+      return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]));
+    }
   },
   mounted() {
     // console.log("headerTop:", this.$refs.header.offsetTop);

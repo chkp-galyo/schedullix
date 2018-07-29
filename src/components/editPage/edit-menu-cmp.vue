@@ -1,8 +1,5 @@
 <template>
 <section>
-      <section>
-          <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
-      </section>
       <section v-if="isAdmin"  class="edit-menu flex column">
         <v-btn fab dark color="green" class="save-page" title="Save and Publish"
             @click="isAdmin = !isAdmin">

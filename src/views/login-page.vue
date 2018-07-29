@@ -37,6 +37,9 @@ export default {
   },
   data() {
     return {
+      slider: 45,
+      volume: 10,
+      price: [110, 440],
       loginInfo: {
         email: "",
         password: ""
