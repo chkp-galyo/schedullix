@@ -6,33 +6,8 @@
     <hr>
     <section class="days" v-if="workingHourEdit">
         <ul>
-            <li v-for="(workDay, idx) in workingHourEdit" :key="workDay.day">
-                <section class="day flex">
-
-                    <v-switch :label="workDay.day" class="switch" :class="{'active': workingHourEdit[idx].isOpen}" 
-                                v-model="workingHourEdit[idx].isOpen">
-                    </v-switch>
-                    
-                    <section class="time">
-                        <!-- ="!workingHourEdit[idx].isOpen" -->
-                            <v-app class="sliders">
-                                <v-container fluid grid-list-lg>
-                                    <v-layout row wrap >
-                                        <div class="slider-container flex">
-                                            <h3>{{price[0]}}</h3>
-                                            <!-- <v-flex> -->
-                                                <v-range-slider tick-size="0.5" tick="true" v-model="price" :max="24" :min="0" :step="0.15">
-                                                </v-range-slider>
-                                            <!-- </v-flex> -->
-                                            <h3>{{price[1]}}</h3>
-                                        </div>
-                                    </v-layout>
-                                </v-container> 
-                            </v-app>
-                    </section>
-                    <!-- <section v-else class="time"></section> -->
-                    <!-- <v-select :items="hours" label="17:30"></v-select> -->
-                </section>
+            <li v-for="(workDay) in workingHourEdit" :key="workDay.day">
+                <time-slider :workDay="workDay"></time-slider>
             </li>
         </ul>
     </section>
@@ -46,6 +21,7 @@
 </template>
 
 <script>
+import timeSlider from "@/components/editPage/time-slider-cmp.vue";
 import {
   GETTER_USER,
   ACT_UPDATE_USER,
@@ -53,12 +29,11 @@ import {
 } from "@/store/userModule.js";
 
 export default {
-  name: "workingHours",
+  name: "edit-work-hours-cmp",
+  components: { timeSlider },
   props: { workingHours: Array },
   methods: {
     updateUser() {
-      //   console.log('Updating', this.user.workingHours[0])
-      //   this.$store.dispatch({type: ACT_UPDATE_USER, user: workingHours})
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
@@ -71,9 +46,7 @@ export default {
       workingHourEdit: JSON.parse(JSON.stringify(this.workingHours))
     };
   },
-  created() {
-    console.log("Working hours editor created");
-  }
+  created() {}
 };
 </script>
 
@@ -91,28 +64,6 @@ li {
   display: flex;
   align-items: center;
   width: 45vw;
-}
-
-.time {
-  /* display: flex; */
-  margin: 0;
-  justify-content: space-around;
-  align-items: center;
-  width: 60%;
-}
-
-.day {
-  width: 150px;
-  height: 50px;
-  justify-content: space-around;
-}
-
-.switch {
-  max-width: 60px;
-}
-
-.active {
-  color: greenyellow;
 }
 
 .hour-minute {
@@ -148,14 +99,5 @@ select {
   border: 1px solid #aaa;
   color: #555;
   width: 40px;
-}
-.slider-container {
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-}
-
-.sliders {
-  height: 0;
 }
 </style>
