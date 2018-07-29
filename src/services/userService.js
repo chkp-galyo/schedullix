@@ -12,18 +12,23 @@ export default {
     login,
     logout,
     getLoggedInUser,
-    getUser,
     addUser,
     updateUser,
     addCustomer
 }
 
 function updateUser(user) {
-    
+    return axios.post(`${URL}/updateUser`, user)
+    // .then(res => {
+    //     return (res.data)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
 }
 
 function addCustomer(userId, customer) {
-    return axios.put(URL + `/${userId}/addCustomer`, customer)
+    return axios.put(`${URL}/${userId}/addCustomer`, customer)
         .then(res => {
             // _setLoggedinUser(res.data.email)
             // return (res.data)
