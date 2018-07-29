@@ -1,17 +1,26 @@
 <template>
   <section class="edit-schedule" :style="schedule.styleObj">
+    <section>
+    <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
+        @click.stop="openToolbar">
+        <v-icon dark>edit</v-icon>
+    </v-btn>
+    </section>
+    <section class="schedule-container">
     <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
                     :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
                       :dark="schedule.styleDate.dark" :width="350" v-model="dateSelected"
                        :min="minDate"/>
 
     <list-daily-appts :dateSelected="Date.parse(dateSelected)" />
+    </section>
   </section>
 </template>
  
 <script>
 import listDailyAppts from "./list-daily-appts-cmp.vue";
-import moment from 'moment'
+import moment from "moment";
+import { eventBus, EVENT_OPEN_TOOL_BAR } from "@/services/event-bus-service.js";
 
 export default {
   props: {
@@ -19,19 +28,22 @@ export default {
   },
   data() {
     return {
-      dateSelected: "",
+      dateSelected: ""
     };
   },
   computed: {
-          minDate(){
-            return moment().format().split('T')[0].toString()
-          },
+    minDate() {
+      return moment().format().split("T")[0].toString();
+    }
   },
   methods: {
-    handleInput(ev) {
-      console.log(ev)
-      this.dateSelected = ev;
+    openToolbar() {
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, "schedule");
     },
+    handleInput(ev) {
+      console.log(ev);
+      this.dateSelected = ev;
+    }
   },
   components: {
     listDailyAppts
@@ -41,7 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 .edit-schedule {
-  display: flex;
+  display: block;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
@@ -51,5 +63,16 @@ export default {
   border: 1px solid black;
   border-radius: 6px;
   width: 20%;
+}
+
+.open-toolbar{
+    position: absolute;
+    right: 1%;
+    z-index: 10;
+}
+
+.schedule-container {
+  display: flex;
+  justify-content: space-around;
 }
 </style>

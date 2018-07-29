@@ -1,13 +1,21 @@
 <template>
-  <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader" @click="openInputFile">
-    <div class="cmp-cover"></div>
-    <input type="file" class="hidden" ref="upload" @input="onInputFile">
-    <h1>{{headerConfig.titleTxt}}</h1>
+  <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader" >
+    <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
+        @click.stop="openToolbar">
+        <v-icon dark>edit</v-icon>
+    </v-btn>
+    <input type="file" class="hidden" ref="upload">
+
+    <input type="text" disabled="isEditHeaderTxt" class="header-text" :value="headerConfig.titleTxt">
+
+    <!-- <h1 contenteditable="true">{{headerConfig.titleTxt}}</h1> -->
   </div>
 </template>
 
 <script>
 import { MUT_UPDATE_HEADER_IMG } from '@/store/userModule.js'
+import {eventBus,
+        EVENT_OPEN_TOOL_BAR} from '@/services/event-bus-service.js'
 
 export default {
   name: "editHeader",
@@ -16,11 +24,16 @@ export default {
     headerConfig: Object
   },
   data() {
-    return {};
+    return {
+      isEditHeaderTxt: false
+    };
   },
   methods: {
     openInputFile() {
       this.$refs.upload.click()
+    },
+    openToolbar(){
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'header')
     },
     onInputFile() {
       var reader = new FileReader();
@@ -50,5 +63,16 @@ export default {
   background-size: cover !important;
   background-position: center !important;
 }
+.open-toolbar{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 1%;
+    z-index: 10;
+  }
+
+  .header-text {
+    background-color: transparent;
+  }
 
 </style>

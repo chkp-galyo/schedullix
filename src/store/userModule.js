@@ -4,6 +4,7 @@ import userService from '../services/userService.js'
 export const ACT_LOAD_USER = 'user/actions/loadUser'
 export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 export const ACT_ADD_USER = 'user/actions/addUser'
+export const ACT_UPDATE_USER = 'user/actions/updateUser'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -16,48 +17,16 @@ export const MUT_UPDATE_ABOUT_TXT = 'user/mutations/updateAboutTxt'
 export const MUT_UPDATE_HEADER_IMG = 'user/mutations/updateHeaderImg'
 export const MUT_SET_USER = 'user/mutations/setUser'
 export const MUT_SET_USER_LOC = 'user/mutations/setUserLocation'
+export const MUT_UPDATE_USER = 'user/mutations/updateUser'
+export const MUT_UPDATE_WORKING_HOURS = 'user/mutations/updateWorkingHours'
+export const MUT_UPDATE_COLOR_CMP = 'user/mutations/updateTextColor'
+export const MUT_UPDATE_BG_COLOR_CMP = 'user/mutations/updateBackgroundColor'
 
 export default {
     state: {
         user: null
     },
-    mutations: {
-        // changeUser(state, payload) {
-
-        //     state.user.fullName = payload.user.fullName;
-        //     state.user.prefs = payload.user.prefs;
-        // },
-
-        [MUT_ADD_CUSTOMER](state, payload) {
-            state.user.customers.unshift(payload.customer);
-        },
-
-        [MUT_SET_USER_LOC](state, payload) {
-            state.user.location = payload.userLocation
-        },
-        [MUT_UPDATE_ABOUT_TXT](state, {
-            aboutTxt
-        }) {
-            state.user.configElements.about.mainTxt = aboutTxt
-        },
-        [MUT_UPDATE_HEADER_IMG](state, {
-            imgUrl
-        }) {
-            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
-        },
-        // [MUT_ADD_ACTIVITY](state, payload) {
-        //     state.user.activities.unshift(payload.activity);
-        // },
-
-        [MUT_SET_USER](state, {
-            user
-        }) {
-            state.user = user;
-        }
-    },
     getters: {
-
-
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
             var listForDay = [];
             var selectDateObj = new Date(dateSelectedTimestamp);
@@ -88,8 +57,7 @@ export default {
         },
 
         [GETTER_USER](state) {
-            return { ...state.user
-            };
+            return state.user;
         },
 
         [GETTER_USER_ID](state) {
@@ -101,6 +69,39 @@ export default {
                 return new Date(customer.time).toLocaleDateString() === new Date(dateSelectedTimestamp).toLocaleDateString()
             });
         }
+    },
+    mutations: {
+        [MUT_ADD_CUSTOMER](state, payload) {
+            state.user.customers.unshift(payload.customer);
+        },
+
+        [MUT_SET_USER_LOC](state, payload) {
+            state.user.location = payload.userLocation
+        },
+
+        [MUT_UPDATE_ABOUT_TXT](state, {aboutTxt}) {
+            state.user.configElements.about.mainTxt = aboutTxt
+        },
+
+        [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
+            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
+        },
+
+        [MUT_SET_USER](state, {user}) {
+            state.user = user;
+        },
+        [MUT_UPDATE_WORKING_HOURS](state, {workingHours}) {
+            console.log('work hours', workingHours)
+            state.user.workingHours = workingHours
+            console.log('state store', state.user.workingHours)
+        },
+        [MUT_UPDATE_COLOR_CMP](state, payload) {
+            state.user.configElements[payload.cmp].styleObj[payload.propertyToUpdate] = payload.value
+        },
+        // [MUT_UPDATE_BG_COLOR_CMP](state, payload) {
+        //     state.user.configElements[payload.cmp].styleObj.color = payload.color
+        // }
+
     },
     actions: {
         [ACT_LOAD_USER](context, payload) {
@@ -122,8 +123,7 @@ export default {
 
         [ACT_ADD_USER](context, payload) {
             return userService.addUser(payload.user)
-                .then((res) => {
-                    // console.log(res.ops[0]);
+                .then(res => {
                     context.commit({
                         type: MUT_SET_USER,
                         user: res.ops[0]
@@ -131,29 +131,26 @@ export default {
                     return res.ops[0]
                 })
         },
+
         [ACT_ADD_CUSTOMER](context, payload) {
-
-
             return userService.addCustomer(payload.userId, payload.customer)
-
-            // .then(() => {
-            //     context.commit({
-            //         type: MUT_ADD_CUSTOMER,
-            //         customer: payload.customer
-            //     })
-            // })
+            .then(() => {
+                context.commit({
+                    type: MUT_ADD_CUSTOMER,
+                    customer: payload.customer
+                })
+            })
         },
 
-
-        // [ACT_UPDATE_USER](context, payload) {
-        //     return userService.updatePrefsUser(payload.user)
-        //         .then(() => {
-        //             context.commit({
-        //                 type: 'changeUser',
-        //                 user: payload.user
-        //             })
-        //         })
-        // }
+        [ACT_UPDATE_USER](context, payload) {
+            return userService.updateUser(payload.user)
+                .then(() => {
+                    context.commit({
+                        type: MUT_SET_USER,
+                        user: payload.user
+                    })
+                })
+        }
     }
 }
 

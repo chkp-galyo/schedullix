@@ -2,8 +2,10 @@
  
 
   <div class="edit-page">
-    <editMenuCmp :selectedCmp = "selectedCmp" />
-    
+    <!-- <editMenuCmp :selectedCmp = "selectedCmp" /> -->
+      <section>
+        <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
+      </section>
       <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" @click="showRegisterMenu = false, showEditWorkingHours = false">
         <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"></register-customer>
         <editWorkingHoursCmp v-else :workingHours="user.workingHours" />
@@ -52,7 +54,8 @@ import {
   EVENT_TOGGLE_REG_MENU,
   EVENT_ADD_CUSTOMER,
   EVENT_SELECTED_CMP,
-  EVENT_OPEN_EDITOR_WORKING_HOURS
+  EVENT_OPEN_EDITOR_WORKING_HOURS,
+  EVENT_OPEN_TOOL_BAR
 } from "@/services/event-bus-service.js";
 import { GETTER_USER } from "../store/userModule.js";
 
@@ -63,7 +66,6 @@ export default {
       modePage: "edit",
       showRegisterMenu: false,
       timeCustomerReg: null,
-      user: this.$store.getters[GETTER_USER],
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
@@ -81,10 +83,19 @@ export default {
     eventBus.$on(EVENT_ADD_CUSTOMER, time => {
       this.timeCustomerReg = time;
     });
-    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
-      console.log('got on open editor')      
+    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {     
       this.showEditWorkingHours = true
     })
+    eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
+      this.selectedCmp = selectedCmp
+      this.isToolbarShow = true
+    })
+  },
+  computed: {
+          user() {
+           return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
+          } 
+
   },
   mounted() {
     // console.log("headerTop:", this.$refs.header.offsetTop);
