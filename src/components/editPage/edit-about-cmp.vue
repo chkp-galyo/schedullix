@@ -1,5 +1,9 @@
 <template>
   <div class="edit-about" :style="aboutConfig.styleObj">
+        <div class="cmp-cover">
+        </div>
+
+
     <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
         <label contenteditable="true" ref="txt" @blur="updateMainTxt">{{aboutConfig.mainTxt}}</label>
@@ -57,6 +61,7 @@ export default {
   justify-content: space-around;
   padding: 20px;
   height: 50vh;
+  width:100%;
 }
 
 .about-text {
