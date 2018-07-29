@@ -58,7 +58,7 @@ export default {
   created(){
     eventBus.$on(EVENT_SELECTED_CMP, cmp => {
         this.currCmp = cmp
-        console.log('mycmp',cmp)
+        console.log('mycmp', cmp)
     })
   },
   methods: {
