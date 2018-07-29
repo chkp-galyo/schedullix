@@ -17,6 +17,10 @@ export const MUT_UPDATE_ABOUT_TXT = 'user/mutations/updateAboutTxt'
 export const MUT_UPDATE_HEADER_IMG = 'user/mutations/updateHeaderImg'
 export const MUT_SET_USER = 'user/mutations/setUser'
 export const MUT_SET_USER_LOC = 'user/mutations/setUserLocation'
+export const MUT_UPDATE_USER = 'user/mutations/updateUser'
+export const MUT_UPDATE_WORKING_HOURS = 'user/mutations/updateWorkingHours'
+export const MUT_UPDATE_COLOR_CMP = 'user/mutations/updateTextColor'
+export const MUT_UPDATE_BG_COLOR_CMP = 'user/mutations/updateBackgroundColor'
 
 export default {
     state: {
@@ -53,8 +57,7 @@ export default {
         },
 
         [GETTER_USER](state) {
-            return { ...state.user
-            };
+            return state.user;
         },
 
         [GETTER_USER_ID](state) {
@@ -86,7 +89,19 @@ export default {
 
         [MUT_SET_USER](state, {user}) {
             state.user = user;
-        }
+        },
+        [MUT_UPDATE_WORKING_HOURS](state, {workingHours}) {
+            console.log('work hours', workingHours)
+            state.user.workingHours = workingHours
+            console.log('state store', state.user.workingHours)
+        },
+        [MUT_UPDATE_COLOR_CMP](state, payload) {
+            state.user.configElements[payload.cmp].styleObj[payload.propertyToUpdate] = payload.value
+        },
+        // [MUT_UPDATE_BG_COLOR_CMP](state, payload) {
+        //     state.user.configElements[payload.cmp].styleObj.color = payload.color
+        // }
+
     },
     actions: {
         [ACT_LOAD_USER](context, payload) {
@@ -128,14 +143,13 @@ export default {
         },
 
         [ACT_UPDATE_USER](context, payload) {
-            console.log('payloda user', payload.user)
             return userService.updateUser(payload.user)
-            //     .then(() => {
-            //         context.commit({
-            //             type: 'changeUser',
-            //             user: payload.user
-            //         })
-                // })
+                .then(() => {
+                    context.commit({
+                        type: MUT_SET_USER,
+                        user: payload.user
+                    })
+                })
         }
     }
 }

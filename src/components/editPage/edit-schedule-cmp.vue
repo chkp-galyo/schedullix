@@ -33,15 +33,12 @@ export default {
   },
   computed: {
     minDate() {
-      return moment()
-        .format()
-        .split("T")[0]
-        .toString();
+      return moment().format().split("T")[0].toString();
     }
   },
   methods: {
     openToolbar() {
-      eventBus.$emit(EVENT_OPEN_TOOL_BAR, "hello");
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, "schedule");
     },
     handleInput(ev) {
       console.log(ev);

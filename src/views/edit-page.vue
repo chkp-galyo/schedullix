@@ -66,7 +66,6 @@ export default {
       modePage: "edit",
       showRegisterMenu: false,
       timeCustomerReg: null,
-      user: this.$store.getters[GETTER_USER],
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
@@ -88,10 +87,17 @@ export default {
       console.log('got on open editor')      
       this.showEditWorkingHours = true
     })
-    eventBus.$on(EVENT_OPEN_TOOL_BAR, _ => {
-      console.log(_)
-      this.isToolbarShow = !this.isToolbarShow
+    eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
+      console.log(selectedCmp)
+      this.selectedCmp = selectedCmp
+      this.isToolbarShow = true
     })
+  },
+  computed: {
+          user() {
+           return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
+          } 
+
   },
   mounted() {
     // console.log("headerTop:", this.$refs.header.offsetTop);

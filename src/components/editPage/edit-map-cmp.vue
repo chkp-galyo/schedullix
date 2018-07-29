@@ -132,7 +132,7 @@ export default {
       }
     },
     openToolbar() {
-      eventBus.$emit(EVENT_OPEN_TOOL_BAR, "hello");
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, "map");
     }
   }
 };

@@ -18,7 +18,8 @@ export default {
 }
 
 function updateUser(user) {
-    return axios.post(`${URL}/updateUser`, user)
+    console.log('Service Update user > ', user)
+    return axios.put(`${URL}/updateUser`, user)
     // .then(res => {
     //     return (res.data)
     // })

@@ -6,7 +6,7 @@
       <div class="btn drag">⁞</div>
       <div class="btn">🗑</div> -->
       <section class="header" @mousedown="dragToolbar">
-          Style your page
+          Style your {{selectedCmp}} cmp
       </section>
         <section class="btns">
             <!-- <v-overflow-btn :items="fonts" label="Select font" hide-details></v-overflow-btn> -->
@@ -17,7 +17,7 @@
             <v-btn fab dark small color="orange" title="Text color" @click="openInputTxtColor">
                 <v-icon dark>format_color_text</v-icon>
             </v-btn>
-            <input type="color" class="hidden" ref="bgColor">
+            <input type="color" class="hidden" ref="bgColor" @input="onInputBgColor">
             <v-btn fab dark small color="blue" title="Background color" @click="openInputBgColor">
                 <v-icon dark>format_color_fill</v-icon>
             </v-btn>
@@ -40,8 +40,9 @@
 import toolbarService from "@/services/toolbarService.js";
 import {
   eventBus,
-  EVENT_SELECTED_CMP
+  EVENT_SELECTED_CMP,
 } from "@/services/event-bus-service.js";
+import {MUT_UPDATE_COLOR_CMP} from '@/store/userModule.js'
 
 export default {
   name: "toolbar",
@@ -62,10 +63,6 @@ export default {
   methods: {
     dragToolbar(ev) {
       toolbarService.dragElement(ev.target.parentNode);
-        console.log(this.currCmp)
-    },
-    checkCmp(){
-        console.log(this.currCmp)
     },
     hideCmp(){
         if (!this.currCmp) return
@@ -77,14 +74,15 @@ export default {
     openInputBgColor(){
         this.$refs.bgColor.click()
     },
+    onInputBgColor(ev) {
+        this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'background', value: ev.target.value })
+    },
     openInputTxtColor() {
         this.$refs.txtColor.click()
     },
     onInputTxtColor(ev) {
-        console.log(ev.target.value)
-        if (!this.currCmp) return
-        this.currCmp.style = `color: ${ev.target.value}` 
-            
+        // console.log(typeOf(ev.target.value))
+        this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'color', value: ev.target.value })
     }
   }
 };

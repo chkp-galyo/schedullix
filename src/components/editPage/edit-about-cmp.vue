@@ -4,6 +4,7 @@
       @click.stop="openToolbar">
       <v-icon dark>edit</v-icon>
     </v-btn>
+
     <section class="about-continer">
     <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
@@ -37,7 +38,7 @@ export default {
   },
   methods: {
     openToolbar(){
-      eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'hello')
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'about')
     },
     updateMainTxt() {
       this.$store.commit({ type: MUT_UPDATE_ABOUT_TXT, aboutTxt: this.$refs.txt.innerText });

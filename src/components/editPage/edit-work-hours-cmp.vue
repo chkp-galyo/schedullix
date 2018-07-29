@@ -4,24 +4,24 @@
         <h1>Select your bussiness working hours</h1>
     </section>
     <hr>
-    <section class="days">
+    <section class="days" v-if="workingHourEdit">
         <ul>
-            <li v-for="(workDay, idx) in workingHours" :key="workDay.day">
+            <li v-for="(workDay, idx) in workingHourEdit" :key="workDay.day">
                 <section class="day flex">
-                    <v-switch :label="workDay.day" class="switch" :class="{'active': user.workingHours[idx].isOpen}" 
-                                v-model="user.workingHours[idx].isOpen">
+                    <v-switch :label="workDay.day" class="switch" :class="{'active': workingHourEdit[idx].isOpen}" 
+                                v-model="workingHourEdit[idx].isOpen">
                     </v-switch>
-                    <section v-if="user.workingHours[idx].isOpen" class="time">
+                    <section v-if="workingHourEdit[idx].isOpen" class="time">
                         <section class="hour-minute">
                             <h1>From: </h1>
                             <!-- <v-select :items="hours" label="08:30" box></v-select> -->
-                            <select v-model="user.workingHours[idx].hoursOpen.startTime.hours">
+                            <select v-model="workingHourEdit[idx].hoursOpen.startTime.hours">
                                 <option v-for="hour in hours" :key="hour">
                                     {{hour}}
                                 </option>
                             </select>
                             :
-                            <select v-model="user.workingHours[idx].hoursOpen.startTime.minutes">
+                            <select v-model="workingHourEdit[idx].hoursOpen.startTime.minutes">
                                 <option v-for="minute in minutes" :key="minute">
                                     {{minute}}
                                 </option>
@@ -29,13 +29,13 @@
                         </section>
                         <section class="hour-minute">
                             <h1>To: </h1>
-                            <select v-model="user.workingHours[idx].hoursOpen.endTime.hours">
+                            <select v-model="workingHourEdit[idx].hoursOpen.endTime.hours">
                                 <option v-for="hour in hours" :key="hour">
                                     {{hour}}
                                 </option>
                             </select>
                             :
-                            <select v-model="user.workingHours[idx].hoursOpen.endTime.minutes">
+                            <select v-model="workingHourEdit[idx].hoursOpen.endTime.minutes">
                                 <option v-for="minute in minutes" :key="minute">
                                     {{minute}}
                                 </option>
@@ -59,20 +59,22 @@
 
 <script>
 import { GETTER_USER,
-        ACT_UPDATE_USER } from "@/store/userModule.js";
+        ACT_UPDATE_USER,
+        MUT_UPDATE_WORKING_HOURS } from "@/store/userModule.js";
 
 export default {
   name: "workingHours",
   props: { workingHours: Array },
   methods: {
       updateUser(){
-          console.log('Updating', this.user.workingHours[0])
-          this.$store.dispatch({type: ACT_UPDATE_USER, user: this.user})
+        //   console.log('Updating', this.user.workingHours[0])
+        //   this.$store.dispatch({type: ACT_UPDATE_USER, user: workingHours})
+          this.$store.commit({type: MUT_UPDATE_WORKING_HOURS, workingHours: this.workingHourEdit})
       }
   },
   data() {
     return {
-        user: null,
+        workingHourEdit: JSON.parse(JSON.stringify(this.workingHours)),
       hours: [
         0,
         1,
@@ -105,7 +107,6 @@ export default {
   },
   created() {
     console.log("Working hours editor created");
-    this.user = JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
   }
 };
 </script>
