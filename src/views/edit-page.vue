@@ -2,7 +2,7 @@
  
 
   <div class="edit-page">
-    <!-- <editMenuCmp :selectedCmp = "selectedCmp" /> -->
+    <editMenuCmp :selectedCmp = "selectedCmp" />
       <section>
         <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
       </section>
@@ -55,9 +55,11 @@ import {
   EVENT_ADD_CUSTOMER,
   EVENT_SELECTED_CMP,
   EVENT_OPEN_EDITOR_WORKING_HOURS,
-  EVENT_OPEN_TOOL_BAR
+  EVENT_OPEN_TOOL_BAR,
+  EVENT_UPDATE_USER
 } from "@/services/event-bus-service.js";
-import { GETTER_USER } from "../store/userModule.js";
+import { GETTER_USER,
+         ACT_UPDATE_USER } from "../store/userModule.js";
 
 export default {
   name: "edit-page",
@@ -89,6 +91,9 @@ export default {
     eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
       this.selectedCmp = selectedCmp;
       this.isToolbarShow = true;
+    });
+    eventBus.$on(EVENT_UPDATE_USER, _ => {
+      this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user})
     });
   },
   computed: {
@@ -128,14 +133,13 @@ export default {
       ev.preventDefault();
     },
     toggleEdit(ev) {
-      this.cmps.forEach(cmp => {
-        cmp.classList.remove("edit-cmp");
-      });
-      this.selectedCmp = ev.target.parentNode;
-      var isEdit = this.selectedCmp.classList.contains("edit-cmp");
-      if (!isEdit) this.selectedCmp.classList.add("edit-cmp");
-      else this.selectedCmp.classList.remove("edit-cmp");
-      eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);
+      // this.cmps.forEach(cmp => {
+      //   cmp.classList.remove("edit-cmp");
+      // });
+      // var isEdit = this.selectedCmp.classList.contains("edit-cmp");
+      // if (!isEdit) this.selectedCmp.classList.add("edit-cmp");
+      // else this.selectedCmp.classList.remove("edit-cmp");
+      // eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);
     }
     // dragCmp(ev) {
     //   console.log(

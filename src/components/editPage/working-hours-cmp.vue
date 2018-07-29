@@ -1,7 +1,6 @@
 <template>
     <section class="working-hours">
         <h2>Working hours</h2>
-        <button @click.stop="openEditor">Edit</button>
         <table>
             <tr v-for="workDay in workingHours" :key="workDay.day">
                 <td>{{workDay.day}} : </td>
@@ -15,20 +14,12 @@
 </template>
 
 <script>
-import {eventBus,
-  EVENT_OPEN_EDITOR_WORKING_HOURS} from '@/services/event-bus-service.js'
-
 export default {
   name: "working-hours-cmp",
   props: {
     workingHours: Array
   },
-  methods: {
-    openEditor(){
-      console.log('Emiting open editor')
-      eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS)
-    }
-  },
+  methods: {},
   data() {
     return {};
   }
