@@ -92,7 +92,8 @@ export default {
       this.selectedCmp = selectedCmp;
       this.isToolbarShow = true;
     });
-    eventBus.$on(EVENT_UPDATE_USER, _ => {
+    eventBus.$on(EVENT_UPDATE_USER, () => {
+      console.log('Emiting update user!')
       this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user})
     });
   },
