@@ -1,20 +1,30 @@
 <template>
-    <div class="flex column login">
-        <h1 class="black-text mb-5 display-4 text-xs-center">Sign In</h1>
-        <form class="mb-5">
-            <v-text-field v-validate="'required|email'" v-model="loginInfo.email"
-                            :error-messages="errors.collect('email')" label="E-mail" 
-                                data-vv-name="email" required>
-            </v-text-field>
-            <v-text-field v-validate="'required'" v-model="loginInfo.password"
-                            :error-messages="errors.collect('password')" label="Password"
-                                data-vv-name="password" required>
-            </v-text-field>
-            <v-btn @click="login">login</v-btn>
-            <v-btn @click="clear">clear</v-btn>
-        </form >
-        <h3>Don't have an account yet? <a href="#/signup">Get an account</a></h3>
-     </div>   
+  <div class="flex column login">
+            <h1 class="black-text mb-5 display-4 text-xs-center">Sign In</h1>
+
+      <form class="mb-5">
+        <v-text-field
+          v-validate="'required'"
+          v-model="loginInfo.email"
+          :error-messages="errors.collect('email')"
+          label="Email"
+          data-vv-name="email"
+          required
+        ></v-text-field>
+          <v-text-field
+          v-validate="'required'"
+          type='password'
+          v-model="loginInfo.password"
+          :error-messages="errors.collect('password')"
+          label="Password"
+          data-vv-name="password"
+          required
+        ></v-text-field>
+        <v-btn @click="login">login</v-btn>
+        <v-btn @click="clear">clear</v-btn>
+      </form >
+      <h3>Don't have an account yet? <a href="#/signup">Get an account</a></h3>
+ </div>   
 </template>
 
 <script>

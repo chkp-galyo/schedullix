@@ -1,15 +1,35 @@
 <template>
     <section class="bussiness-calender">  
         <h3 class="black-text mb-5 mt-5 display-4 text-xs-center">My Bussniess Calender</h3> 
-        <full-calendar class="full-calendar" ></full-calendar>
+        <full-calendar class="full-calendar" :config="config" :events="events"></full-calendar>
     </section>         
 </template>
 
 <script>
+import moment from 'moment'
 import { FullCalendar } from "vue-full-calendar";
 export default {
+    props:['event','timePerCustomer'],
   data() {
-    return {};
+    return {
+        events:[],
+        config: {
+        locale: 'en',
+      },
+    };
+  },
+  created() {
+      console.log(this.event);
+      if(this.event){
+          this.events=[]
+          console.log('in');
+          
+          this.event.forEach(ev => {
+              var newEvent = {title:ev.name, start:moment(ev.time).format() ,end: moment((ev.time + (this.timePerCustomer *60*1000))).format() , allDay:false}
+          this.events.push(newEvent)
+      });
+      } 
+      
   },
   components: {
     FullCalendar
@@ -23,7 +43,7 @@ h3.display-4{
     font-size: 5em !important;
 }
 .full-calendar{
-    width:80vw;
+    width:100%;
     float: right;
     padding: 1em
 } 

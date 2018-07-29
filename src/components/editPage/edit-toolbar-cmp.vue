@@ -13,6 +13,10 @@
             <v-btn fab dark small color="white" title="Edit text">
                 <v-icon dark>text_fields</v-icon>
             </v-btn>
+            <v-btn v-if="selectedCmp === 'about'" fab dark small color="green" title="Upload image" @click="openWorkingHoursEditor">
+               <v-icon dark>access_time</v-icon>
+               <input type="file">
+            </v-btn>
             <input type="color" class="hidden" ref="txtColor" @input="onInputTxtColor">            
             <v-btn fab dark small color="orange" title="Text color" @click="openInputTxtColor">
                 <v-icon dark>format_color_text</v-icon>
@@ -22,7 +26,7 @@
                 <v-icon dark>format_color_fill</v-icon>
             </v-btn>
                 <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
-            <v-btn fab dark small color="pink" title="Upload image" @click="openInputFile">
+            <v-btn v-if="selectedCmp === 'about' || selectedCmp === 'header'" fab dark small color="pink" title="Upload image" @click="openInputFile">
                <v-icon dark>add_photo_alternate</v-icon>
                <input type="file">
             </v-btn>
@@ -41,6 +45,7 @@ import toolbarService from "@/services/toolbarService.js";
 import {
   eventBus,
   EVENT_SELECTED_CMP,
+  EVENT_OPEN_EDITOR_WORKING_HOURS
 } from "@/services/event-bus-service.js";
 import {MUT_UPDATE_COLOR_CMP,
         MUT_UPDATE_IMG} from '@/store/userModule.js'
@@ -82,7 +87,6 @@ export default {
         this.$refs.txtColor.click()
     },
     onInputTxtColor(ev) {
-        // console.log(typeOf(ev.target.value))
         this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'color', value: ev.target.value })
     },
     onInputFile() {
@@ -93,6 +97,9 @@ export default {
       };
       if (file) reader.readAsDataURL(file);
     },
+    openWorkingHoursEditor(){
+      eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS)
+    }
   }
 };
 </script>
