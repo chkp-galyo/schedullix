@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import 'fullcalendar/dist/locale/he'
 import moment from 'moment'
 import { FullCalendar } from "vue-full-calendar";
 export default {
@@ -15,7 +14,7 @@ export default {
     return {
         events:[],
         config: {
-        locale: 'he',
+        locale: 'en',
       },
     };
   },
