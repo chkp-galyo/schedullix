@@ -1,9 +1,10 @@
 <template>
   <div class="edit-about" :style="aboutConfig.styleObj">
-        <div class="cmp-cover">
-        </div>
-
-
+    <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
+      @click.stop="openToolbar">
+      <v-icon dark>edit</v-icon>
+    </v-btn>
+    <section class="about-continer">
     <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
         <label contenteditable="true" ref="txt" @blur="updateMainTxt">{{aboutConfig.mainTxt}}</label>
@@ -17,6 +18,7 @@
     <div class="working-hours">
         <workingHoursCmp :workingHours="workingHours" />
     </div>
+    </section>
   </div>
 </template>
 
@@ -24,6 +26,8 @@
 import workingHoursCmp from "./working-hours-cmp.vue";
 import editService from "@/services/editService.js";
 import { MUT_UPDATE_ABOUT_TXT } from "@/store/userModule.js";
+import {eventBus,
+        EVENT_OPEN_TOOL_BAR} from '@/services/event-bus-service.js'
 
 export default {
   name: "edit-about-cmp",
@@ -32,6 +36,9 @@ export default {
     workingHours: Array
   },
   methods: {
+    openToolbar(){
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'hello')
+    },
     updateMainTxt() {
       this.$store.commit({ type: MUT_UPDATE_ABOUT_TXT, aboutTxt: this.$refs.txt.innerText });
     },
@@ -57,8 +64,7 @@ export default {
 <style scoped lang="scss">
 
 .edit-about {
-  display: flex;
-  justify-content: space-around;
+  display: block;
   padding: 20px;
   height: 50vh;
   width:100%;
@@ -72,6 +78,11 @@ export default {
   background-color: #795548;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.about-continer {
+  display: flex;
+  justify-content: space-around;
 }
 
 .img-container {
@@ -89,5 +100,12 @@ export default {
 .working-hours {
   margin: auto;
 }
+
+.open-toolbar{
+    position: absolute;
+    right: 1%;
+    z-index: 10;
+}
+
 
 </style>

@@ -2,8 +2,10 @@
  
 
   <div class="edit-page">
-    <editMenuCmp :selectedCmp = "selectedCmp" />
-    
+    <!-- <editMenuCmp :selectedCmp = "selectedCmp" /> -->
+      <section>
+        <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
+      </section>
       <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" @click="showRegisterMenu = false, showEditWorkingHours = false">
         <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"></register-customer>
         <editWorkingHoursCmp v-else :workingHours="user.workingHours" />
@@ -52,7 +54,8 @@ import {
   EVENT_TOGGLE_REG_MENU,
   EVENT_ADD_CUSTOMER,
   EVENT_SELECTED_CMP,
-  EVENT_OPEN_EDITOR_WORKING_HOURS
+  EVENT_OPEN_EDITOR_WORKING_HOURS,
+  EVENT_OPEN_TOOL_BAR
 } from "@/services/event-bus-service.js";
 import { GETTER_USER } from "../store/userModule.js";
 
@@ -84,6 +87,10 @@ export default {
     eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
       console.log('got on open editor')      
       this.showEditWorkingHours = true
+    })
+    eventBus.$on(EVENT_OPEN_TOOL_BAR, _ => {
+      console.log(_)
+      this.isToolbarShow = !this.isToolbarShow
     })
   },
   mounted() {
