@@ -5,13 +5,13 @@
       <v-icon dark>edit</v-icon>
     </v-btn>
 
-    <section class="about-continer">
+    <section class="about-container">
     <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
         <label contenteditable="true" ref="txt" @blur="updateMainTxt">{{aboutConfig.mainTxt}}</label>
     </div>
 
-    <div class="img-container" :style="{'background-img': 'aboutConfig.styleObj.background-img'}"></div>
+    <div class="img-container" :style="{'background-image': aboutConfig.styleObj['background-image']}"></div>
 
     <div class="working-hours">
         <workingHoursCmp :workingHours="workingHours" />
@@ -61,7 +61,7 @@ export default {
   computed: {
     styleObjContainer() {
       var newStyleObj = { ...this.aboutConfig.styleObj };
-      delete newStyleObj["background-img"];
+      delete newStyleObj["background-image"];
       return newStyleObj;
     }
   }
@@ -86,7 +86,8 @@ export default {
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
-.about-continer {
+.about-container {
+  height: 100%;
   display: flex;
   justify-content: space-around;
 }
@@ -98,10 +99,6 @@ export default {
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;
-}
-
-.working-hours {
-  margin: auto;
 }
 
 .open-toolbar {
