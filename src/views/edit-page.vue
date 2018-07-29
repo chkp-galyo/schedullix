@@ -83,12 +83,10 @@ export default {
     eventBus.$on(EVENT_ADD_CUSTOMER, time => {
       this.timeCustomerReg = time;
     });
-    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
-      console.log('got on open editor')      
+    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {     
       this.showEditWorkingHours = true
     })
     eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
-      console.log(selectedCmp)
       this.selectedCmp = selectedCmp
       this.isToolbarShow = true
     })
