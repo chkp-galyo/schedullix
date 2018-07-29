@@ -1,6 +1,7 @@
 // imports
 
 import Vue from 'vue'
+import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store/store'
@@ -13,10 +14,6 @@ import '@/assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import FullCalendar from 'vue-full-calendar'
 // Axios
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
-Vue.use(Vuetify)
 
 axios.defaults = {
   credentials: true,
