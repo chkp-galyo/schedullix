@@ -22,27 +22,6 @@ export default {
     state: {
         user: null
     },
-    mutations: {
-        [MUT_ADD_CUSTOMER](state, payload) {
-            state.user.customers.unshift(payload.customer);
-        },
-
-        [MUT_SET_USER_LOC](state, payload) {
-            state.user.location = payload.userLocation
-        },
-
-        [MUT_UPDATE_ABOUT_TXT](state, {aboutTxt}) {
-            state.user.configElements.about.mainTxt = aboutTxt
-        },
-
-        [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
-            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
-        },
-
-        [MUT_SET_USER](state, {user}) {
-            state.user = user;
-        }
-    },
     getters: {
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
             var listForDay = [];
@@ -88,6 +67,27 @@ export default {
             });
         }
     },
+    mutations: {
+        [MUT_ADD_CUSTOMER](state, payload) {
+            state.user.customers.unshift(payload.customer);
+        },
+
+        [MUT_SET_USER_LOC](state, payload) {
+            state.user.location = payload.userLocation
+        },
+
+        [MUT_UPDATE_ABOUT_TXT](state, {aboutTxt}) {
+            state.user.configElements.about.mainTxt = aboutTxt
+        },
+
+        [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
+            state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
+        },
+
+        [MUT_SET_USER](state, {user}) {
+            state.user = user;
+        }
+    },
     actions: {
         [ACT_LOAD_USER](context, payload) {
             return userService.login(payload.loginInfo)
@@ -108,8 +108,7 @@ export default {
 
         [ACT_ADD_USER](context, payload) {
             return userService.addUser(payload.user)
-                .then((res) => {
-                    // console.log(res.ops[0]);
+                .then(res => {
                     context.commit({
                         type: MUT_SET_USER,
                         user: res.ops[0]
@@ -129,13 +128,13 @@ export default {
         },
 
         [ACT_UPDATE_USER](context, payload) {
-            // return userService.updatePrefsUser(payload.user)
+            return userService.updateUser(payload.user)
             //     .then(() => {
             //         context.commit({
             //             type: 'changeUser',
             //             user: payload.user
             //         })
-            //     })
+                // })
         }
     }
 }
