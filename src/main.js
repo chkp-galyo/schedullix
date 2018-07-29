@@ -9,7 +9,9 @@ import axios from 'axios'
 
 import 'vue-event-calendar/dist/style.css' //^1.1.10, CSS has been extracted as one file, so you can easily update it.
 import vueEventCalendar from 'vue-event-calendar'
+import VeeValidate from 'vee-validate';
 
+Vue.use(VeeValidate);
 Vue.use(vueEventCalendar, {
   locale: 'en'
 })
@@ -33,7 +35,10 @@ Vue.filter('validTime', (num) => {
   return str.length === 1 ? "0" + str : str;
 })
 
-axios.defaults.withCredentials = true
+axios.defaults = {
+  credentials: true,
+  origin: 'http://localhost:3000'
+}
 
 new Vue({
   router,

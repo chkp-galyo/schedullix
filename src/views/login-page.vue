@@ -22,9 +22,13 @@ export default {
     };
   },
   methods: {
-    login(ev) {
-      //   console.log(ev)
-      this.$store.dispatch({ type: ACT_LOAD_USER, loginInfo: this.loginInfo });
+    login() {
+      this.$store
+        .dispatch({ type: ACT_LOAD_USER, loginInfo: this.loginInfo })
+        .then(user => {
+          this.$router.push(`/app/${user._id}/editPage`);
+        })
+        .catch();
     }
   }
 };

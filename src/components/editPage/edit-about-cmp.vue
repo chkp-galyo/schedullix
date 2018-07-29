@@ -2,14 +2,13 @@
   <div class="edit-about" :style="aboutConfig.styleObj">
     <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
-        <p  contenteditable="true" ref="txt" @blur="updateMainTxt">{{aboutConfig.mainTxt}}</p>
+        <label contenteditable="true" ref="txt" @blur="updateMainTxt">{{aboutConfig.mainTxt}}</label>
     </div>
 
     <div class="img-container flex">
       <input type="file" ref="upload" class="hidden" @input="onInputFile">      
         <img :src="aboutConfig.imgUrl" ref="imgAbout"  @click="openInputFile">
     </div>
-                            <v-slider></v-slider>
 
     <div class="working-hours">
         <workingHoursCmp :workingHours="workingHours" />

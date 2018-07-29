@@ -13,18 +13,34 @@ export default {
     getUser,
     addCustomer,
     logout,
-    getLoggedInUser
+    getLoggedInUser,
+    addUser
 }
 
-function addCustomer(customer) {
-    console.log('service add Customer: ', customer);
-    // TODO: להוסיף את הלקוח בסרבר
-    return Promise.resolve();
+function addCustomer(userId, customer) {
+    return axios.put(URL + `/${userId}/addCustomer`, customer)
+        .then(res => {
+            // _setLoggedinUser(res.data.email)
+            // return (res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 
-    // return axios.post(BUG_URL, bug)
-    // .then(res => res.data)
-    // .catch(err => console.log('Problem talking to server', err))
+}
 
+function addUser(user) {
+    console.log('service add Customer: ', user);
+    return axios.post(URL, user)
+        .then(res => {
+            console.log(res);
+            
+            // _setLoggedinUser(res.data.email)
+            return (res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 function logout() {
@@ -56,11 +72,9 @@ function getUser() {
 
 
     var a = {
-        id: "fdgdfg",
-        userName: "IdanHakim123",
-        password: "123456",
-        phone: "054-2886838",
-        businessName: "AliBaba Hakim",
+        password: "",
+        phone: null,
+        businessName: "",
         location: {
             lat: 36.778259,
             lng: -119.417931

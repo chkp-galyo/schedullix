@@ -9,17 +9,20 @@
         <editWorkingHoursCmp v-else :workingHours="user.workingHours" />
       </div>
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
-        <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
+          <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
       </section>
-      <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">      
-        <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
+
+      <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
+          <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
                     v-if="user.configElements.about.isActive" /> 
       </section>
+
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
-        <schedule-cmp :schedule="user.configElements.schedule" />
+          <schedule-cmp :schedule="user.configElements.schedule" />
       </section>
+
       <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
-        <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
+          <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
       </section>
       <!-- <section>
        <ul ref="cmps">
@@ -115,14 +118,14 @@ export default {
       ev.preventDefault();
     },
     toggleEdit(ev) {
-      this.cmps.forEach((cmp) => {
-          cmp.classList.remove('edit-cmp')
-      })
+      this.cmps.forEach(cmp => {
+        cmp.classList.remove("edit-cmp");
+      });
       this.selectedCmp = ev.target.parentNode;
       var isEdit = this.selectedCmp.classList.contains("edit-cmp");
       if (!isEdit) this.selectedCmp.classList.add("edit-cmp");
       else this.selectedCmp.classList.remove("edit-cmp");
-      eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);      
+      eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);
     }
     // dragCmp(ev) {
     //   console.log(
