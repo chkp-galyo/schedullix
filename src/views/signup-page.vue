@@ -69,7 +69,7 @@ export default {
 
   data() {
     return {
-      user: userService.getUser(),
+      user: userService.getDefaultUser(),
       checkbox: false,
       dictionary: {
         attributes: {
@@ -88,7 +88,7 @@ export default {
   },
 
   mounted() {
-    this.$validator.localize("il", this.dictionary);
+    this.$validator.localize("he", this.dictionary);
   },
   computed: {
     checkboxErrors() {
@@ -115,13 +115,7 @@ export default {
       console.log(this.user);
     },
     getEmptyUser() {
-      return {
-        name: "",
-        password: null,
-        email: "",
-        phone: null,
-        businessName: ""
-      };
+      return userService.getDefaultUser()
     }
   }
 };

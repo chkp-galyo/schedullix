@@ -4,15 +4,16 @@
 
       <form class="mb-5">
         <v-text-field
-          v-validate="'required|email'"
+          v-validate="'required'"
           v-model="loginInfo.email"
           :error-messages="errors.collect('email')"
-          label="E-mail"
+          label="Email"
           data-vv-name="email"
           required
         ></v-text-field>
           <v-text-field
           v-validate="'required'"
+          type='password'
           v-model="loginInfo.password"
           :error-messages="errors.collect('password')"
           label="Password"

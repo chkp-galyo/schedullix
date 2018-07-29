@@ -33,7 +33,7 @@
       </v-card>
     </v-tab-item>
   </v-tabs>
-    <bussiness-calender v-if="calender"></bussiness-calender>
+    <bussiness-calender :event="user.customers" :timePerCustomer="user.timePerCustomer" v-if="calender"></bussiness-calender>
     <bussiness-profile v-if="profile"></bussiness-profile>
     <bussiness-page v-if="page"></bussiness-page>
 </section>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { GETTER_USER } from '@/store/userModule.js';
 import bussinessCalender from '@/components/bussinessPage/bussiness-calender.vue';
 import bussinessProfile from '@/components/bussinessPage/bussiness-profile.vue';
 import bussinessPage from '@/components/bussinessPage/bussiness-page.vue';
@@ -67,7 +68,7 @@ export default {
   },
   computed:{
       user(){
-          return ''
+           return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
       }
   },
 
