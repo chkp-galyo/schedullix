@@ -95,7 +95,6 @@ export default {
       this.markers.splice(0, 1, userLocation);
     },
     addMarker() {
-      console.log(this.currentPlace);
       if (this.markers.length === 0) {
         var marker = {
           lat: this.currentPlace.lat,
@@ -116,7 +115,6 @@ export default {
     },
 
     geolocate() {
-      console.log(this.location);
       if (this.location) {
         this.center = {
           lat: this.location.lat,

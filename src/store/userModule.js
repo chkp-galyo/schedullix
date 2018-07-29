@@ -93,9 +93,7 @@ export default {
             state.user = user;
         },
         [MUT_UPDATE_WORKING_HOURS](state, {workingHours}) {
-            console.log('work hours', workingHours)
             state.user.workingHours = workingHours
-            console.log('state store', state.user.workingHours)
         },
         [MUT_UPDATE_COLOR_CMP](state, payload) {
             state.user.configElements[payload.cmp].styleObj[payload.propertyToUpdate] = payload.value
