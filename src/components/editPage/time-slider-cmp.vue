@@ -1,25 +1,17 @@
 <template>
-  <div class="time-slider flex mb-0">
-                <!-- <section class="day flex"> -->
-                  
+    <div class="time-slider flex mb-0">
+          <div class="switch-container">
+        <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}" v-model="value.isOpen" @change="updateWorkingHours">
+        </v-switch>
+          </div>
 
-                    <!-- <section class="time flex"> -->
-                    <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}" 
-                                v-model="value.isOpen" @change="updateWorkingHours" >
-                    </v-switch>
-                                  
-                                        <div class="slider-container flex" >
+        <div class="slider-container">
 
-                                            <h3>{{startTimeToShow}}</h3>
-                                            <v-range-slider class="range-slider" @change="updateWorkingHours"  v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
-                                            <h3>{{endTimeToShow}}</h3>
-                                        </div>
-                              
-                                      
-                        
-                    <!-- </section> -->
-                <!-- </section> -->
-  </div>
+            <h3>{{startTimeToShow}}</h3>
+            <v-range-slider class="range-slider" style="display:flex; " @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
+            <h3>{{endTimeToShow}}</h3>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -73,14 +65,23 @@ export default {
   align-items: center;
   justify-content: space-around;
 }
-
-.slider-container {
-  background-color: transparent;
-  width:50px;
-  padding: 0;
-  margin: 0;
+.switch-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+.time-slider .slider-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  width:70%;
+  padding: 0;
+}
+h3{
+  padding-top:4px ;
+  max-width:30px ;
+  min-width:30px ;
+}
 .sliders {
   height: 0;
   // min-height: 0;
@@ -98,9 +99,13 @@ export default {
 }
 .switch {
   max-width: 60px;
+  padding: 0;
+  margin-right: 40px;
 }
 
 .range-slider {
+  
+  min-width: 60%;
   max-width: 60%;
 }
 

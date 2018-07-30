@@ -1,33 +1,29 @@
 <template>
-    <section class="edit-work-hours" @click.stop>
-        <section class="header">
-            <h1>Working Hours</h1>
-            <p>Select your bussiness working hours</p>
-        </section>
-    
-        <section class="days" v-if="workingHourEdit">
-            <v-app class="sliders" style="height:0px">
-                <v-container  flex-list-md >
-                        <v-layout row wrap  >
-                    <ul class="flex space-between column" >
-                            <li  v-for="(workDay ,idx) in workingHourEdit" :key="idx">
-                                <time-slider  v-model="workingHourEdit[idx]">
-                                </time-slider>
-                            </li>
-                    </ul>
-                        </v-layout>
-                     <section class="btns">
-            <button @click.stop="updateUser">Update</button>
-            <button>Cancel</button>
-        </section>
-        
-                </v-container> 
-            </v-app>
-         
-        </section>
-        
-       
+<section class="edit-work-hours" @click.stop>
+    <section class="header">
+        <h1 class="black-text mb-2 display-4 text-xs-center">Working Hours</h1>
+        <p class="mb-1">Select your bussiness working hours</p>
     </section>
+
+    <section class="days" v-if="workingHourEdit">
+        <v-app class="sliders" style="height:0px">
+            <v-container flex-list-md>
+                <v-layout row wrap>
+                    <ul class="flex space-between column">
+                        <li v-for="(workDay ,idx) in workingHourEdit" :key="idx">
+                            <time-slider v-model="workingHourEdit[idx]">
+                            </time-slider>
+                        </li>
+                    </ul>
+                </v-layout>
+                <section class="btns">
+                    <button @click.stop="updateUser">Update</button>
+                    <button>Cancel</button>
+                </section>
+            </v-container>
+        </v-app>
+    </section>
+</section>
 </template>
 
 <script>
@@ -72,6 +68,9 @@ export default {
 <style scoped>
 .header{
 
+}
+.display-4{
+  font-size: 2em!important
 }
 .edit-work-hours {
   border-radius: 6px;
