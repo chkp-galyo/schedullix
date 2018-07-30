@@ -67,7 +67,7 @@ function _setLoggedinUser(user) {
 function login(loginInfo) {
     return axios.post(URL + '/login', loginInfo)
         .then(res => {
-            _setLoggedinUser(res.data.email)
+            _setLoggedinUser(res.data)
             return (res.data)
         })
         .catch(err => {

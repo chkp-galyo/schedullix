@@ -24,7 +24,7 @@
               class="blue lighten-2 mt-5"
               dark
               large
-              href="/login"
+              href="#/login"
             >
               Get Started
             </v-btn>
@@ -80,7 +80,7 @@ v-parallax{
 .side-carousel{
   display: flex;
   width:100%;
-  margin: 0 auto;
+  justify-content: center;
   height:30vh;
   background-color: rgba(49, 44, 44, 0.5);
   color: white;
@@ -98,5 +98,6 @@ v-parallax{
     display: flex;
     justify-content:center;
     align-items:center;
+    // width: 100%;
 }
 </style>
