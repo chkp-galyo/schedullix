@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-about" :style="styleObjContainer">
+  <div class="edit-about animated bounceInRight" :style="styleObjContainer">
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
       @click.stop="openToolbar">
       <v-icon dark>edit</v-icon>
@@ -8,10 +8,10 @@
     <section class="about-container">
     <div class="about-text">
         <h1>{{aboutConfig.titleTxt}}</h1>
-        <label contenteditable="true" ref="txt" @blur="updateMainTxt">{{aboutConfig.mainTxt}}</label>
+        <textarea ref="txt" @input="updateMainTxt" :value="aboutConfig.mainTxt"> </textarea>
     </div>
-
-    <div class="img-container" :style="{'background-image': aboutConfig.styleObj['background-image']}"></div>
+            <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
+    <div class="img-container" :style="{'background-image': aboutConfig.styleObj['background-image']}" @click="openInputFile"></div>
 
     <div class="working-hours">
         <workingHoursCmp :workingHours="workingHours" />
@@ -23,7 +23,8 @@
 <script>
 import workingHoursCmp from "./working-hours-cmp.vue";
 import editService from "@/services/editService.js";
-import { MUT_UPDATE_ABOUT_TXT } from "@/store/userModule.js";
+import { MUT_UPDATE_ABOUT_TXT,
+          MUT_UPDATE_IMG } from "@/store/userModule.js";
 import { eventBus, EVENT_OPEN_TOOL_BAR } from "@/services/event-bus-service.js";
 
 export default {
@@ -39,7 +40,7 @@ export default {
     updateMainTxt() {
       this.$store.commit({
         type: MUT_UPDATE_ABOUT_TXT,
-        aboutTxt: this.$refs.txt.innerText
+        aboutTxt: this.$refs.txt.value
       });
     },
     openInputFile() {
@@ -49,10 +50,9 @@ export default {
       var reader = new FileReader();
       var file = this.$refs.upload.files[0];
       reader.onloadend = () => {
-        this.$refs.imgAbout.src = reader.result;
+        this.$store.commit({type: MUT_UPDATE_IMG, cmp: 'about', imgUrl: reader.result})
       };
       if (file) reader.readAsDataURL(file);
-      // editService.onInputFile(reader, file)
     }
   },
   components: {
@@ -69,10 +69,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+textarea{
+  padding: 20px;
+  height: 80%;
+  word-wrap:break-word;
+  resize: none;
+  outline: none;
+  overflow: auto;
+}
 .edit-about {
   display: block;
   padding: 20px;
-  height: 50vh;
+  height: 70vh;
   width: 100%;
 }
 

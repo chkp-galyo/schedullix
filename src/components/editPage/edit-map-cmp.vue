@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="edit-map" :style="mapConfig.styleObj">
+  <div class="edit-map animated bounceInRight" :style="mapConfig.styleObj">
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
         @click.stop="openToolbar">
         <v-icon dark>edit</v-icon>
@@ -9,18 +9,8 @@
     <section class="map-container">
 
     <div class="side-map">
-        <div>
-        <h1>Address: {{this.address}}</h1>
-        </div>
-      <label>
-      <h2>Search and add a pin</h2>
-        <gmap-autocomplete
-          @place_changed="setPlace">
-        </gmap-autocomplete>
-        <button @click="addMarker">Add</button>
-      </label>
-      <br/>
-
+        <!-- <h1>Address:</h1> -->
+        <h2> {{this.address}}</h2>
     </div>
     <gmap-map
       :center="center"
@@ -41,7 +31,9 @@
 <script>
 import mapService from "../../services/mapService.js";
 import { MUT_SET_USER_LOC } from "../../store/userModule.js";
-import { eventBus, EVENT_OPEN_TOOL_BAR } from "@/services/event-bus-service.js";
+import {    eventBus, 
+            EVENT_OPEN_TOOL_BAR,
+            EVENT_ADDRESS_CHANGE } from "@/services/event-bus-service.js";
 
 export default {
   name: "editMap",
@@ -64,7 +56,12 @@ export default {
       currentPlace: null
     };
   },
-
+    created() {
+        eventBus.$on(EVENT_ADDRESS_CHANGE, (address) =>{
+            this.setPlace(address)
+            this.addMarker()
+        })
+    },
   mounted() {
     this.geolocate();
     if (this.location) {
@@ -80,6 +77,7 @@ export default {
   methods: {
     // receives a place object via the autocomplete component
     setPlace(place) {
+        console.log('setting place', place)
       this.currentPlace = place;
       var userLocation = {
         lat: this.currentPlace.geometry.location.lat(),
@@ -137,6 +135,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .side-map {
   width: 50%;
   min-width: 300px;
@@ -146,6 +145,15 @@ export default {
 }
 .side-map * {
   padding: 0.5em;
+  margin: auto;
+}
+
+h1 {
+    margin: 0;
+}
+
+h2 {
+    margin: auto;
 }
 input {
   padding: 1em;

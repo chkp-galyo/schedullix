@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     updateUser() {
+        console.log('update user')
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit

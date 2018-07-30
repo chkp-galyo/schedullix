@@ -46,6 +46,10 @@ Vue.filter('validTime', (num) => {
   return str.length === 1 ? "0" + str : str;
 })
 
+// Vue.filter('dateMoment', (time) => {
+// return moment(time).format()
+// })
+
 // New Vue
 
 new Vue({
