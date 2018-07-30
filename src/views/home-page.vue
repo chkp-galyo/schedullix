@@ -30,9 +30,14 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  margin: 10px;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 0;
+  z-index: -1;
 }
 
 </style>

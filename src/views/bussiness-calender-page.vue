@@ -6,29 +6,26 @@
 </template>
 
 <script>
+import { GETTER_USER } from '@/store/userModule.js';
 import moment from 'moment'
 import { FullCalendar } from "vue-full-calendar";
 export default {
-    props:['event','timePerCustomer'],
   data() {
     return {
-        events:[],
+        events: [],
+        timePerCustomer: null,
         config: {
         locale: 'en',
       },
     };
   },
   created() {
-      console.log(this.event);
-      if(this.event){
-          this.events=[]
-          console.log('in');
-          
-          this.event.forEach(ev => {
+          var user = JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
+          this.timePerCustomer = user.timePerCustomer
+          user.customers.forEach(ev => {
               var newEvent = {title:ev.name, start:moment(ev.time).format() ,end: moment((ev.time + (this.timePerCustomer *60*1000))).format() , allDay:false}
           this.events.push(newEvent)
       });
-      } 
       
   },
   components: {
