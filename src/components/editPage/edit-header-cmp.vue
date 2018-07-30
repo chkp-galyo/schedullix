@@ -1,17 +1,21 @@
 <template>
   <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader">
+    <div class="cmp-cover">
+    <textarea class="header-text" :value="headerConfig.titleTxt" @input="updateTitle"> </textarea>
+
+    </div>
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
         @click.stop="openToolbar">
         <v-icon dark>edit</v-icon>
     </v-btn>
-    <input type="text" disabled="isEditHeaderTxt" class="header-text" :value="headerConfig.titleTxt">
 
     <!-- <h1 contenteditable="true">{{headerConfig.titleTxt}}</h1> -->
   </div>
 </template>
 
 <script>
-import { MUT_UPDATE_HEADER_IMG } from '@/store/userModule.js'
+import { MUT_UPDATE_HEADER_IMG,
+          MUT_UPDATE_HEADER_TITLE } from '@/store/userModule.js'
 import {eventBus,
         EVENT_OPEN_TOOL_BAR} from '@/services/event-bus-service.js'
 
@@ -30,14 +34,20 @@ export default {
     openToolbar(){
       eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'header')
     },
+    updateTitle(ev){
+      this.$store.commit({ type: MUT_UPDATE_HEADER_TITLE, title: ev.target.value})
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
 .edit-header {
+  display: flex;
+    justify-content: center;
+  
   border: 1px solid black;
-  height: 50vh;
+  height: 80vh;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;
@@ -52,6 +62,9 @@ export default {
 
   .header-text {
     background-color: transparent;
+    font-size: 72px;
+    align-items: center;
+    height: 90%;
   }
 
 </style>

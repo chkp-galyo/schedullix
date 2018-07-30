@@ -34,6 +34,7 @@ export default {
   props: { workingHours: Array },
   methods: {
     updateUser() {
+        console.log('update user')
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
@@ -51,6 +52,10 @@ export default {
 </script>
 
 <style scoped>
+button {
+    z-index: 100000000000000;
+}
+
 .edit-work-hours {
   border-radius: 6px;
   background-color: white;

@@ -7,7 +7,7 @@
 
                     <section class="time">
                             <v-app class="sliders">
-                                <v-container fluid grid-list-lg>
+                                <v-container fill-height wrap>
                                     <v-layout row wrap >
                                         <div class="slider-container flex">
                                             <h3>{{startTimeToShow}}</h3>

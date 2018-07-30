@@ -39,23 +39,28 @@
             <v-btn fab dark small color="red" title="Delete area" @click.stop="hideCmp">
                 <v-icon dark>delete</v-icon>
             </v-btn>
-
+            <section class="address" v-if="selectedCmp === 'map'">
+                <h3>Your business location: </h3>
+            <gmap-autocomplete @place_changed="setAddress">
+            </gmap-autocomplete>
+                             <!-- <button @click="setAddress">add</button> -->
+            </section>
             <section class="calender-edit" v-if="selectedCmp === 'schedule'">
                 <section class="calender" @mousedown="dragToolbar">
                  Style your calender
                 </section>
-            <v-btn fab dark small color="orange" title="Text color" @click.stop="openInputTxtColor">
+            <!-- <v-btn fab dark small color="orange" title="Text color" @click.stop="openInputTxtColor">
                 <v-icon dark>format_color_text</v-icon>
-            </v-btn>
+            </v-btn> -->
             <v-btn fab dark small color="blue" title="Background color" @click.stop="openInputCalenderColor">
                 <v-icon dark>format_color_fill</v-icon>
             </v-btn>
-            <v-btn fab dark small color="yellow" title="Text color" @click.stop="openInputTxtColor">
+            <!-- <v-btn fab dark small color="yellow" title="Text color" @click.stop="openInputTxtColor">
                 <v-icon dark>format_color_text</v-icon>
             </v-btn>
             <v-btn fab dark small color="blue" title="Background color" @click.stop="openInputBgColor">
                 <v-icon dark>format_color_fill</v-icon>
-            </v-btn>
+            </v-btn> -->
             </section>
         </section>
 
@@ -69,10 +74,11 @@ import toolbarService from "@/services/toolbarService.js";
 import {
   eventBus,
   EVENT_SELECTED_CMP,
-  EVENT_OPEN_EDITOR_WORKING_HOURS
+  EVENT_OPEN_EDITOR_WORKING_HOURS,
+  EVENT_ADDRESS_CHANGE
 } from "@/services/event-bus-service.js";
 import {MUT_UPDATE_COLOR_CMP,
-        MUT_UPDATE_IMG} from '@/store/userModule.js'
+        MUT_UPDATE_IMG,} from '@/store/userModule.js'
 
 export default {
   name: "toolbar",
@@ -124,9 +130,9 @@ export default {
     openWorkingHoursEditor(){
       eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS)
     },
-    nothing() {
-        return
-    }
+    setAddress(address) {
+      eventBus.$emit(EVENT_ADDRESS_CHANGE, address)
+    },
   }
 };
 </script>
@@ -180,5 +186,21 @@ export default {
 
 .hidden {
     display: none;
+}
+
+.address {
+    margin: 10px;
+}
+
+.address input {
+    background: white;
+    padding: 5px;
+    margin: 5px;
+}
+
+.address button {
+    border: 1px solid black;
+    padding: 5px;
+    background: antiquewhite;
 }
 </style>

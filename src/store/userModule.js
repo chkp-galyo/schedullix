@@ -22,6 +22,7 @@ export const MUT_UPDATE_WORKING_HOURS = 'user/mutations/updateWorkingHours'
 export const MUT_UPDATE_COLOR_CMP = 'user/mutations/updateTextColor'
 export const MUT_UPDATE_BG_COLOR_CMP = 'user/mutations/updateBackgroundColor'
 export const MUT_UPDATE_IMG = 'user/mutations/updateImage'
+export const MUT_UPDATE_HEADER_TITLE = 'user/mutations/updateHeaderTitle'
 
 export default {
     state: {
@@ -100,6 +101,9 @@ export default {
         },
         [MUT_UPDATE_IMG](state, payload) {
             state.user.configElements[payload.cmp].styleObj['background-image'] = `url(${payload.imgUrl})`
+        },
+        [MUT_UPDATE_HEADER_TITLE](state, {title}) {
+            state.user.configElements.header.titleTxt = title
         }
     },
     actions: {
