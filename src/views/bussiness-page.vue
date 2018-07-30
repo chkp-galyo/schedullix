@@ -1,4 +1,5 @@
 <template>
+    
 <section class="bussiness-page" >
     <v-tabs centered light icons-and-text>
         <v-tabs-slider color="black"></v-tabs-slider>
@@ -28,42 +29,12 @@
 </template>
 
 <script>
-import { GETTER_USER } from '@/store/userModule.js';
-import bussinessCalender from '@/components/bussinessPage/bussiness-calender.vue';
-import bussinessProfile from '@/components/bussinessPage/bussiness-profile.vue';
-import bussinessPage from '@/components/bussinessPage/bussiness-page.vue';
-export default {
-  data() {
-    return {
-        profile: false,
-        calender:true,
-        page:false
-    };
-  },
-  components: {
-    bussinessCalender,
-    bussinessProfile,
-    bussinessPage
-  },
-  methods:{
-      changeState(stateDisplay){
-          this.profile = false,
-          this.page = false,
-          this.calender = false,
-          this[stateDisplay] = true
-      },  
-  },
-  computed:{
-      user(){
-           return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
-      }
-  },
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
-.bussiness-page{
-    margin:0 !important;
+h3.display-4{
+    font-size: 5em !important;
 }
 </style>
+

@@ -13,20 +13,20 @@
               <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours"/>
           </div> 
 
-          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
+          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'header'}" class="header cmp" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
               <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
           </section>
 
-          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
+          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'about'}" class="about cmp" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
               <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
                         v-if="user.configElements.about.isActive" /> 
           </section>
 
-          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
+          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'schedule'}" class="schedule cmp" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
               <schedule-cmp :schedule="user.configElements.schedule" />
           </section>
 
-          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
+          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'map'}" class="map cmp" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
               <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
           </section>
     </div>
@@ -118,8 +118,15 @@ export default {
       });
 
       eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
-        this.selectedCmp = selectedCmp;
-        this.isToolbarShow = true;
+        if((this.selectedCmp === selectedCmp || !selectedCmp) && this.isToolbarShow) {
+          this.isToolbarShow = false;
+          this.selectedCmp = null
+        }
+        else {
+          this.isToolbarShow = true
+          this.selectedCmp = selectedCmp
+        } 
+        
       });
 
       eventBus.$on(EVENT_UPDATE_USER, () => {
@@ -204,7 +211,11 @@ export default {
 }
 
 .edit-cmp {
-  outline: 5px dashed blue;
+  outline: 1px dashed rgb(248, 120, 120);
+  -webkit-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
+  z-index: 9999;
 }
 .register-container {
   width: 100vw;

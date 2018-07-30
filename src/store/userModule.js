@@ -10,6 +10,7 @@ export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
 export const GETTER_USER_ID = 'user/getters/userId'
+export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
 
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
@@ -22,6 +23,10 @@ export const MUT_UPDATE_WORKING_HOURS = 'user/mutations/updateWorkingHours'
 export const MUT_UPDATE_COLOR_CMP = 'user/mutations/updateTextColor'
 export const MUT_UPDATE_BG_COLOR_CMP = 'user/mutations/updateBackgroundColor'
 export const MUT_UPDATE_IMG = 'user/mutations/updateImage'
+export const MUT_UPDATE_HEADER_TITLE = 'user/mutations/updateHeaderTitle'
+export const MUT_UPDATE_CALENDER_BG_COLOR = 'user/mutations/updateCalenderBgColor'
+export const MUT_TOGGLE_CALENDER_THEME = 'user/mutations/toggleCalenderTheme'
+export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLandscape'
 
 export default {
     state: {
@@ -69,6 +74,9 @@ export default {
             return state.user.customers.filter(customer => {
                 return new Date(customer.time).toLocaleDateString() === new Date(dateSelectedTimestamp).toLocaleDateString()
             });
+        },
+        [GETTER_CALENDER_COLOR](state) {
+            return state.user.configElements.schedule.styleDate.colorHeader
         }
     },
     mutations: {
@@ -100,6 +108,21 @@ export default {
         },
         [MUT_UPDATE_IMG](state, payload) {
             state.user.configElements[payload.cmp].styleObj['background-image'] = `url(${payload.imgUrl})`
+        },
+        [MUT_UPDATE_HEADER_TITLE](state, {title}) {
+            state.user.configElements.header.titleTxt = title
+        },
+        [MUT_UPDATE_CALENDER_BG_COLOR](state, {color}) {
+            state.user.configElements.schedule.styleDate.colorHeader = color            
+        },
+        [MUT_TOGGLE_CALENDER_THEME](state) {
+            var styleDate = state.user.configElements.schedule.styleDate
+            styleDate.dark = !styleDate.dark
+            styleDate.light = !styleDate.light
+        },
+        [MUT_TOGGLE_CALENDER_LANDSCAPE](state) {
+            var styleDate = state.user.configElements.schedule.styleDate
+            styleDate.landscape = !styleDate.landscape 
         }
     },
     actions: {

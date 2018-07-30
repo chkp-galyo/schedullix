@@ -6,6 +6,8 @@ import signUp from './views/signup-page.vue'
 // import myBussiness from './views/my-bussiness-page.vue'
 import editPage from './views/edit-page.vue'
 import preview from './views/preview-page.vue'
+import bussinessProfile from './views/bussiness-profile-page.vue'
+import bussinessCalender from './views/bussiness-calender-page.vue'
 import bussinessPage from './views/bussiness-page.vue'
 
 
@@ -13,8 +15,7 @@ import bussinessPage from './views/bussiness-page.vue'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: home
@@ -29,13 +30,8 @@ export default new Router({
       name: 'signUp',
       component: signUp
     },
-    // {
-    //   path: '/app/:userId/myBussiness',
-    //   name: 'myBussiness',
-    //   component: myBussiness
-    // },
     {
-      path: '/app/:userId/editPage',
+      path: '/:userId/editPage',
       name: 'editPage',
       component: editPage
     },
@@ -45,10 +41,23 @@ export default new Router({
       component: preview
     },
     {
+      path: '/:userId/bussinessProfile',
+      name: 'bussinessProfile',
+      component: bussinessProfile
+    },
+    {
+      path: '/:userId/bussinessCalender',
+      name: 'bussinessCalender',
+      component: bussinessCalender
+    },
+    {
       path: '/:userId/bussinessPage',
       name: 'bussinessPage',
       component: bussinessPage
     },
-    { path: '/*', redirect: '/' },
+    {
+      path: '/*',
+      redirect: '/'
+    },
   ]
 })

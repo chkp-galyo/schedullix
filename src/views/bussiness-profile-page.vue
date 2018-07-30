@@ -70,7 +70,7 @@ export default {
 
   data() {
     return {
-      user: JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER])),
+      user: {},
       checkbox: false,
       dictionary: {
         attributes: {
@@ -87,7 +87,12 @@ export default {
       }
     };
   },
-
+  created() {
+    var user =  JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]))
+    if(user){
+      this.user = user
+    }
+  },
   mounted() {
     this.$validator.localize("he", this.dictionary);
   },

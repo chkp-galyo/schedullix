@@ -1,14 +1,7 @@
 <template>
 <section class="home-header">
       
-      <section class="carousel-container">
-    <v-carousel hide-delimiters style="width:95.8vw" >
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.src"
-      >
-      <div class="side-carousel" >
+      <section class="carousel-container"><div class="side-carousel" >
         <v-parallax height="fit-content" >
           <v-layout
           
@@ -31,6 +24,13 @@
           </v-layout>
         </v-parallax>
       </div>
+    <v-carousel hide-delimiters hide-controls style="width:100vw" >
+      <v-carousel-item
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item.src"
+      >
+      
       </v-carousel-item>
     </v-carousel>
       </section>
@@ -72,6 +72,7 @@ v-parallax{
   max-height:100% ;
 }
 .home-header{
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,13 +80,17 @@ v-parallax{
 }
 .side-carousel{
   display: flex;
-  width:100%;
+  width:50%;
   justify-content: center;
+  align-items: center;
   height:30vh;
   background-color: rgba(49, 44, 44, 0.5);
   color: white;
   position: absolute;
-    top: 25%;
+  z-index: 1;
+    top: 10%;
+    // left: 25%;
+    margin: 0 auto;
 //  width: 200px;
     // height: 200px;
     // position: absolute;
@@ -98,6 +103,8 @@ v-parallax{
     display: flex;
     justify-content:center;
     align-items:center;
-    // width: 100%;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }
 </style>
