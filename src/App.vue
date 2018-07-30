@@ -27,7 +27,7 @@
                     <v-tab v-if="loggedInUser" @click="changeLoction('/login')">
                         login
                     </v-tab>
-                    <v-tab v-if="!loggedInUser" @click="changeLoction(`/${loggedInUser._id}/bussinessPage`)">
+                    <v-tab v-if="loggedInUser" @click="changeLoction(`/${loggedInUser._id}/bussinessPage`)">
                         Bussiness Page
                     </v-tab>
                     

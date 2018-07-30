@@ -61,10 +61,13 @@ export default {
   }
 
   .header-text {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.0);
     font-size: 72px;
     align-items: center;
     height: 90%;
+    resize: none;
+    outline: none;
+    overflow: auto;
   }
 
 </style>
