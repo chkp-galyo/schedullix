@@ -20,7 +20,8 @@
 import toolbarService from "@/services/toolbarService.js";
 import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
 import { ACT_UPDATE_USER } from '@/store/userModule.js'
-import { EVENT_UPDATE_USER } from '@/services/event-bus-service.js'
+import { eventBus,
+        EVENT_UPDATE_USER } from '@/services/event-bus-service.js'
 
 export default {
   name: "editMenu",
@@ -35,7 +36,7 @@ export default {
   },
   methods: {
       updateUser() {
-          this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user})
+          eventBus.$emit(EVENT_UPDATE_USER)
       }
   },
   created() {

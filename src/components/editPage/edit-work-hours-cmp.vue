@@ -1,51 +1,37 @@
 <template>
-<section class="edit-work-hours" @click.stop>
-    <section class="header">
-        <h1>Select your bussiness working hours</h1>
+    <section class="edit-work-hours" @click.stop>
+        <section class="header">
+            <h1>Working Hours</h1>
+            <p>Select your bussiness working hours</p>
+        </section>
+    
+        <section class="days" v-if="workingHourEdit">
+            <v-app class="sliders" style="height:0px">
+                <v-container  flex-list-md >
+                        <v-layout row wrap  >
+                    <ul class="flex space-between column" >
+                            <li  v-for="(workDay ,idx) in workingHourEdit" :key="idx">
+                                <time-slider  v-model="workingHourEdit[idx]">
+                                </time-slider>
+                            </li>
+                    </ul>
+                        </v-layout>
+                     <section class="btns">
+            <button @click.stop="updateUser">Update</button>
+            <button>Cancel</button>
+        </section>
+        
+                </v-container> 
+            </v-app>
+         
+        </section>
+        
+       
     </section>
-    <hr>
-    <section class="days" v-if="workingHourEdit">
-        <ul>
-            <li v-for="(workDay, idx) in workingHourEdit" :key="workDay.day">
-                <section class="day flex">
-
-                    <v-switch :label="workDay.day" class="switch" :class="{'active': workingHourEdit[idx].isOpen}" 
-                                v-model="workingHourEdit[idx].isOpen">
-                    </v-switch>
-                    
-                    <section class="time">
-                        <!-- ="!workingHourEdit[idx].isOpen" -->
-                            <v-app class="sliders">
-                                <v-container fluid grid-list-lg>
-                                    <v-layout row wrap >
-                                        <div class="slider-container flex">
-                                            <h3>{{price[0]}}</h3>
-                                            <!-- <v-flex> -->
-                                                <v-range-slider tick-size="0.5" tick="true" v-model="price" :max="24" :min="0" :step="0.15">
-                                                </v-range-slider>
-                                            <!-- </v-flex> -->
-                                            <h3>{{price[1]}}</h3>
-                                        </div>
-                                    </v-layout>
-                                </v-container> 
-                            </v-app>
-                    </section>
-                    <!-- <section v-else class="time"></section> -->
-                    <!-- <v-select :items="hours" label="17:30"></v-select> -->
-                </section>
-            </li>
-        </ul>
-    </section>
-    <hr>
-    <section class="btns">
-
-     <button @click.stop="updateUser">Update</button>
-        <button>Cancel</button>
-    </section>
-</section>
 </template>
 
 <script>
+import timeSlider from "@/components/editPage/time-slider-cmp.vue";
 import {
   GETTER_USER,
   ACT_UPDATE_USER,
@@ -53,12 +39,15 @@ import {
 } from "@/store/userModule.js";
 
 export default {
-  name: "workingHours",
-  props: { workingHours: Array },
+  name: "edit-work-hours-cmp",
+  components: { timeSlider },
+  props: {
+    workingHours: Array
+  },
   methods: {
     updateUser() {
-      //   console.log('Updating', this.user.workingHours[0])
-      //   this.$store.dispatch({type: ACT_UPDATE_USER, user: workingHours})
+      console.log("upadte");
+
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
@@ -67,22 +56,28 @@ export default {
   },
   data() {
     return {
-      price: [8, 17],
       workingHourEdit: JSON.parse(JSON.stringify(this.workingHours))
     };
   },
-  created() {
-    console.log("Working hours editor created");
+  created() {},
+  watch: {
+    // workingHourEdit(newVal) {
+    //   console.log("watch");
+    //   console.log(newVal);
+    // }
   }
 };
 </script>
 
 <style scoped>
+.header{
+
+}
 .edit-work-hours {
   border-radius: 6px;
   background-color: white;
   width: 50vw;
-  height: 60vh;
+  min-height: 60vh;
   padding: 10px;
   justify-content: space-around;
   align-items: center;
@@ -93,40 +88,16 @@ li {
   width: 45vw;
 }
 
-.time {
-  /* display: flex; */
-  margin: 0;
-  justify-content: space-around;
-  align-items: center;
-  width: 60%;
-}
-
-.day {
-  width: 150px;
-  height: 50px;
-  justify-content: space-around;
-}
-
-.switch {
-  max-width: 60px;
-}
-
-.active {
-  color: greenyellow;
-}
-
 .hour-minute {
   border: 1px solid black;
   width: 100px;
 }
-
+ul{
+    padding: 0;
+}
 h1 {
   font-size: 12px;
-  margin: 0;
-}
-
-.btns {
-  margin: 20px auto;
+  /* margin: 0; */
 }
 
 button {
@@ -148,14 +119,5 @@ select {
   border: 1px solid #aaa;
   color: #555;
   width: 40px;
-}
-.slider-container {
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-}
-
-.sliders {
-  height: 0;
 }
 </style>
