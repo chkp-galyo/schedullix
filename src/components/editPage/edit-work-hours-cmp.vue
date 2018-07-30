@@ -66,6 +66,14 @@ export default {
 </script>
 
 <style scoped>
+.edit-work-hours{
+  /* height: 50vw;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin: 0;
+  padding: 0; */
+}
 .header{
 
 }
