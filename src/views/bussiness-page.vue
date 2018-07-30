@@ -2,25 +2,24 @@
 <section class="bussiness-page" >
     <v-tabs
     centered
-    color="cyan"
-    dark
+    light
     icons-and-text
   >
-    <v-tabs-slider color="yellow"></v-tabs-slider>
+    <v-tabs-slider color="black"></v-tabs-slider>
 
     <v-tab @click="changeState('calender')">
       My Bussiness
-      <v-icon>phone</v-icon>
+      <v-icon large>event</v-icon>
     </v-tab>
 
     <v-tab @click="changeState('page')">
       My Page
-      <v-icon>favorite</v-icon>
+      <v-icon large>home</v-icon>
     </v-tab>
 
     <v-tab @click="changeState('profile')">
       My Profile
-      <v-icon>account_box</v-icon>
+      <v-icon large>account_box</v-icon>
     </v-tab>
 
     <v-tab-item
@@ -76,4 +75,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bussiness-page{
+    margin:0 !important;
+}
 </style>

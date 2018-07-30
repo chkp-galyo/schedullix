@@ -1,7 +1,7 @@
 <template>
     <section class="bussiness-calender">  
         <h3 class="black-text mb-5 mt-5 display-4 text-xs-center">My Bussniess Calender</h3> 
-        <full-calendar class="full-calendar" :config="config" :events="events"></full-calendar>
+        <full-calendar class="full-calendar" :events="events"></full-calendar>
     </section>         
 </template>
 
