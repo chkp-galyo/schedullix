@@ -1,21 +1,27 @@
 <template>
 <section class="edit-work-hours" @click.stop>
     <section class="header">
-        <h1>Select your bussiness working hours</h1>
+        <h1 class="black-text mb-2 display-4 text-xs-center">Working Hours</h1>
+        <p class="mb-1">Select your bussiness working hours</p>
     </section>
-    <hr>
-    <section class="days" v-if="workingHourEdit">
-        <ul>
-            <li v-for="(workDay) in workingHourEdit" :key="workDay.day">
-                <time-slider :workDay="workDay"></time-slider>
-            </li>
-        </ul>
-    </section>
-    <hr>
-    <section class="btns">
 
-     <button @click.stop="updateUser">Update</button>
-        <button>Cancel</button>
+    <section class="days" v-if="workingHourEdit">
+        <v-app class="sliders" style="height:0px">
+            <v-container flex-list-md>
+                <v-layout row wrap>
+                    <ul class="flex space-between column">
+                        <li v-for="(workDay ,idx) in workingHourEdit" :key="idx">
+                            <time-slider v-model="workingHourEdit[idx]">
+                            </time-slider>
+                        </li>
+                    </ul>
+                </v-layout>
+                <section class="btns">
+                    <button @click.stop="updateUser">Update</button>
+                    <button @click.stop="exitEditWorkingHours">Cancel</button>
+                </section>
+            </v-container>
+        </v-app>
     </section>
 </section>
 </template>
@@ -28,10 +34,17 @@ import {
   MUT_UPDATE_WORKING_HOURS
 } from "@/store/userModule.js";
 
+import {
+  eventBus,
+  EVENT_TOGGLE_EDIT_WORK_HOURS
+} from "@/services/event-bus-service.js";
+
 export default {
   name: "edit-work-hours-cmp",
   components: { timeSlider },
-  props: { workingHours: Array },
+  props: {
+    workingHours: Array
+  },
   methods: {
     updateUser() {
         console.log('update user')
@@ -39,28 +52,34 @@ export default {
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
       });
+
+      eventBus.$emit(EVENT_TOGGLE_EDIT_WORK_HOURS);
+    },
+    exitEditWorkingHours() {
+      eventBus.$emit(EVENT_TOGGLE_EDIT_WORK_HOURS);
     }
   },
   data() {
     return {
-      price: [8, 17],
       workingHourEdit: JSON.parse(JSON.stringify(this.workingHours))
     };
   },
-  created() {}
+  created() {},
+  watch: {}
 };
 </script>
 
 <style scoped>
-button {
-    z-index: 100000000000000;
+.header {
 }
-
+.display-4{
+  font-size: 2em!important
+}
 .edit-work-hours {
   border-radius: 6px;
   background-color: white;
   width: 50vw;
-  height: 60vh;
+  min-height: 60vh;
   padding: 10px;
   justify-content: space-around;
   align-items: center;
@@ -75,14 +94,12 @@ li {
   border: 1px solid black;
   width: 100px;
 }
-
+ul {
+  padding: 0;
+}
 h1 {
   font-size: 12px;
-  margin: 0;
-}
-
-.btns {
-  margin: 20px auto;
+  /* margin: 0; */
 }
 
 button {

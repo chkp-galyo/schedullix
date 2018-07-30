@@ -1,61 +1,50 @@
 <template>
-  <div class="time-slider flex">
-                <section class="day flex">
-                    <v-switch :label="workDayEdit.day" class="switch" :class="{'active': workDayEdit.isOpen}" 
-                                v-model="workDayEdit.isOpen">
-                    </v-switch>
+    <div class="time-slider flex mb-0">
+          <div class="switch-container">
+        <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}" v-model="value.isOpen" @change="updateWorkingHours">
+        </v-switch>
+          </div>
 
-                    <section class="time">
-                            <v-app class="sliders">
-                                <v-container fill-height wrap>
-                                    <v-layout row wrap >
-                                        <div class="slider-container flex">
-                                            <h3>{{startTimeToShow}}</h3>
-                                            <v-range-slider class="range-slider" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
-                                            <h3>{{endTimeToShow}}</h3>
-                                        </div>
-                                    </v-layout>
-                                </v-container> 
-                            </v-app>
-                    </section>
-                </section>
-  </div>
+        <div class="slider-container">
+
+            <h3>{{startTimeToShow}}</h3>
+            <v-range-slider class="range-slider" style="display:flex; " @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
+            <h3>{{endTimeToShow}}</h3>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
   name: "time-slider-cmp",
-  props: {
-    workDay: Object
-  },
+  props: ["value"],
   data() {
     return {
-      workDayEdit: JSON.parse(JSON.stringify(this.workDay)),
       times: [8, 17],
-      startTimeToShow: "8:00",
+      startTimeToShow: "08:00",
       endTimeToShow: "17:00"
     };
   },
-  created() {
-    this.print();
-  },
+  created() {},
   methods: {
-    print() {
-      // console.log(this.workDayEdit);
+    updateWorkingHours() {
+      var newVal = JSON.parse(JSON.stringify(this.value));
+      this.$emit("input", newVal);
     }
   },
   watch: {
     times(newVal) {
       // start time
-      var hours1 = Math.floor(newVal[0]);
-      var minutes1 = Math.round((newVal[0] - hours1) / 100 * 60 * 100);
-      this.workDayEdit.hoursOpen.startTime = { hours1, minutes1 };
-      this.startTimeToShow = hours1.toString() + ":" + minutes1.toString();
-      
-      var hours2 = Math.floor(newVal[1]);
-      var minutes2 = Math.round((newVal[1] - hours2) / 100 * 60 * 100);
-      this.workDayEdit.hoursOpen.endTime = { hours2, minutes2 };
-      this.endTimeToShow = hours2.toString() + ":" + minutes2.toString();
+      var hours = Math.floor(newVal[0]);
+      var minutes = Math.round((newVal[0] - hours) / 100 * 60 * 100);
+      this.value.hoursOpen.startTime = { hours, minutes };
+      this.startTimeToShow = hours.toString() + ":" + minutes.toString();
+
+      // end time
+      hours = Math.floor(newVal[1]);
+      minutes = Math.round((newVal[1] - hours) / 100 * 60 * 100);
+      this.value.hoursOpen.endTime = { hours, minutes };
+      this.endTimeToShow = hours.toString() + ":" + minutes.toString();
     }
   },
   computed: {}
@@ -65,41 +54,63 @@ export default {
 <style scoped lang="scss">
 .time-slider {
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 .day {
   width: 150px;
-  height: 50px;
+  height: 30px;
+  // align-self: center;
+  align-items: center;
   justify-content: space-around;
 }
-
-.slider-container {
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
+.switch-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+.time-slider .slider-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  width:70%;
+  padding: 0;
+}
+h3{
+  padding-top:4px ;
+  max-width:30px ;
+  min-width:30px ;
+}
 .sliders {
   height: 0;
+  // min-height: 0;
 }
 .time {
-  /* display: flex; */
   margin: 0;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 60%;
+  width: 100%;
+  height: 25px;
 }
 .active {
-  color: greenyellow;
+  color: black;
+  font-weight: 600;
 }
 .switch {
   max-width: 60px;
+  padding: 0;
+  margin-right: 40px;
 }
 
 .range-slider {
+  
   min-width: 60%;
+  max-width: 60%;
 }
 
 h3 {
   margin: 0 10px;
+  height: fit-content;
 }
 </style>

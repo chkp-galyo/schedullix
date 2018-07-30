@@ -1,15 +1,19 @@
 <template>
-  <div class="list-daily-appts animated bounceInRight" v-if="dateSelected">
-      <h3>List Time:</h3>
-      <ul class="clean-list">
-          <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp">
-              <button @click="addCustomer(timeDay.timestamp)">+</button>
-              <h5>{{timeDay.hours | validTime}}:{{timeDay.minutes | validTime}}</h5> 
-          </li>
-      </ul>
+    <div class="list-daily-appts animated bounceInRight" v-if="dateSelected">
+        <h3>List Time:</h3>
+        <ul class="clean-list">
+            <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp">
+                <button @click="addCustomer(timeDay.timestamp)">+</button>
+                <h5>
+                    {{timeDay.hours | validTime}}:{{timeDay.minutes | validTime}}
+                </h5> 
+            </li>
+        </ul>
 
-      <h3 v-if="availableTimeList.length<=0 && dateSelected">There is no space available at the selected time! </h3>
-  </div>
+        <h3 v-if="availableTimeList.length<=0 && dateSelected">
+            There is no space available at the selected time!
+        </h3>
+    </div>
 </template>
 
 <script>
