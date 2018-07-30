@@ -18,7 +18,7 @@
                         </v-layout>
                      <section class="btns">
             <button @click.stop="updateUser">Update</button>
-            <button>Cancel</button>
+            <button @click.stop="exitEditWorkingHours">Cancel</button>
         </section>
         
                 </v-container> 
@@ -38,6 +38,11 @@ import {
   MUT_UPDATE_WORKING_HOURS
 } from "@/store/userModule.js";
 
+import {
+  eventBus,
+  EVENT_TOGGLE_EDIT_WORK_HOURS
+} from "@/services/event-bus-service.js";
+
 export default {
   name: "edit-work-hours-cmp",
   components: { timeSlider },
@@ -46,12 +51,15 @@ export default {
   },
   methods: {
     updateUser() {
-      console.log("upadte");
-
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
       });
+
+      eventBus.$emit(EVENT_TOGGLE_EDIT_WORK_HOURS);
+    },
+    exitEditWorkingHours() {
+      eventBus.$emit(EVENT_TOGGLE_EDIT_WORK_HOURS);
     }
   },
   data() {
@@ -60,18 +68,12 @@ export default {
     };
   },
   created() {},
-  watch: {
-    // workingHourEdit(newVal) {
-    //   console.log("watch");
-    //   console.log(newVal);
-    // }
-  }
+  watch: {}
 };
 </script>
 
 <style scoped>
-.header{
-
+.header {
 }
 .edit-work-hours {
   border-radius: 6px;
@@ -92,8 +94,8 @@ li {
   border: 1px solid black;
   width: 100px;
 }
-ul{
-    padding: 0;
+ul {
+  padding: 0;
 }
 h1 {
   font-size: 12px;
