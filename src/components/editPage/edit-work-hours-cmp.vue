@@ -1,23 +1,33 @@
 <template>
-<section class="edit-work-hours" @click.stop>
-    <section class="header">
-        <h1>Select your bussiness working hours</h1>
+    <section class="edit-work-hours" @click.stop>
+        <section class="header">
+            <h1>Working Hours</h1>
+            <p>Select your bussiness working hours</p>
+        </section>
+    
+        <section class="days" v-if="workingHourEdit">
+            <v-app class="sliders" style="height:0px">
+                <v-container  flex-list-md >
+                        <v-layout row wrap  >
+                    <ul class="flex space-between column" >
+                            <li  v-for="(workDay ,idx) in workingHourEdit" :key="idx">
+                                <time-slider  v-model="workingHourEdit[idx]">
+                                </time-slider>
+                            </li>
+                    </ul>
+                        </v-layout>
+                     <section class="btns">
+            <button @click.stop="updateUser">Update</button>
+            <button>Cancel</button>
+        </section>
+        
+                </v-container> 
+            </v-app>
+         
+        </section>
+        
+       
     </section>
-    <hr>
-    <section class="days" v-if="workingHourEdit">
-        <ul>
-            <li v-for="(workDay) in workingHourEdit" :key="workDay.day">
-                <time-slider :workDay="workDay"></time-slider>
-            </li>
-        </ul>
-    </section>
-    <hr>
-    <section class="btns">
-
-     <button @click.stop="updateUser">Update</button>
-        <button>Cancel</button>
-    </section>
-</section>
 </template>
 
 <script>
@@ -31,9 +41,13 @@ import {
 export default {
   name: "edit-work-hours-cmp",
   components: { timeSlider },
-  props: { workingHours: Array },
+  props: {
+    workingHours: Array
+  },
   methods: {
     updateUser() {
+      console.log("upadte");
+
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
@@ -42,20 +56,28 @@ export default {
   },
   data() {
     return {
-      price: [8, 17],
       workingHourEdit: JSON.parse(JSON.stringify(this.workingHours))
     };
   },
-  created() {}
+  created() {},
+  watch: {
+    // workingHourEdit(newVal) {
+    //   console.log("watch");
+    //   console.log(newVal);
+    // }
+  }
 };
 </script>
 
 <style scoped>
+.header{
+
+}
 .edit-work-hours {
   border-radius: 6px;
   background-color: white;
   width: 50vw;
-  height: 60vh;
+  min-height: 60vh;
   padding: 10px;
   justify-content: space-around;
   align-items: center;
@@ -70,14 +92,12 @@ li {
   border: 1px solid black;
   width: 100px;
 }
-
+ul{
+    padding: 0;
+}
 h1 {
   font-size: 12px;
-  margin: 0;
-}
-
-.btns {
-  margin: 20px auto;
+  /* margin: 0; */
 }
 
 button {
