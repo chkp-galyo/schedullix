@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     dateToShow() {
-      return moment(this.dateSelected).format("MMM Do YY"); 
+      return moment(this.dateSelected).format("MMM Do YY");
     },
     availableTimeList() {
       var customersForDate = this.$store.getters[GETTER_CUSTOMERS_FOR_DATE](
@@ -108,7 +108,7 @@ li {
   margin-bottom: 10px;
   border-radius: 5px;
   background-color: lightcyan;
-  box-shadow: -2px 2px 26px 0px rgba(0,0,0,0.75);
+  border: 1px solid transparent;
 }
 
 li > h4 {
@@ -116,7 +116,9 @@ li > h4 {
 }
 
 li:hover {
-  border: 1px solid black;
+  color: lightblue;
+  border: 1px solid lightblue;
+  box-shadow: -2px 2px 16px 1px rgba(0,0,0,0.75);
 }
 
 ::-webkit-scrollbar {
