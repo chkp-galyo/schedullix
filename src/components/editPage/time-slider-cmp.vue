@@ -8,7 +8,7 @@
         <div class="slider-container">
 
             <h3>{{startTimeToShow}}</h3>
-            <v-range-slider class="range-slider" style="display:flex; " @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
+            <v-range-slider class="range-slider"  @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
             <h3>{{endTimeToShow}}</h3>
         </div>
     </div>
@@ -54,13 +54,14 @@ export default {
 <style scoped lang="scss">
 .time-slider {
   width: 100%;
+  height: 5.8vh;
   justify-content: center;
   align-items: center;
   padding: 0;
 }
 .day {
   width: 150px;
-  height: 30px;
+  height: 3vh;
   // align-self: center;
   align-items: center;
   justify-content: space-around;
@@ -91,7 +92,7 @@ h3{
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 25px;
+  height: 5vh;
 }
 .active {
   color: black;
