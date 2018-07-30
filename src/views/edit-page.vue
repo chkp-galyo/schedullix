@@ -1,39 +1,37 @@
 <template>
- 
+    <div class="edit-page">
 
-  <div class="edit-page">
-    <editMenuCmp :selectedCmp = "selectedCmp" />
-      <section>
-        <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
-      </section>
-      <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" @click="showRegisterMenu = false, showEditWorkingHours = false">
-        <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"></register-customer>
-        <editWorkingHoursCmp v-else :workingHours="user.workingHours" />
-      </div>
-      <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
-          <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
-      </section>
+          <editMenuCmp :selectedCmp = "selectedCmp" />
 
-      <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
-          <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
-                    v-if="user.configElements.about.isActive" /> 
-      </section>
+          <section>
+            <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
+          </section>
 
-      <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
-          <schedule-cmp :schedule="user.configElements.schedule" />
-      </section>
+          <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" 
+                @click="showRegisterMenu = false, showEditWorkingHours = false">
+              <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg">
+              </register-customer>
+              <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours">
+              </edit-working-hours> 
+          </div>
 
-      <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
-          <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
-      </section>
-      <!-- <section>
-       <ul ref="cmps">
-           <li v-for="cmp in cmps">
-                <component :is="cmp" :user="user"></component>
-           </li>
-        </ul> 
-      </section> -->
-  </div>
+          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
+              <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
+          </section>
+
+          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="about" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
+              <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
+                        v-if="user.configElements.about.isActive" /> 
+          </section>
+
+          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="schedule" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
+              <schedule-cmp :schedule="user.configElements.schedule" />
+          </section>
+
+          <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="map" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
+              <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
+          </section>
+    </div>
 </template>
 
 <script>
@@ -45,21 +43,20 @@ import dragService from "@/services/dragService.js";
 import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
 import toolbarService from "@/services/toolbarService.js";
 import editMenuCmp from "@/components/editPage/edit-menu-cmp.vue";
-import editWorkingHoursCmp from "@/components/editPage/edit-work-hours-cmp.vue";
-
+import editWorkingHours from "@/components/editPage/edit-work-hours-cmp.vue";
 import registerCustomer from "@/components/register-customer-cmp.vue";
 
 import {
   eventBus,
   EVENT_TOGGLE_REG_MENU,
+  EVENT_TOGGLE_EDIT_WORK_HOURS,
   EVENT_ADD_CUSTOMER,
   EVENT_SELECTED_CMP,
   EVENT_OPEN_EDITOR_WORKING_HOURS,
   EVENT_OPEN_TOOL_BAR,
   EVENT_UPDATE_USER
 } from "@/services/event-bus-service.js";
-import { GETTER_USER,
-         ACT_UPDATE_USER } from "../store/userModule.js";
+import { GETTER_USER, ACT_UPDATE_USER } from "../store/userModule.js";
 
 export default {
   name: "edit-page",
@@ -67,6 +64,8 @@ export default {
     return {
       modePage: "edit",
       showRegisterMenu: false,
+      showEditWorkingHours: false,
+
       timeCustomerReg: null,
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
@@ -74,28 +73,11 @@ export default {
       isToolbarShow: false,
       cmps: [],
       selectedCmp: null,
-      isAdmin: true,
-      showEditWorkingHours: false
+      isAdmin: true
     };
   },
   created() {
-    eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
-      this.showRegisterMenu = !this.showRegisterMenu;
-    });
-    eventBus.$on(EVENT_ADD_CUSTOMER, time => {
-      this.timeCustomerReg = time;
-    });
-    eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
-      this.showEditWorkingHours = true;
-    });
-    eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
-      this.selectedCmp = selectedCmp;
-      this.isToolbarShow = true;
-    });
-    eventBus.$on(EVENT_UPDATE_USER, () => {
-      console.log('Emiting update user!')
-      this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user})
-    });
+    this.registerToEventBus();
   },
   computed: {
     user() {
@@ -120,6 +102,32 @@ export default {
     );
   },
   methods: {
+    registerToEventBus() {
+      eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
+        this.showRegisterMenu = !this.showRegisterMenu;
+      });
+
+      eventBus.$on(EVENT_TOGGLE_EDIT_WORK_HOURS, _ => {
+        this.showEditWorkingHours = !this.showEditWorkingHours;
+      });
+
+      eventBus.$on(EVENT_ADD_CUSTOMER, time => {
+        this.timeCustomerReg = time;
+      });
+
+      eventBus.$on(EVENT_OPEN_EDITOR_WORKING_HOURS, _ => {
+        this.showEditWorkingHours = true;
+      });
+
+      eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
+        this.selectedCmp = selectedCmp;
+        this.isToolbarShow = true;
+      });
+
+      eventBus.$on(EVENT_UPDATE_USER, () => {
+        this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user });
+      });
+    },
     dragCmp(ev) {
       this.dragOriginOrderCmp = ev.target.style.order;
       this.draggedCmp = ev.target;
@@ -167,7 +175,7 @@ export default {
     toolbarCmp,
     registerCustomer,
     editMenuCmp,
-    editWorkingHoursCmp
+    editWorkingHours
   }
 };
 </script>
