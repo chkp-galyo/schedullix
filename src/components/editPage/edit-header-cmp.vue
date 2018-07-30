@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader">
+  <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
         @click.stop="openToolbar">
         <v-icon dark>edit</v-icon>

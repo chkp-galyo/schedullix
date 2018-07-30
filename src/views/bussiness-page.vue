@@ -1,40 +1,28 @@
 <template>
 <section class="bussiness-page" >
-    <v-tabs
-    centered
-    light
-    icons-and-text
-  >
-    <v-tabs-slider color="black"></v-tabs-slider>
+    <v-tabs centered light icons-and-text>
+        <v-tabs-slider color="black"></v-tabs-slider>
 
-    <v-tab @click="changeState('calender')">
-      My Bussiness
-      <v-icon large>event</v-icon>
-    </v-tab>
+        <v-tab @click="changeState('calender')">
+          My Bussiness
+          <v-icon large>event</v-icon>
+        </v-tab>
 
-    <v-tab @click="changeState('page')">
-      My Page
-      <v-icon large>home</v-icon>
-    </v-tab>
+        <v-tab @click="changeState('page')">
+          My Page
+          <v-icon large>home</v-icon>
+        </v-tab>
 
-    <v-tab @click="changeState('profile')">
-      My Profile
-      <v-icon large>account_box</v-icon>
-    </v-tab>
-
-    <v-tab-item
-      v-for="i in 3"
-      :id="'tab-' + i"
-      :key="i"
-    >
-      <v-card flat>
-        <!-- <v-card-text>{{ text }}</v-card-text> -->
-      </v-card>
-    </v-tab-item>
+        <v-tab @click="changeState('profile')">
+          My Profile
+          <v-icon large>account_box</v-icon>
+        </v-tab>
   </v-tabs>
+
     <bussiness-calender :event="user.customers" :timePerCustomer="user.timePerCustomer" v-if="calender"></bussiness-calender>
     <bussiness-profile v-if="profile"></bussiness-profile>
     <bussiness-page v-if="page"></bussiness-page>
+    
 </section>
     
 </template>

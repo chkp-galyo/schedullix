@@ -8,12 +8,10 @@
           </section>
 
           <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" 
-                @click="showRegisterMenu = false, showEditWorkingHours = false">
-              <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg">
-              </register-customer>
-              <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours">
-              </edit-working-hours> 
-          </div>
+                  @click="showRegisterMenu = false, showEditWorkingHours = false">
+              <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"/>
+              <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours"/>
+          </div> 
 
           <section @click="toggleEdit" :class="{'cmp' : isAdmin}" class="header" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
               <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />

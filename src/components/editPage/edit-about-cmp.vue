@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-about" :style="styleObjContainer">
+  <div class="edit-about animated bounceInRight" :style="styleObjContainer">
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
       @click.stop="openToolbar">
       <v-icon dark>edit</v-icon>
