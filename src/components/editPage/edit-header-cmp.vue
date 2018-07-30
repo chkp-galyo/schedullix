@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-header" :style="headerConfig.styleObj" ref="divHeader">
+  <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
     <div class="cmp-cover">
     <textarea class="header-text" :value="headerConfig.titleTxt" @input="updateTitle"> </textarea>
 

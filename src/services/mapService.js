@@ -1,11 +1,6 @@
 import axios from 'axios'
 const API_KEY= 'AIzaSyDoi7G5B3YG0m2gZ_mxK_uTd7OmkRYvaWE'
 
-function query() {
-    console.log('i am a query');
-
-}
-
 function getAddress(location) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${API_KEY}`)
         .then(res=>{
@@ -14,6 +9,5 @@ function getAddress(location) {
 }
 
 export default {
-    query,
     getAddress
 }

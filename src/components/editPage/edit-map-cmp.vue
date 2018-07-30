@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="edit-map" :style="mapConfig.styleObj">
+  <div class="edit-map animated bounceInRight" :style="mapConfig.styleObj">
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
         @click.stop="openToolbar">
         <v-icon dark>edit</v-icon>
