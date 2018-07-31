@@ -1,5 +1,5 @@
 <template>
-    <div class="edit-page">
+    <div v-if="user" class="edit-page">
           <h1>
             MODE PAGE: {{modePage}}
           </h1>

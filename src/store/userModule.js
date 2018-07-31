@@ -5,6 +5,7 @@ export const ACT_LOAD_USER = 'user/actions/loadUser'
 export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 export const ACT_ADD_USER = 'user/actions/addUser'
 export const ACT_UPDATE_USER = 'user/actions/updateUser'
+export const ACT_CHECK_USER_LOGIN = 'user/actions/checkLoginUser'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -31,12 +32,14 @@ export const MUT_TOGGLE_CALENDER_THEME = 'user/mutations/toggleCalenderTheme'
 export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLandscape'
 export const MUT_UPDATE_APPT_LIST_COLOR_CMP = 'user/mutations/updateApptListColor'
 export const MUT_UPDATE_IS_ACTIVE_CMP = 'user/mutations/updateCmpIsActive'
+export const MUT_LOGIN_USER = 'user/mutations/loginUser'
+
 
 export default {
     state: {
-        user: userService.getLoggedInUser(),
+        user: null,
         tempUser: null,
-        isLogin: false
+        isLogin: userService.isLoggedinUser()
     },
     getters: {
         [GETTER_IS_LOGIN](state) {
@@ -71,14 +74,14 @@ export default {
         },
 
         [GETTER_USER](state) {
-            return state.user;
+            return state.user ? state.user : null;
         },
         [GETTER_TEMP_USER](state) {
             return state.tempUser;
         },
 
         [GETTER_USER_ID](state) {
-            return state.user._id
+            return state.user ? state.user._id : null
         },
 
         [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -87,7 +90,7 @@ export default {
             });
         },
         [GETTER_CALENDER_COLOR](state) {
-            return state.user.configElements.schedule.styleDate.colorHeader
+            return state.user ? state.user.configElements.schedule.styleDate.colorHeader : null
         }
     },
     mutations: {
@@ -104,7 +107,9 @@ export default {
         }) {
             state.user.configElements.about.mainTxt = aboutTxt
         },
-
+        [MUT_LOGIN_USER](state){
+            state.isLogin = !state.isLogin
+        },
         [MUT_UPDATE_HEADER_IMG](state, {
             imgUrl
         }) {
@@ -166,6 +171,9 @@ export default {
                         type: MUT_SET_USER,
                         user
                     })
+                    context.commit({
+                        type: MUT_LOGIN_USER
+                    })
                     return user;
                 })
                 .catch(
@@ -207,6 +215,18 @@ export default {
                         user: payload.user
                     })
                 })
+        },
+        [ACT_CHECK_USER_LOGIN](context) {
+            if(context.state.isLogin) {
+                return userService.getLoggedInUser()
+                    .then(user => {
+                        console.log('ACT_CHECK_USER_LOGIN', user)
+                        context.commit({
+                            type: MUT_SET_USER,
+                            user
+                        })
+                    })
+            }
         }
     }
 }

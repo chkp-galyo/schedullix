@@ -15,7 +15,8 @@ export default {
     addUser,
     updateUser,
     addCustomer,
-    getDefaultUser
+    getDefaultUser,
+    isLoggedinUser
 }
 
 function updateUser(user) {
@@ -57,12 +58,17 @@ function logout() {
 
 function getLoggedInUser() {
     console.log('this is loggedin user', loggedinUser)
-    if (!loggedinUser) return null
+
     return axios.get(`${URL}/${loggedinUser}`)
         .then((res) => {
             console.log('Got user logged in', res.data)
             return res.data
         })
+}
+
+function isLoggedinUser() {
+    if (!loggedinUser) return false
+    else return true
 }
 
 function _setLoggedinUser(user) {

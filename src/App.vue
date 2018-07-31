@@ -24,7 +24,7 @@
                         Home
                     </v-tab>
                     
-                    <v-menu v-if="user" color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
+                    <v-menu color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
                         <a slot="activator" class="v-tabs__item">
                             Bussiness
                             <v-icon>arrow_drop_down</v-icon>
@@ -50,6 +50,7 @@
 
 <script>
 import userService from "@/services/userService.js";
+import { ACT_CHECK_USER_LOGIN, GETTER_IS_LOGIN } from './store/userModule';
 export default {
   data() {
     return {
@@ -62,12 +63,11 @@ export default {
     };
   },
   created() {
-    var user;
-    user = userService.getLoggedInUser();
-    if (user) {
-      console.log("user", user);
-      this.user = user;
-    }
+      this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN })
+        .then(user => {
+          console.log('APP VUE >', user)
+          this.user = user
+        })
   },
   methods: {
     changeLoction(url) {
@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     loggedInUser() {
-      return userService.getLoggedInUser();
+      return this.$store.getters[GETTER_IS_LOGIN];
     }
   }
 };
