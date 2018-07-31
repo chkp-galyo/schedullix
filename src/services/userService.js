@@ -15,7 +15,8 @@ export default {
     addUser,
     updateUser,
     addCustomer,
-    getDefaultUser
+    getDefaultUser,
+    getUserCustomers
 }
 
 function updateUser(user) {
@@ -45,6 +46,20 @@ function addUser(user) {
     return axios.post(URL, user)
         .then(res => {
             return (res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+function getUserCustomers(userId){
+    console.log('user service, user ID:',userId);
+    
+    return axios.post(URL + '/customers', {userId})
+        .then(res =>{
+            console.log('res from backend',res.data );
+            
+            return res.data
         })
         .catch(err => {
             console.log(err)

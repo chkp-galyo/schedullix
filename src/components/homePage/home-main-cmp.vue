@@ -3,6 +3,45 @@
 
       <section>
         <v-layout column wrap class="my-5" align-center>
+          <div class="doctor-section">
+            <div class="doctor-template">
+              <img src="https://apiterapia.com.co/wp-content/uploads/2017/07/doctor.png" alt="">
+            </div>
+            <div class="doctor-side">
+              <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nemo nihil veniam dolore 
+              natus rem consectetur
+               itaque dolorum autem, cumque quo repudiandae ad laborum maxime sunt iure. Voluptatum, quod in!
+              </p>
+              <v-btn large color="primary">Try doctor template</v-btn>
+            </div>
+          </div>
+          <div class="barber-section">
+            <div class="barber-side">
+              <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nemo nihil veniam dolore 
+              natus rem consectetur
+               itaque dolorum autem, cumque quo repudiandae ad laborum maxime sunt iure. Voluptatum, quod in!
+              </p>
+              <v-btn large color="primary">Try barber template</v-btn>
+            </div>
+            <div class="barber-template">
+              <img src="http://pluspng.com/img-png/barber-shop-png-4-png-2741.png" alt="">
+            </div>
+          </div>
+          <div class="beautician-section">
+            <div class="beautician-template">
+              <img src="https://skinpurrfect.com.au/wp-content/uploads/2017/07/Beauty-Icon-4.png" alt="">
+            </div>
+            <div class="beautician-side">
+              <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum nemo nihil veniam dolore 
+              natus rem consectetur
+               itaque dolorum autem, cumque quo repudiandae ad laborum maxime sunt iure. Voluptatum, quod in!
+              </p>
+              <v-btn large color="primary">Try beautician template</v-btn>
+            </div>
+          </div>
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
               <h2 class="headline">Help Us Help You</h2>
@@ -65,58 +104,6 @@
           </v-flex>
         </v-layout>
       </section>
-      <ul>
-
-<v-flex xs12>
-<v-container grid-list-xl>
-    <v-layout row wrap align-center>
-      <v-flex xs12 md4>
-        <v-card>
-          <v-card-media
- src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px">
-          </v-card-media>
-          <v-card-title primary-title>
-            <div>
-              <div class="headline">Top western road trips</div>
-              <span class="grey--text">1,000 miles of wonder</span>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 md4>
-        <v-card>
-          <v-card-media
- src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px">
-          </v-card-media>
-          <v-card-title primary-title>
-            <div>
-              <div class="headline">Top western road trips</div>
-              <span class="grey--text">1,000 miles of wonder</span>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 md4>
-        <v-card>
-          <v-card-media
- src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px">
-          </v-card-media>
-          <v-card-title primary-title>
-            <div>
-              <div class="headline">Top western road trips</div>
-              <span class="grey--text">1,000 miles of wonder</span>
-            </div>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-    </v-layout>
-</v-container>
-</v-flex>
-      </ul>
-
-      <section>
-        
-      </section>
     </section>
   </template>
 
@@ -136,5 +123,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.home-main{
+  // background-color: white;
+}
+.beautician-section,
+.doctor-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  width: 100%;
+  background-color: #b2b2b2;
+}
+.barber-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  width: 100%;
+  background-color: white;
+}
+.beautician-template ,
+.barber-template ,.doctor-template{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 30vw;
+  padding: 2em;
+}
+.beautician-template img ,
+.barber-template img ,.doctor-template img{
+  width: 100%;
+  height: 80%;
+}
+.beautician-side,
+.barber-side ,.doctor-side{
+  width: 50vw;
+  padding: 2em;
+  font-size: 2em;
+}
 </style>

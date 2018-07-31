@@ -1,8 +1,8 @@
 <template>
     <div class="home">
-        <home-header></home-header>
         <v-app light>
             <v-content>
+        <home-header></home-header>
                 <home-main></home-main>
                 <home-footer></home-footer>
 

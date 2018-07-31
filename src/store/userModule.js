@@ -2,6 +2,7 @@ import userService from '../services/userService.js'
 
 //------------------------------ ACTIONS ------------------------------
 export const ACT_LOAD_USER = 'user/actions/loadUser'
+export const ACT_LOAD_USER_CUSTOMER = 'user/actions/loadUserCustomer'
 export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 export const ACT_ADD_USER = 'user/actions/addUser'
 export const ACT_UPDATE_USER = 'user/actions/updateUser'
@@ -15,6 +16,7 @@ export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
 
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
+export const MUT_UPDATE_CUSTOMER = 'user/mutations/updateCustomer'
 export const MUT_UPDATE_ABOUT_TXT = 'user/mutations/updateAboutTxt'
 export const MUT_UPDATE_HEADER_IMG = 'user/mutations/updateHeaderImg'
 export const MUT_SET_USER = 'user/mutations/setUser'
@@ -86,6 +88,7 @@ export default {
         }
     },
     mutations: {
+
         [MUT_ADD_CUSTOMER](state, payload) {
             state.user.customers.unshift(payload.customer);
         },
@@ -111,6 +114,9 @@ export default {
         },
         [MUT_UPDATE_WORKING_HOURS](state, {workingHours}) {
             state.user.workingHours = workingHours
+        },
+        [MUT_UPDATE_CUSTOMER](state, {customers}) {
+            state.user.customers = customers
         },
         [MUT_UPDATE_COLOR_CMP](state, payload) {
             state.user.configElements[payload.cmp].styleObj[payload.propertyToUpdate] = payload.value
@@ -150,6 +156,20 @@ export default {
                         return err;
                     }
                 )
+        },
+        [ACT_LOAD_USER_CUSTOMER](context){
+            console.log('store load customers');
+            console.log('store load customers, context', context);
+            
+            return userService.getUserCustomers(context.state.user._id)
+                .then(customers =>{
+                    console.log('store customers:',customers);
+                    context.commit({
+                        type: MUT_UPDATE_CUSTOMER ,
+                        customers
+                    })
+                    return {timePerCustomer:context.state.user.timePerCustomer,customers};
+                })
         },
 
         [ACT_ADD_USER](context, payload) {
