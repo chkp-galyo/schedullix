@@ -42,7 +42,8 @@ import userService from "@/services/userService.js";
 import {
   ACT_LOAD_USER,
   GETTER_IS_LOGIN,
-  GETTER_USER_ID
+  GETTER_USER_ID,
+  ACT_CHECK_USER_LOGIN
 } from "@/store/userModule.js";
 
 export default {
@@ -69,8 +70,10 @@ export default {
     getStarted() {
       var isLogin = this.$store.getters[GETTER_IS_LOGIN];
       if (isLogin) {
-        var userId = this.$store.getters[GETTER_USER_ID];
-        this.$router.push(`/${userId}/editPage`);
+        this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN})
+          .then(user => {
+            this.$router.push(`/${user._id}/editPage`);
+          })
       } else {
         this.$store.dispatch({ type: ACT_LOAD_USER, loginInfo:{email:"",password:""} })
             .then(user => {

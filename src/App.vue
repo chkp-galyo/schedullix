@@ -31,13 +31,13 @@
                         </a>
 
                         <v-list>
-                            <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${loggedInUser._id}/${item.route}`)">
+                            <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${loggedInUserId}/${item.route}`)">
                                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                             </v-list-tile>
                         </v-list>
                     </v-menu>
 
-                    <v-tab v-if="!loggedInUser" @click="changeLoction('/login')">
+                    <v-tab v-if="!loggedInUserId" @click="changeLoction('/login')">
                         login
                     </v-tab>
                 </v-tabs>
@@ -50,7 +50,7 @@
 
 <script>
 import userService from "@/services/userService.js";
-import { ACT_CHECK_USER_LOGIN, GETTER_IS_LOGIN } from './store/userModule';
+import { ACT_CHECK_USER_LOGIN, GETTER_IS_LOGIN, GETTER_USER_ID } from './store/userModule';
 export default {
   data() {
     return {
@@ -63,11 +63,11 @@ export default {
     };
   },
   created() {
-    //   this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN })
-    //     .then(user => {
-    //       console.log('APP VUE >', user)
-    //       this.user = user
-    //     })
+      this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN })
+        .then(user => {
+          console.log('APP VUE >', user)
+          this.user = user
+        })
   },
   methods: {
     changeLoction(url) {
@@ -75,8 +75,8 @@ export default {
     }
   },
   computed: {
-    loggedInUser() {
-      return this.$store.getters[GETTER_IS_LOGIN];
+    loggedInUserId() {
+      return this.$store.getters[GETTER_USER_ID];
     }
   }
 };
