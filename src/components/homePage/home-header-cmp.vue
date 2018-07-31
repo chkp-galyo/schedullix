@@ -39,7 +39,11 @@
  
 <script>
 import userService from "@/services/userService.js";
-import { ACT_LOAD_USER } from "@/store/userModule.js";
+import {
+  ACT_LOAD_USER,
+  GETTER_IS_LOGIN,
+  GETTER_USER_ID
+} from "@/store/userModule.js";
 
 export default {
   data() {
@@ -62,19 +66,22 @@ export default {
     };
   },
   methods: {
-    getStarted(){
-      const user = userService.getLoggedInUser()
-      if(user){
-        this.$router.push(`/${user._id}/editPage`)
+    getStarted() {
+      var isLogin = this.$store.getters[GETTER_IS_LOGIN];
+      if (isLogin) {
+        var userId = this.$store.getters[GETTER_USER_ID];
+        this.$router.push(`/${userId}/editPage`);
       } else {
-        const loginInfo = {email: "",
-        password: ""}
+        const loginInfo = {
+          email: "",
+          password: ""
+        };
         this.$store
-        .dispatch({ type: ACT_LOAD_USER, loginInfo })
-        .then(user => {
-          this.$router.push(`/app/${user._id}/editPage`);
-        })
-        .catch();
+          .dispatch({ type: ACT_LOAD_USER, loginInfo })
+            .then(user => {
+              this.$router.push(`/app/${user._id}/editPage`);
+            })
+            .catch();
       }
     }
   }

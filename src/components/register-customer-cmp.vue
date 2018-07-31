@@ -23,8 +23,9 @@
                 </section>
                 
                 <section>
-                    <button type="submit">Confirm</button>
+                    <button disabled="modePage === 'publish'" type="submit">Confirm</button>
                     <button @click.prevent="cancelRegisterCustomer">Cancel</button>
+                    <h4 v-if="modePage === 'edit'">This part works only after uot publish your page!</h4>
                 </section>
             </form>
         </div>
@@ -47,7 +48,8 @@ import successCheck from "@/components/success-check-cmp.vue";
 export default {
   name: "register-customer-cmp",
   props: {
-    timeCustomer: Number
+    timeCustomer: Number,
+    modePage: String
   },
   components: {
     successCheck
@@ -114,6 +116,7 @@ button {
   border: 1px solid black;
   border-radius: 6px;
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 form {
   margin: auto;
@@ -145,5 +148,11 @@ input:focus {
 
 h1 {
   font-size: 30px;
+}
+
+h4 {
+  // margin-top: 10px;
+  color: red;
+  font-size: 10px;
 }
 </style>

@@ -6,6 +6,7 @@ export const ACT_LOAD_USER_CUSTOMER = 'user/actions/loadUserCustomer'
 export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 export const ACT_ADD_USER = 'user/actions/addUser'
 export const ACT_UPDATE_USER = 'user/actions/updateUser'
+export const ACT_CHECK_USER_LOGIN = 'user/actions/checkLoginUser'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -13,7 +14,7 @@ export const GETTER_USER = 'user/getters/user'
 export const GETTER_TEMP_USER = 'user/getters/tempUser'
 export const GETTER_USER_ID = 'user/getters/userId'
 export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
-
+export const GETTER_IS_LOGIN = 'user/getters/isLogin'
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 export const MUT_UPDATE_CUSTOMER = 'user/mutations/updateCustomer'
@@ -31,13 +32,22 @@ export const MUT_UPDATE_HEADER_TITLE = 'user/mutations/updateHeaderTitle'
 export const MUT_UPDATE_CALENDER_BG_COLOR = 'user/mutations/updateCalenderBgColor'
 export const MUT_TOGGLE_CALENDER_THEME = 'user/mutations/toggleCalenderTheme'
 export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLandscape'
+export const MUT_UPDATE_APPT_LIST_COLOR_CMP = 'user/mutations/updateApptListColor'
+export const MUT_UPDATE_IS_ACTIVE_CMP = 'user/mutations/updateCmpIsActive'
+export const MUT_LOGIN_USER = 'user/mutations/loginUser'
+
 
 export default {
     state: {
-        user: userService.getLoggedInUser(),
-        tempUser:null,
+        user: null,
+        tempUser: null,
+        isLogin: userService.isLoggedinUser()
     },
     getters: {
+        [GETTER_IS_LOGIN](state) {
+            return state.isLogin;
+        },
+
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
             var listForDay = [];
             var selectDateObj = new Date(dateSelectedTimestamp);
@@ -46,8 +56,6 @@ export default {
             var timePerCustomer = state.user.timePerCustomer
             var time = { ...day.hoursOpen.startTime
             };
-
-
             listForDay.push({ ...time
             })
             listForDay[listForDay.length - 1].timestamp = generatorTimestamp(selectDateObj, `${time.hours}:${time.minutes}`);
@@ -68,14 +76,14 @@ export default {
         },
 
         [GETTER_USER](state) {
-            return state.user;
+            return state.user ? state.user : null;
         },
         [GETTER_TEMP_USER](state) {
             return state.tempUser;
         },
 
         [GETTER_USER_ID](state) {
-            return state.user._id
+            return state.user ? state.user._id : null
         },
 
         [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -84,7 +92,7 @@ export default {
             });
         },
         [GETTER_CALENDER_COLOR](state) {
-            return state.user.configElements.schedule.styleDate.colorHeader
+            return state.user ? state.user.configElements.schedule.styleDate.colorHeader : null
         }
     },
     mutations: {
@@ -97,22 +105,33 @@ export default {
             state.user.location = payload.userLocation
         },
 
-        [MUT_UPDATE_ABOUT_TXT](state, {aboutTxt}) {
+        [MUT_UPDATE_ABOUT_TXT](state, {
+            aboutTxt
+        }) {
             state.user.configElements.about.mainTxt = aboutTxt
         },
-
-        [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
+        [MUT_LOGIN_USER](state){
+            state.isLogin = !state.isLogin
+        },
+        [MUT_UPDATE_HEADER_IMG](state, {
+            imgUrl
+        }) {
             state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
-            console.log(state.user)
         },
 
-        [MUT_SET_USER](state, {user}) {
+        [MUT_SET_USER](state, {
+            user
+        }) {
             state.user = user;
         },
-        [MUT_SET_TEMP_USER](state, {user}) {
+        [MUT_SET_TEMP_USER](state, {
+            user
+        }) {
             state.tempUser = user;
         },
-        [MUT_UPDATE_WORKING_HOURS](state, {workingHours}) {
+        [MUT_UPDATE_WORKING_HOURS](state, {
+            workingHours
+        }) {
             state.user.workingHours = workingHours
         },
         [MUT_UPDATE_CUSTOMER](state, {customers}) {
@@ -124,11 +143,15 @@ export default {
         [MUT_UPDATE_IMG](state, payload) {
             state.user.configElements[payload.cmp].styleObj['background-image'] = `url(${payload.imgUrl})`
         },
-        [MUT_UPDATE_HEADER_TITLE](state, {title}) {
+        [MUT_UPDATE_HEADER_TITLE](state, {
+            title
+        }) {
             state.user.configElements.header.titleTxt = title
         },
-        [MUT_UPDATE_CALENDER_BG_COLOR](state, {color}) {
-            state.user.configElements.schedule.styleDate.colorHeader = color            
+        [MUT_UPDATE_CALENDER_BG_COLOR](state, {
+            color
+        }) {
+            state.user.configElements.schedule.styleDate.colorHeader = color
         },
         [MUT_TOGGLE_CALENDER_THEME](state) {
             var styleDate = state.user.configElements.schedule.styleDate
@@ -138,6 +161,12 @@ export default {
         [MUT_TOGGLE_CALENDER_LANDSCAPE](state) {
             var styleDate = state.user.configElements.schedule.styleDate
             styleDate.landscape = !styleDate.landscape 
+        },
+        [MUT_UPDATE_APPT_LIST_COLOR_CMP](state, {color}) {
+            state.user.configElements.schedule.styleApptsList.background = color
+        },
+        [MUT_UPDATE_IS_ACTIVE_CMP](state, {cmp}) {
+            state.user.configElements[cmp].isActive = !state.user.configElements[cmp].isActive
         }
     },
     actions: {
@@ -147,6 +176,9 @@ export default {
                     context.commit({
                         type: MUT_SET_USER,
                         user
+                    })
+                    context.commit({
+                        type: MUT_LOGIN_USER
                     })
                     return user;
                 })
@@ -185,17 +217,17 @@ export default {
 
         [ACT_ADD_CUSTOMER](context, payload) {
             return userService.addCustomer(payload.userId, payload.customer)
-            .then(() => {
-                context.commit({
-                    type: MUT_ADD_CUSTOMER,
-                    customer: payload.customer
+                .then(() => {
+                    context.commit({
+                        type: MUT_ADD_CUSTOMER,
+                        customer: payload.customer
+                    })
                 })
-            })
         },
 
         [ACT_UPDATE_USER](context, payload) {
             console.log(payload.user);
-            
+
             return userService.updateUser(payload.user)
                 .then(() => {
                     context.commit({
@@ -203,6 +235,18 @@ export default {
                         user: payload.user
                     })
                 })
+        },
+        [ACT_CHECK_USER_LOGIN](context) {
+            if(context.state.isLogin) {
+                return userService.getLoggedInUser()
+                    .then(user => {
+                        console.log('ACT_CHECK_USER_LOGIN', user)
+                        context.commit({
+                            type: MUT_SET_USER,
+                            user
+                        })
+                    })
+            }
         }
     }
 }

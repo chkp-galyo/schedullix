@@ -1,48 +1,53 @@
 <template>
-<section>
-      <section class="edit-menu flex">
-        <v-btn fab dark color="green" class="save-page" title="Save and Publish"
-            @click="updateUser">
-            <v-icon dark>save</v-icon>
-        </v-btn>
-        <!-- <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-                @click="isToolbarShow = !isToolbarShow">
-            <v-icon dark>edit</v-icon>
-        </v-btn> -->
-        <!-- <v-btn fab dark color="blue" class="open-toolbar" title="Add area">
-            <v-icon dark>add</v-icon>
-        </v-btn> -->
-      </section>
-</section>
+    <section>
+        <section class="edit-menu flex">
+            <v-btn fab dark color="green" title="Save" @click="saveUserPage">
+                <v-icon dark>save</v-icon>
+            </v-btn>
+
+            <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" v-if="modePage === 'edit'">
+                <v-icon dark>publish</v-icon>
+            </v-btn> 
+
+             <v-btn fab dark color="green" title="Edit" @click="changeMode('edit')" v-if="modePage === 'publish'">
+                <v-icon dark>edit</v-icon>
+            </v-btn> 
+
+            <!-- <v-btn fab dark color="blue" class="open-toolbar" title="Add area">
+                <v-icon dark>add</v-icon>
+            </v-btn> -->
+        </section>
+    </section>
 </template>
 
 <script>
-import toolbarService from "@/services/toolbarService.js";
-import toolbarCmp from "@/components/editPage/edit-toolbar-cmp.vue";
-import { ACT_UPDATE_USER } from '@/store/userModule.js'
-import { eventBus,
-        EVENT_UPDATE_USER } from '@/services/event-bus-service.js'
+import { ACT_UPDATE_USER } from "@/store/userModule.js";
+
+import {
+  eventBus,
+  EVENT_UPDATE_USER,
+  EVENT_CHANGE_MODE_PAGE
+} from "@/services/event-bus-service.js";
 
 export default {
-  name: "editMenu",
-  props: ['selcetedCmp'],
-  components: {
-      toolbarCmp
+  name: "edit-menu-cmp",
+  props: {
+    modePage: String
   },
+  components: {},
   data() {
-    return {
-      isToolbarShow: false,
-    };
+    return {};
   },
   methods: {
-      updateUser() {
-          eventBus.$emit(EVENT_UPDATE_USER)
-      }
+    saveUserPage() {
+      eventBus.$emit(EVENT_UPDATE_USER);
+    },
+    changeMode(mode) {
+      eventBus.$emit(EVENT_CHANGE_MODE_PAGE, mode);
+    }
   },
-  created() {
-      console.log('Edit menu created')
-  },
-}
+  created() {}
+};
 </script>
 
 <style scoped lang="scss">

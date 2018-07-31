@@ -1,54 +1,41 @@
-
-
 <template>
-  <div class="edit-map animated bounceInRight" :style="mapConfig.styleObj">
-    <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-        @click.stop="openToolbar">
-        <v-icon dark>edit</v-icon>
-    </v-btn>
-    <section class="map-container">
+    <div class="edit-map animated bounceInRight" :style="mapConfig.styleObj">
+        <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
+            @click.stop="openToolbar" v-if="modePage === 'edit'">
+            <v-icon dark>edit</v-icon>
+        </v-btn>
+        <section class="map-container">
+          <div class="side-map">
+              <h2> {{this.address}}</h2>
+          </div>
 
-    <div class="side-map">
-        <!-- <h1>Address:</h1> -->
-        <h2> {{this.address}}</h2>
+          <gmap-map :center="center" :zoom="16" style="width:50vh;  height:50vh ;">
+            <gmap-marker :key="index" v-for="(m, index) in markers" 
+                          :position="m.position" @click="center=m.position">
+            </gmap-marker>
+          </gmap-map>
+        </section>
     </div>
-    <gmap-map
-      :center="center"
-      :zoom="16"  
-      style="width:50vh;  height:50vh ;"
-    >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        @click="center=m.position"
-      ></gmap-marker>
-    </gmap-map>
-    </section>
-  </div>
 </template>
 
 <script>
 import mapService from "../../services/mapService.js";
 import { MUT_SET_USER_LOC } from "../../store/userModule.js";
-import {    eventBus, 
-            EVENT_OPEN_TOOL_BAR,
-            EVENT_ADDRESS_CHANGE } from "@/services/event-bus-service.js";
+import {
+  eventBus,
+  EVENT_OPEN_TOOL_BAR,
+  EVENT_ADDRESS_CHANGE
+} from "@/services/event-bus-service.js";
 
 export default {
   name: "editMap",
   props: {
-    location: {
-      type: Object
-    },
-    mapConfig: {
-      type: Object
-    }
+    location: Object,
+    mapConfig: Object,
+    modePage: String
   },
   data() {
     return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
       center: {},
       markers: [],
       places: [],
@@ -56,12 +43,12 @@ export default {
       currentPlace: null
     };
   },
-    created() {
-        eventBus.$on(EVENT_ADDRESS_CHANGE, (address) =>{
-            this.setPlace(address)
-            this.addMarker()
-        })
-    },
+  created() {
+    eventBus.$on(EVENT_ADDRESS_CHANGE, address => {
+      this.setPlace(address);
+      this.addMarker();
+    });
+  },
   mounted() {
     this.geolocate();
     if (this.location) {
@@ -77,7 +64,6 @@ export default {
   methods: {
     // receives a place object via the autocomplete component
     setPlace(place) {
-        console.log('setting place', place)
       this.currentPlace = place;
       var userLocation = {
         lat: this.currentPlace.geometry.location.lat(),
@@ -135,7 +121,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .side-map {
   width: 50%;
   min-width: 300px;
@@ -149,11 +134,11 @@ export default {
 }
 
 h1 {
-    margin: 0;
+  margin: 0;
 }
 
 h2 {
-    margin: auto;
+  margin: auto;
 }
 input {
   padding: 1em;
@@ -164,17 +149,17 @@ input {
 .edit-map {
   padding: 1em;
   display: block;
+  border: 1px solid black;
 }
 
 .map-container {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
-.open-toolbar{
-    position: absolute;
-    right: 1%;
-    z-index: 10;
+.open-toolbar {
+  position: absolute;
+  right: 1%;
+  z-index: 10;
 }
-
 </style>

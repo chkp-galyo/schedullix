@@ -24,7 +24,7 @@
                         Home
                     </v-tab>
                     
-                    <v-menu v-if="user" color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
+                    <v-menu color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
                         <a slot="activator" class="v-tabs__item">
                             Bussiness
                             <v-icon>arrow_drop_down</v-icon>
@@ -50,20 +50,24 @@
 
 <script>
 import userService from "@/services/userService.js";
+import { ACT_CHECK_USER_LOGIN, GETTER_IS_LOGIN } from './store/userModule';
 export default {
   data() {
     return {
-        user:'',
-        items:[{title:'Bussiness Calender', route:'bussinessCalender'}, {title:'Bussiness Profile' , route:'bussinessProfile'}, {title:'Bussiness Page' , route:'editPage'}],
+      user: "",
+      items: [
+        { title: "Bussiness Calender", route: "bussinessCalender" },
+        { title: "Bussiness Profile", route: "bussinessProfile" },
+        { title: "Bussiness Page", route: "editPage" }
+      ]
     };
   },
   created() {
-    var user;
-    user = userService.getLoggedInUser();
-    if (user) {
-      console.log("user", user);
-      this.user = user
-    }
+    //   this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN })
+    //     .then(user => {
+    //       console.log('APP VUE >', user)
+    //       this.user = user
+    //     })
   },
   methods: {
     changeLoction(url) {
@@ -72,27 +76,31 @@ export default {
   },
   computed: {
     loggedInUser() {
-      return userService.getLoggedInUser();
+      return this.$store.getters[GETTER_IS_LOGIN];
     }
   }
 };
 </script>
 
 <style lang="scss">
-a.v-list__tile, a .v-list__tile--link{
-    color: #2c3e50!important
+a.v-list__tile,
+a .v-list__tile--link {
+  color: #2c3e50 !important;
 }
-.application, .theme--light{
-background-color: rgba(0, 0, 0, 0.3)!important;
+.application,
+.theme--light {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
-.v-toolbar, .v-toolbar--extended ,.theme--darkr{
-background-color: rgba(0, 0, 0, 0.3)!important;
+.v-toolbar,
+.v-toolbar--extended,
+.theme--darkr {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
-.application--wrap{
-    min-height: unset;
+.application--wrap {
+  min-height: unset;
 }
 .v-tabs__item {
-    color: white;
+  color: white;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -106,14 +114,14 @@ background-color: rgba(0, 0, 0, 0.3)!important;
   // text-decoration: ;
   a {
     font-weight: bold;
-    color:white;
+    color: white;
     font-size: 1.2em;
     &.router-link-exact-active {
       color: #42b983;
     }
   }
-  a:hover{
-      color: #e23c52
+  a:hover {
+    color: #e23c52;
   }
 }
 </style>

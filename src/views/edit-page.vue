@@ -1,33 +1,54 @@
 <template>
-    <div class="edit-page">
+    <div v-if="user" class="edit-page">
+          <h1>
+            MODE PAGE: {{modePage}}
+          </h1>
 
-          <editMenuCmp :selectedCmp = "selectedCmp" />
+          <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" v-if="isLogin"/>
 
           <section>
             <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
           </section>
 
+           <!--Modals  -->
           <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" 
                   @click="showRegisterMenu = false, showEditWorkingHours = false">
-              <register-customer v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"/>
+              <!-- modal for register customer  -->
+              <register-customer :modePage="modePage" v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"/>
+              <!-- modal for edit working hours of business user -->
               <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours"/>
           </div> 
 
-          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'header'}" class="header cmp" style="order: 1" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="header">
-              <header-cmp :headerConfig="user.configElements.header" v-if="user.configElements.header.isActive" />
+          <!-- HEARDER component -->
+          <section class="header" :class="{cmp: modePage === 'edit','edit-cmp': selectedCmp === 'header'}"
+                       style="order: 1" draggable="true" @dragstart="dragCmp"
+                        @drop="dropCmp"  @dragover="allowDrop"  ref="header"
+                          v-if="user.configElements.header.isActive">
+              <header-cmp :modePage="modePage" :headerConfig="user.configElements.header" />
           </section>
 
-          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'about'}" class="about cmp" style="order: 2" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="about">
-              <about-cmp :workingHours="user.workingHours" :aboutConfig="user.configElements.about" 
-                        v-if="user.configElements.about.isActive" /> 
+          <!-- ABOUT component -->
+          <section class="about" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'about'}"
+                       style="order: 2" draggable="true" @dragstart="dragCmp"
+                        @drop="dropCmp"  @dragover="allowDrop"  ref="about"
+                          v-if="user.configElements.about.isActive">
+              <about-cmp :modePage="modePage" :workingHours="user.workingHours" :aboutConfig="user.configElements.about"/> 
           </section>
 
-          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'schedule'}" class="schedule cmp" style="order: 3" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="schedule">
-              <schedule-cmp :schedule="user.configElements.schedule" />
+          <!-- SCHEDULE component -->
+          <section class="schedule" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'schedule'}"
+                       style="order: 3" draggable="true" @dragstart="dragCmp"
+                          @drop="dropCmp"  @dragover="allowDrop"  ref="schedule"
+                              v-if="user.configElements.about.isActive">
+              <schedule-cmp :modePage="modePage" :schedule="user.configElements.schedule" />
           </section>
 
-          <section @click="toggleEdit" :class="{'edit-cmp' : selectedCmp === 'map'}" class="map cmp" style="order: 4" draggable="true" @dragstart="dragCmp" @drop="dropCmp"  @dragover="allowDrop"  ref="map">
-              <edit-map-cmp :location="user.location" :mapConfig="user.configElements.map" />
+          <!-- MAP component -->
+          <section class="map" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'map'}"
+                       style="order: 4" draggable="true" @dragstart="dragCmp"
+                          @drop="dropCmp"  @dragover="allowDrop"  ref="map"
+                              v-if="user.configElements.about.isActive">
+              <edit-map-cmp :modePage="modePage" :location="user.location" :mapConfig="user.configElements.map" />
           </section>
     </div>
 </template>
@@ -52,9 +73,16 @@ import {
   EVENT_SELECTED_CMP,
   EVENT_OPEN_EDITOR_WORKING_HOURS,
   EVENT_OPEN_TOOL_BAR,
-  EVENT_UPDATE_USER
+  EVENT_UPDATE_USER,
+  EVENT_CHANGE_MODE_PAGE
 } from "@/services/event-bus-service.js";
-import { GETTER_USER, ACT_UPDATE_USER, MUT_SET_TEMP_USER } from "../store/userModule.js";
+
+import {
+  GETTER_USER,
+  GETTER_IS_LOGIN,
+  ACT_UPDATE_USER,
+  MUT_SET_TEMP_USER
+} from "../store/userModule.js";
 
 export default {
   name: "edit-page",
@@ -63,15 +91,14 @@ export default {
       modePage: "edit",
       showRegisterMenu: false,
       showEditWorkingHours: false,
-
+      isLogin: this.$store.getters[GETTER_IS_LOGIN],
       timeCustomerReg: null,
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
       isToolbarShow: false,
       cmps: [],
-      selectedCmp: null,
-      isAdmin: true
+      selectedCmp: null
     };
   },
   created() {
@@ -101,6 +128,12 @@ export default {
   },
   methods: {
     registerToEventBus() {
+      // CHANGE_MODE_PAGE
+      eventBus.$on(EVENT_CHANGE_MODE_PAGE, mode => {
+        this.modePage = mode;
+      });
+
+      // open/close modal for register customer
       eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
         this.showRegisterMenu = !this.showRegisterMenu;
       });
@@ -118,23 +151,24 @@ export default {
       });
 
       eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
-        if((this.selectedCmp === selectedCmp || !selectedCmp) && this.isToolbarShow) {
+        if (
+          (this.selectedCmp === selectedCmp || !selectedCmp) &&
+          this.isToolbarShow
+        ) {
           this.isToolbarShow = false;
-          this.selectedCmp = null
+          this.selectedCmp = null;
+        } else {
+          this.isToolbarShow = true;
+          this.selectedCmp = selectedCmp;
         }
-        else {
-          this.isToolbarShow = true
-          this.selectedCmp = selectedCmp
-        } 
-        
       });
 
       eventBus.$on(EVENT_UPDATE_USER, () => {
-        if(this.user.email !== ""){
+        if (this.user.email !== "") {
           this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user });
         } else {
-          this.$store.commit({type:MUT_SET_TEMP_USER , user: this.user})
-          this.$router.push(`/signup`)
+          this.$store.commit({ type: MUT_SET_TEMP_USER, user: this.user });
+          this.$router.push(`/signup`);
         }
       });
     },
@@ -150,15 +184,6 @@ export default {
     },
     allowDrop(ev) {
       ev.preventDefault();
-    },
-    toggleEdit(ev) {
-      // this.cmps.forEach(cmp => {
-      //   cmp.classList.remove("edit-cmp");
-      // });
-      // var isEdit = this.selectedCmp.classList.contains("edit-cmp");
-      // if (!isEdit) this.selectedCmp.classList.add("edit-cmp");
-      // else this.selectedCmp.classList.remove("edit-cmp");
-      // eventBus.$emit(EVENT_SELECTED_CMP, this.selectedCmp);
     }
     // dragCmp(ev) {
     //   console.log(
@@ -220,7 +245,7 @@ export default {
   -webkit-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
-  z-index: 9999;
+  z-index: 1;
 }
 .register-container {
   width: 100vw;

@@ -16,7 +16,8 @@ export default {
     updateUser,
     addCustomer,
     getDefaultUser,
-    getUserCustomers
+    getUserCustomers,
+    isLoggedinUser
 }
 
 function updateUser(user) {
@@ -71,11 +72,22 @@ function logout() {
 }
 
 function getLoggedInUser() {
-    return loggedinUser;
+    console.log('this is loggedin user', loggedinUser)
+
+    return axios.get(`${URL}/${loggedinUser}`)
+        .then((res) => {
+            console.log('Got user logged in', res.data)
+            return res.data
+        })
+}
+
+function isLoggedinUser() {
+    if (!loggedinUser) return false
+    else return true
 }
 
 function _setLoggedinUser(user) {
-    loggedinUser = user;
+    loggedinUser = user._id;
     storageService.saveToStorage(STORAGE_KEY, loggedinUser)
 }
 
@@ -262,12 +274,7 @@ function getDefaultUser() {
                    light: false,
                },
                styleApptsList: {
-                   color: "white",
-                   background: "red",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "700",
-                   'text-align': "center",
+                   background: "red"
                }
            },
            map: {
