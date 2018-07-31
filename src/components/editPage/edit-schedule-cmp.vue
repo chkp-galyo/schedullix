@@ -8,11 +8,12 @@
         </section>
 
         <section class="schedule-container">
+          <v-app>
             <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
                               :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
                                 :dark="schedule.styleDate.dark" :width="400"  v-model="dateSelected"
                                 :min="minDate"/>
-
+          </v-app>
             <list-daily-appts class="list-cmp" :dateSelected="Date.parse(dateSelected)" :bgButtons="schedule.styleApptsList.background"/>
         </section>
     </section>

@@ -220,7 +220,7 @@ export default {
   -webkit-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
-  z-index: 9999;
+  z-index: 1;
 }
 .register-container {
   width: 100vw;

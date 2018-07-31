@@ -100,7 +100,6 @@ export default {
 
         [MUT_UPDATE_HEADER_IMG](state, {imgUrl}) {
             state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
-            console.log(state.user)
         },
 
         [MUT_SET_USER](state, {user}) {

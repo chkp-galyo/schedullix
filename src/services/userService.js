@@ -56,11 +56,17 @@ function logout() {
 }
 
 function getLoggedInUser() {
-    return loggedinUser;
+    console.log('this is loggedin user', loggedinUser)
+    if (!loggedinUser) return null
+    return axios.get(`${URL}/${loggedinUser}`)
+        .then((res) => {
+            console.log('Got user logged in', res.data)
+            return res.data
+        })
 }
 
 function _setLoggedinUser(user) {
-    loggedinUser = user;
+    loggedinUser = user._id;
     storageService.saveToStorage(STORAGE_KEY, loggedinUser)
 }
 
