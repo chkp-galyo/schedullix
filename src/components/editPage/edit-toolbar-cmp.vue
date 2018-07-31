@@ -1,8 +1,11 @@
 <template>
 <div>
+    <div class="hidden">
             <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
             <input type="color" class="hidden" ref="bgColor" @input="onInputBgColor">
-            <input type="color" class="hidden" ref="txtColor" @input="onInputTxtColor">            
+            <input type="color" class="hidden" ref="txtColor" @input="onInputTxtColor">         
+    </div>
+   
     <section class="toolbar">
 
       <section class="header" @mousedown="dragToolbar">
@@ -17,7 +20,6 @@
             </v-btn>
             <v-btn v-if="selectedCmp === 'about'" fab dark small color="purple" title="Change working hours" @click.stop="openWorkingHoursEditor">
                <v-icon dark>access_time</v-icon>
-               <input type="file">
             </v-btn>
             <v-btn fab dark small color="orange" title="Text color" @click.stop="openInputTxtColor">
                 <v-icon dark>format_color_text</v-icon>
@@ -27,11 +29,9 @@
             </v-btn>
             <v-btn v-if="selectedCmp === 'schedule'" fab dark small color="green" title="Change calender style">
                <v-icon dark>event</v-icon>
-               <input type="file">
             </v-btn>
             <v-btn v-if="selectedCmp === 'about' || selectedCmp === 'header'" fab dark small color="pink" title="Upload image" @click.stop="openInputFile">
                <v-icon dark>add_photo_alternate</v-icon>
-               <input type="file">
             </v-btn>
             <!-- <v-btn fab dark small color="red" title="Delete area" @click.stop="hideCmp">
                 <v-icon dark>delete</v-icon>
@@ -66,6 +66,7 @@
 
 <script>
 import toolbarService from "@/services/toolbarService.js";
+import utilsService from '@/services/utilsService.js'
 import {
   eventBus,
   EVENT_SELECTED_CMP,
@@ -90,6 +91,7 @@ export default {
       fonts: ["Arial", "Impact"],
       currCmp: null,
       calenderHeaderColor: ['blue', 'red', 'orange', 'yellow', 'brown', 'black', 'white', 'grey'],
+      show:false
     };
   },
   created(){
@@ -145,6 +147,11 @@ export default {
         this.$store.commit({type: MUT_UPDATE_IMG, cmp: this.selectedCmp, imgUrl: reader.result})
       };
       if (file) reader.readAsDataURL(file);
+      utilsService.doUploadImg(file)
+            .then(res => {
+                this.$store.commit({type: MUT_UPDATE_IMG, cmp: this.selectedCmp, imgUrl: res})
+            })
+            .catch(err => console.log('Upload failed, saved as dataURL'))
     },
     openWorkingHoursEditor(){
       eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS)
@@ -251,7 +258,9 @@ h3 {
    height: 38px;
    width: 38px;
    margin: 10px;
+   cursor: pointer;
 }
+
 
 .calender-color {
    border-radius: 50%;

@@ -246,12 +246,7 @@ function getDefaultUser() {
                    light: false,
                },
                styleApptsList: {
-                   color: "white",
-                   background: "red",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "700",
-                   'text-align': "center",
+                   background: "red"
                }
            },
            map: {
