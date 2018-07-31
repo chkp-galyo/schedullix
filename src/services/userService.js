@@ -18,7 +18,8 @@ export default {
     getDefaultUser,
     getUserCustomers,
     isLoggedinUser,
-    getUserLoggedinId
+    getUserLoggedinId,
+    getUserByBusinessName
 }
 
 function updateUser(user) {
@@ -79,6 +80,13 @@ function getLoggedInUser() {
         })
 }
 
+function getUserByBusinessName(businessName) {
+    return axios.get(`${URL}/business/${businessName}`)
+        .then(res => {
+            return res.data
+        })
+}
+
 function isLoggedinUser() {
     if (!loggedinUser) return false
     else return true
@@ -94,9 +102,11 @@ function _setLoggedinUser(user) {
 }
 
 function login(loginInfo) {
+    console.log('userService login info', loginInfo)
     return axios.post(URL + '/login', loginInfo)
         .then(res => {
             _setLoggedinUser(res.data)
+            console.log('user service login res', res.data)
             return (res.data)
         })
         .catch(err => {

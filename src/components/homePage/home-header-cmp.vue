@@ -69,6 +69,8 @@ export default {
   methods: {
     getStarted() {
       var isLogin = this.$store.getters[GETTER_IS_LOGIN];
+      console.log(isLogin);
+      
       if (isLogin) {
         this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN})
           .then(user => {

@@ -7,6 +7,8 @@ export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 export const ACT_ADD_USER = 'user/actions/addUser'
 export const ACT_UPDATE_USER = 'user/actions/updateUser'
 export const ACT_CHECK_USER_LOGIN = 'user/actions/checkLoginUser'
+export const ACT_LOAD_USER_BY_BUSINESS_NAME = 'user/actions/loadUserByBusinessName'
+
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -169,6 +171,7 @@ export default {
     },
     actions: {
         [ACT_LOAD_USER](context, payload) {
+            console.log('act load user', payload.loginInfo)
             return userService.login(payload.loginInfo)
                 .then(user => {
                     context.commit({
@@ -178,6 +181,7 @@ export default {
                     context.commit({
                         type: MUT_LOGIN_USER
                     })
+                    console.log('act load return user', user)
                     return user;
                 })
                 .catch(
@@ -245,6 +249,16 @@ export default {
                     return user
                     })
             }
+        },
+        [ACT_LOAD_USER_BY_BUSINESS_NAME](context, {businessName}) {
+            return userService.getUserByBusinessName(businessName)
+                .then(user => {
+                    context.commit({
+                        type: MUT_SET_USER,
+                        user   
+                })
+                return user
+            })
         }
     }
 }
