@@ -72,8 +72,8 @@ export default {
       
       if (isLogin) {
         var userId = this.$store.getters[GETTER_USER_ID];
-        
-        this.$router.push(`/${isLogin}/editPage`);
+
+        this.$router.push(`/${userId}/editPage`);
       } else {
         this.$store.dispatch({ type: ACT_LOAD_USER, loginInfo:{email:"",password:""} })
             .then(user => {
