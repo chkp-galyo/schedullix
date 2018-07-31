@@ -72,14 +72,9 @@ export default {
         var userId = this.$store.getters[GETTER_USER_ID];
         this.$router.push(`/${userId}/editPage`);
       } else {
-        const loginInfo = {
-          email: "",
-          password: ""
-        };
-        this.$store
-          .dispatch({ type: ACT_LOAD_USER, loginInfo })
+        this.$store.dispatch({ type: ACT_LOAD_USER, loginInfo:{email:"",password:""} })
             .then(user => {
-              this.$router.push(`/app/${user._id}/editPage`);
+              this.$router.push(`/${user._id}/editPage`);
             })
             .catch();
       }
@@ -89,6 +84,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen {
+  
+}
 .carosela {
   width: 100vw;
   height: 100vh;
