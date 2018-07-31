@@ -33,9 +33,9 @@
             <v-btn v-if="selectedCmp === 'about' || selectedCmp === 'header'" fab dark small color="pink" title="Upload image" @click.stop="openInputFile">
                <v-icon dark>add_photo_alternate</v-icon>
             </v-btn>
-            <!-- <v-btn fab dark small color="red" title="Delete area" @click.stop="hideCmp">
+            <v-btn fab dark small color="red" title="Delete area" @click.stop="hideCmp">
                 <v-icon dark>delete</v-icon>
-            </v-btn> -->
+            </v-btn>
             <section class="address" v-if="selectedCmp === 'map'">
                 <h3>Your business location: </h3>
             <gmap-autocomplete @place_changed="setAddress">
@@ -168,7 +168,7 @@ export default {
 
 <style scoped lang="scss">
 .toolbar {
-  width: 300px;
+  width: 400px;
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 99999;
   display: flex;
