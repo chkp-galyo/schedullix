@@ -1,8 +1,12 @@
 <template>
 <div>
+    <div class="hidden">
             <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
             <input type="color" class="hidden" ref="bgColor" @input="onInputBgColor">
-            <input type="color" class="hidden" ref="txtColor" @input="onInputTxtColor">            
+            <input type="color" class="hidden" ref="txtColor" @input="onInputTxtColor">         
+            <input type="color" class="hidden" ref="apptColor" @input="onInputApptColor">         
+    </div>
+   
     <section class="toolbar">
 
       <section class="header" @mousedown="dragToolbar">
@@ -12,12 +16,21 @@
       </section>
         <section class="btns">
             <!-- <v-overflow-btn :items="fonts" label="Select font" hide-details></v-overflow-btn> -->
+
+                  <v-menu :nudge-width="100">
+        <v-toolbar-title slot="activator">
             <v-btn fab dark small color="white" title="Edit text">
                 <v-icon dark>text_fields</v-icon>
             </v-btn>
+        </v-toolbar-title>
+            <v-list>
+                <v-list-tile v-for="font in fonts" :key="font" @click="updateFont">
+                {{font}}
+                </v-list-tile>
+            </v-list>
+                  </v-menu>
             <v-btn v-if="selectedCmp === 'about'" fab dark small color="purple" title="Change working hours" @click.stop="openWorkingHoursEditor">
                <v-icon dark>access_time</v-icon>
-               <input type="file">
             </v-btn>
             <v-btn fab dark small color="orange" title="Text color" @click.stop="openInputTxtColor">
                 <v-icon dark>format_color_text</v-icon>
@@ -25,17 +38,15 @@
             <v-btn v-if="selectedCmp !== 'header'" fab dark small color="blue" title="Background color" @click.stop="openInputBgColor">
                 <v-icon dark>format_color_fill</v-icon>
             </v-btn>
-            <v-btn v-if="selectedCmp === 'schedule'" fab dark small color="green" title="Change calender style">
-               <v-icon dark>event</v-icon>
-               <input type="file">
+            <v-btn v-if="selectedCmp === 'schedule'" fab dark small color="green" title="Change calender style" @click.stop="openInputApptColor">
+               <v-icon dark>list</v-icon>
             </v-btn>
             <v-btn v-if="selectedCmp === 'about' || selectedCmp === 'header'" fab dark small color="pink" title="Upload image" @click.stop="openInputFile">
                <v-icon dark>add_photo_alternate</v-icon>
-               <input type="file">
             </v-btn>
-            <!-- <v-btn fab dark small color="red" title="Delete area" @click.stop="hideCmp">
+            <v-btn fab dark small color="red" title="Delete area" @click.stop="hideCmp">
                 <v-icon dark>delete</v-icon>
-            </v-btn> -->
+            </v-btn>
             <section class="address" v-if="selectedCmp === 'map'">
                 <h3>Your business location: </h3>
             <gmap-autocomplete @place_changed="setAddress">
@@ -66,6 +77,7 @@
 
 <script>
 import toolbarService from "@/services/toolbarService.js";
+import utilsService from '@/services/utilsService.js'
 import {
   eventBus,
   EVENT_SELECTED_CMP,
@@ -79,7 +91,9 @@ import {MUT_UPDATE_COLOR_CMP,
         MUT_UPDATE_CALENDER_BG_COLOR,
         MUT_TOGGLE_CALENDER_THEME,
         MUT_TOGGLE_CALENDER_LANDSCAPE,
-        GETTER_CALENDER_COLOR} from '@/store/userModule.js'
+        GETTER_CALENDER_COLOR,
+        MUT_UPDATE_APPT_LIST_COLOR_CMP,
+        MUT_UPDATE_IS_ACTIVE_CMP} from '@/store/userModule.js'
 
 export default {
   name: "toolbar",
@@ -87,9 +101,12 @@ export default {
   components: {},
   data() {
     return {
-      fonts: ["Arial", "Impact"],
+      fonts: ['Arial', 'Impact', 'Do Hyeon', 'Raleway', 'Merriweather', 'Modern Antiqua',
+                'Indie Flower', 'MedievalSharp', 'Pacifico', 'Dancing Script', 'Ruslan Display', 'Gloria Hallelujah'],
       currCmp: null,
       calenderHeaderColor: ['blue', 'red', 'orange', 'yellow', 'brown', 'black', 'white', 'grey'],
+      show:false
+
     };
   },
   created(){
@@ -108,8 +125,7 @@ export default {
       toolbarService.dragElement(ev.target.parentNode);
     },
     hideCmp(){
-        if (!this.currCmp) return
-        this.currCmp.style = 'display: none'
+        this.$store.commit({type: MUT_UPDATE_IS_ACTIVE_CMP, cmp: this.selectedCmp })
     },
     openInputFile() {
         this.$refs.upload.click()
@@ -117,17 +133,23 @@ export default {
     openInputBgColor(){
         this.$refs.bgColor.click()
     },
+    openInputApptColor() {
+        this.$refs.apptColor.click()        
+    },
     openInputCalenderColor(){
         this.$refs.calenderColor.click()
     },
     onInputBgColor(ev) {
-        this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'background', value: ev.target.value })
+        this.$store.commit({ type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'background', value: ev.target.value })
     },
     openInputTxtColor() {
         this.$refs.txtColor.click()
     },
     onInputTxtColor(ev) {
         this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'color', value: ev.target.value })
+    },
+    onInputApptColor(ev) {
+        this.$store.commit({type: MUT_UPDATE_APPT_LIST_COLOR_CMP, color: ev.target.value })        
     },
     onInputCalenderBgColor(ev) {
         this.$store.commit({type: MUT_UPDATE_CALENDER_BG_COLOR, color: ev.target.value })
@@ -138,6 +160,10 @@ export default {
     toggleCalenderLandscape() {
         this.$store.commit({type: MUT_TOGGLE_CALENDER_LANDSCAPE})
     },
+    updateFont(ev) {
+        console.log('font family: ',ev)
+        this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'font-family', value: ev.target.innerText })        
+    },
     onInputFile() {
       var reader = new FileReader();
       var file = this.$refs.upload.files[0];
@@ -145,6 +171,11 @@ export default {
         this.$store.commit({type: MUT_UPDATE_IMG, cmp: this.selectedCmp, imgUrl: reader.result})
       };
       if (file) reader.readAsDataURL(file);
+      utilsService.doUploadImg(file)
+            .then(res => {
+                this.$store.commit({type: MUT_UPDATE_IMG, cmp: this.selectedCmp, imgUrl: res})
+            })
+            .catch(err => console.log('Upload failed, saved as dataURL'))
     },
     openWorkingHoursEditor(){
       eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS)
@@ -161,7 +192,7 @@ export default {
 
 <style scoped lang="scss">
 .toolbar {
-  width: 300px;
+  width: 400px;
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 99999;
   display: flex;
@@ -251,11 +282,19 @@ h3 {
    height: 38px;
    width: 38px;
    margin: 10px;
+   cursor: pointer;
 }
+
 
 .calender-color {
    border-radius: 50%;
     
 }
+
+// @media only screen and (max-width: 600px) {
+//     body {
+//         background-color: lightblue;
+//     }
+// }
 
 </style>

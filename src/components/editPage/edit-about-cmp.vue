@@ -85,6 +85,7 @@ textarea {
   resize: none;
   outline: none;
   overflow: auto;
+  font-size: 20px;
 }
 .edit-about {
   border:1px solid black;

@@ -56,11 +56,17 @@ function logout() {
 }
 
 function getLoggedInUser() {
-    return loggedinUser;
+    console.log('this is loggedin user', loggedinUser)
+    if (!loggedinUser) return null
+    return axios.get(`${URL}/${loggedinUser}`)
+        .then((res) => {
+            console.log('Got user logged in', res.data)
+            return res.data
+        })
 }
 
 function _setLoggedinUser(user) {
-    loggedinUser = user;
+    loggedinUser = user._id;
     storageService.saveToStorage(STORAGE_KEY, loggedinUser)
 }
 
@@ -247,12 +253,7 @@ function getDefaultUser() {
                    light: false,
                },
                styleApptsList: {
-                   color: "white",
-                   background: "red",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "700",
-                   'text-align': "center",
+                   background: "red"
                }
            },
            map: {
