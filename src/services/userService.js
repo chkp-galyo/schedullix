@@ -77,6 +77,7 @@ function login(loginInfo) {
 
 function getDefaultUser() {
     var a = {
+        email:"",
        password: "",
        phone: null,
        businessName: "",
