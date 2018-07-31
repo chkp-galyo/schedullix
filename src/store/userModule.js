@@ -32,7 +32,7 @@ export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLands
 
 export default {
     state: {
-        user: null,
+        user: userService.getLoggedInUser(),
         tempUser:null,
     },
     getters: {
