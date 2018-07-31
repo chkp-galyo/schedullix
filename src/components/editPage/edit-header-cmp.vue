@@ -1,11 +1,11 @@
 <template>
   <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
     <div class="cmp-cover">
-    <textarea class="header-text" :value="headerConfig.titleTxt" @input="updateTitle"> </textarea>
+    <textarea :disabled="modePage === 'publish'" class="header-text" :value="headerConfig.titleTxt" @input="updateTitle"> </textarea>
 
     </div>
     <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-        @click.stop="openToolbar">
+        @click.stop="openToolbar" v-if="modePage === 'edit'">
         <v-icon dark>edit</v-icon>
     </v-btn>
 
@@ -14,16 +14,18 @@
 </template>
 
 <script>
-import { MUT_UPDATE_HEADER_IMG,
-          MUT_UPDATE_HEADER_TITLE } from '@/store/userModule.js'
-import {eventBus,
-        EVENT_OPEN_TOOL_BAR} from '@/services/event-bus-service.js'
+import {
+  MUT_UPDATE_HEADER_IMG,
+  MUT_UPDATE_HEADER_TITLE
+} from "@/store/userModule.js";
+import { eventBus, EVENT_OPEN_TOOL_BAR } from "@/services/event-bus-service.js";
 
 export default {
   name: "editHeader",
   components: {},
   props: {
-    headerConfig: Object
+    headerConfig: Object,
+    modePage: String
   },
   data() {
     return {
@@ -31,11 +33,14 @@ export default {
     };
   },
   methods: {
-    openToolbar(){
-      eventBus.$emit(EVENT_OPEN_TOOL_BAR, 'header')
+    openToolbar() {
+      eventBus.$emit(EVENT_OPEN_TOOL_BAR, "header");
     },
-    updateTitle(ev){
-      this.$store.commit({ type: MUT_UPDATE_HEADER_TITLE, title: ev.target.value})
+    updateTitle(ev) {
+      this.$store.commit({
+        type: MUT_UPDATE_HEADER_TITLE,
+        title: ev.target.value
+      });
     }
   }
 };
@@ -44,30 +49,29 @@ export default {
 <style scoped lang="scss">
 .edit-header {
   display: flex;
-    justify-content: center;
-  
+  justify-content: center;
+
   border: 1px solid black;
   height: 80vh;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;
 }
-.open-toolbar{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    right: 1%;
-    z-index: 10;
-  }
+.open-toolbar {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 1%;
+  z-index: 10;
+}
 
-  .header-text {
-    background-color: rgba(0, 0, 0, 0.0);
-    font-size: 72px;
-    align-items: center;
-    height: 90%;
-    resize: none;
-    outline: none;
-    overflow: auto;
-  }
-
+.header-text {
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 72px;
+  align-items: center;
+  height: 90%;
+  resize: none;
+  outline: none;
+  overflow: auto;
+}
 </style>

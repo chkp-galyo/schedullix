@@ -1,7 +1,7 @@
 <template>
     <section class="edit-schedule animated bounceInRight" :style="schedule.styleObj">
         <section>
-            <v-btn fab dark color="indigo" class="open-toolbar" 
+            <v-btn fab dark color="indigo" class="open-toolbar" v-if="modePage === 'edit'" 
                     title="Open toolbar" @click.stop="openToolbar">
                 <v-icon dark>edit</v-icon>
             </v-btn>
@@ -25,7 +25,8 @@ import { eventBus, EVENT_OPEN_TOOL_BAR } from "@/services/event-bus-service.js";
 
 export default {
   props: {
-    schedule: Object
+    schedule: Object,
+    modePage: String
   },
   data() {
     return {
@@ -64,6 +65,7 @@ export default {
   align-items: center;
   padding: 10px;
   height: 50vh;
+  border: 1px solid black;
 }
 
 .open-toolbar {

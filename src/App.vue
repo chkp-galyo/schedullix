@@ -53,8 +53,12 @@ import userService from "@/services/userService.js";
 export default {
   data() {
     return {
-        user:'',
-        items:[{title:'Bussiness Calender', route:'bussinessCalender'}, {title:'Bussiness Profile' , route:'bussinessProfile'}, {title:'Bussiness Page' , route:'editPage'}],
+      user: "",
+      items: [
+        { title: "Bussiness Calender", route: "bussinessCalender" },
+        { title: "Bussiness Profile", route: "bussinessProfile" },
+        { title: "Bussiness Page", route: "editPage" }
+      ]
     };
   },
   created() {
@@ -62,7 +66,7 @@ export default {
     user = userService.getLoggedInUser();
     if (user) {
       console.log("user", user);
-      this.user = user
+      this.user = user;
     }
   },
   methods: {
@@ -79,20 +83,24 @@ export default {
 </script>
 
 <style lang="scss">
-a.v-list__tile, a .v-list__tile--link{
-    color: #2c3e50!important
+a.v-list__tile,
+a .v-list__tile--link {
+  color: #2c3e50 !important;
 }
-.application, .theme--light{
-background-color: rgba(0, 0, 0, 0.3)!important;
+.application,
+.theme--light {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
-.v-toolbar, .v-toolbar--extended ,.theme--darkr{
-background-color: rgba(0, 0, 0, 0.3)!important;
+.v-toolbar,
+.v-toolbar--extended,
+.theme--darkr {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
-.application--wrap{
-    min-height: unset;
+.application--wrap {
+  min-height: unset;
 }
 .v-tabs__item {
-    color: white;
+  color: white;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -108,14 +116,14 @@ background-color: rgba(0, 0, 0, 0.3)!important;
   // text-decoration: ;
   a {
     font-weight: bold;
-    color:white;
+    color: white;
     font-size: 1.2em;
     &.router-link-exact-active {
       color: #42b983;
     }
   }
-  a:hover{
-      color: #e23c52
+  a:hover {
+    color: #e23c52;
   }
 }
 </style>
