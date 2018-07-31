@@ -29,6 +29,8 @@ export const MUT_UPDATE_HEADER_TITLE = 'user/mutations/updateHeaderTitle'
 export const MUT_UPDATE_CALENDER_BG_COLOR = 'user/mutations/updateCalenderBgColor'
 export const MUT_TOGGLE_CALENDER_THEME = 'user/mutations/toggleCalenderTheme'
 export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLandscape'
+export const MUT_UPDATE_APPT_LIST_COLOR_CMP = 'user/mutations/updateApptListColor'
+export const MUT_UPDATE_IS_ACTIVE_CMP = 'user/mutations/updateCmpIsActive'
 
 export default {
     state: {
@@ -44,8 +46,6 @@ export default {
             var timePerCustomer = state.user.timePerCustomer
             var time = { ...day.hoursOpen.startTime
             };
-
-
             listForDay.push({ ...time
             })
             listForDay[listForDay.length - 1].timestamp = generatorTimestamp(selectDateObj, `${time.hours}:${time.minutes}`);
@@ -132,6 +132,12 @@ export default {
         [MUT_TOGGLE_CALENDER_LANDSCAPE](state) {
             var styleDate = state.user.configElements.schedule.styleDate
             styleDate.landscape = !styleDate.landscape 
+        },
+        [MUT_UPDATE_APPT_LIST_COLOR_CMP](state, {color}) {
+            state.user.configElements.schedule.styleApptsList.background = color
+        },
+        [MUT_UPDATE_IS_ACTIVE_CMP](state, {cmp}) {
+            state.user.configElements[cmp].isActive = !state.user.configElements[cmp].isActive
         }
     },
     actions: {
