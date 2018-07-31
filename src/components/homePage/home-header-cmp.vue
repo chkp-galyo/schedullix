@@ -68,9 +68,12 @@ export default {
   methods: {
     getStarted() {
       var isLogin = this.$store.getters[GETTER_IS_LOGIN];
+      console.log(isLogin);
+      
       if (isLogin) {
         var userId = this.$store.getters[GETTER_USER_ID];
-        this.$router.push(`/${userId}/editPage`);
+        
+        this.$router.push(`/${isLogin}/editPage`);
       } else {
         this.$store.dispatch({ type: ACT_LOAD_USER, loginInfo:{email:"",password:""} })
             .then(user => {
