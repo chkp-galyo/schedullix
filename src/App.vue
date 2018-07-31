@@ -37,7 +37,7 @@
                         </v-list>
                     </v-menu>
 
-                    <v-tab v-if="loggedInUser" @click="changeLoction('/login')">
+                    <v-tab v-if="!loggedInUser" @click="changeLoction('/login')">
                         login
                     </v-tab>
                 </v-tabs>

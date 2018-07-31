@@ -54,7 +54,7 @@ import {
   EVENT_OPEN_TOOL_BAR,
   EVENT_UPDATE_USER
 } from "@/services/event-bus-service.js";
-import { GETTER_USER, ACT_UPDATE_USER } from "../store/userModule.js";
+import { GETTER_USER, ACT_UPDATE_USER, MUT_SET_TEMP_USER } from "../store/userModule.js";
 
 export default {
   name: "edit-page",
@@ -130,7 +130,12 @@ export default {
       });
 
       eventBus.$on(EVENT_UPDATE_USER, () => {
-        this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user });
+        if(this.user.email !== ""){
+          this.$store.dispatch({ type: ACT_UPDATE_USER, user: this.user });
+        } else {
+          this.$store.commit({type:MUT_SET_TEMP_USER , user: this.user})
+          this.$router.push(`/signup`)
+        }
       });
     },
     dragCmp(ev) {

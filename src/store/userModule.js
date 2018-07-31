@@ -9,6 +9,7 @@ export const ACT_UPDATE_USER = 'user/actions/updateUser'
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
 export const GETTER_USER = 'user/getters/user'
+export const GETTER_TEMP_USER = 'user/getters/tempUser'
 export const GETTER_USER_ID = 'user/getters/userId'
 export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
 
@@ -17,6 +18,7 @@ export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 export const MUT_UPDATE_ABOUT_TXT = 'user/mutations/updateAboutTxt'
 export const MUT_UPDATE_HEADER_IMG = 'user/mutations/updateHeaderImg'
 export const MUT_SET_USER = 'user/mutations/setUser'
+export const MUT_SET_TEMP_USER = 'user/mutations/setTempUser'
 export const MUT_SET_USER_LOC = 'user/mutations/setUserLocation'
 export const MUT_UPDATE_USER = 'user/mutations/updateUser'
 export const MUT_UPDATE_WORKING_HOURS = 'user/mutations/updateWorkingHours'
@@ -30,7 +32,8 @@ export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLands
 
 export default {
     state: {
-        user: null
+        user: null,
+        tempUser:null,
     },
     getters: {
         [GETTER_TIMES_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -64,6 +67,9 @@ export default {
 
         [GETTER_USER](state) {
             return state.user;
+        },
+        [GETTER_TEMP_USER](state) {
+            return state.tempUser;
         },
 
         [GETTER_USER_ID](state) {
@@ -99,6 +105,9 @@ export default {
 
         [MUT_SET_USER](state, {user}) {
             state.user = user;
+        },
+        [MUT_SET_TEMP_USER](state, {user}) {
+            state.tempUser = user;
         },
         [MUT_UPDATE_WORKING_HOURS](state, {workingHours}) {
             state.user.workingHours = workingHours

@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-<home-header></home-header>
-<v-app light>
-    <v-content>
-    <home-main></home-main>
-<home-footer></home-footer>
-      
-    </v-content>
-  </v-app>
- </div>
-      
+    <div class="home">
+        <home-header></home-header>
+        <v-app light>
+            <v-content>
+                <home-main></home-main>
+                <home-footer></home-footer>
 
+            </v-content>
+        </v-app>
+    </div>
 </template>
 
 <script>

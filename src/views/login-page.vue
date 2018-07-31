@@ -54,12 +54,17 @@ export default {
   },
   methods: {
     login() {
-      this.$store
+      if(this.loginInfo.email || this.loginInfo.password){
+        this.$store
         .dispatch({ type: ACT_LOAD_USER, loginInfo: this.loginInfo })
         .then(user => {
-          this.$router.push(`/app/${user._id}/editPage`);
+          this.$router.push(`/${user._id}/editPage`);
         })
         .catch();
+      } else{
+        console.log('inavlid user name');
+        
+      }
     },
     clear() {
       this.loginInfo.email = "";
