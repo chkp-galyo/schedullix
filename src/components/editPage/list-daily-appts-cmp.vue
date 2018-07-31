@@ -5,10 +5,9 @@
           <h3>Pick a time</h3>
       </header>
 
-
         <ul class="clean-list">
             <li v-for="timeDay in availableTimeList" :key="timeDay.timestamp" 
-                  @click="addCustomer(timeDay.timestamp)">
+                  @click="addCustomer(timeDay.timestamp)" :style="{'background-color': bgButtons}">
                 <h4>{{timeDay.hours | validTime}}:{{timeDay.minutes | validTime}}</h4>
             </li>
         </ul>
@@ -37,17 +36,18 @@ import {
 import userService from "@/services/userService.js";
 
 export default {
-  name: "listDailyAppts",
+  name: "list-daily-appts-cmp",
   components: {},
   props: {
-    dateSelected: Number
+    dateSelected: Number,
+    bgButtons: String
   },
   data() {
     return {};
   },
   computed: {
     dateToShow() {
-      return moment(this.dateSelected).format("MMM Do YY"); 
+      return moment(this.dateSelected).format("MMM Do YY");
     },
     availableTimeList() {
       var customersForDate = this.$store.getters[GETTER_CUSTOMERS_FOR_DATE](
@@ -83,7 +83,6 @@ export default {
 .list-daily-appts {
   width: 30vw;
   height: 80%;
-  // border: 1px solid black;
 }
 header h2,
 h3 {
@@ -102,21 +101,20 @@ li {
   padding: 20px;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 20%;
   margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: lightcyan;
-  box-shadow: -2px 2px 26px 0px rgba(0,0,0,0.75);
-}
-
-li > h4 {
-  margin: auto;
+  border-radius: 3px;
+  border: 1px solid transparent;
 }
 
 li:hover {
-  border: 1px solid black;
+  transition: all 0.5s ease;
+  color: lightblue;
+  border: 1px solid lightblue;
+  box-shadow: -2px 2px 16px 1px rgba(0, 0, 0, 0.75);
+  animation: pulse 1s;
 }
 
 ::-webkit-scrollbar {

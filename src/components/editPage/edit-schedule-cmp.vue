@@ -13,7 +13,7 @@
                                 :dark="schedule.styleDate.dark" :width="400"  v-model="dateSelected"
                                 :min="minDate"/>
 
-            <list-daily-appts class="list-cmp" :dateSelected="Date.parse(dateSelected)" />
+            <list-daily-appts class="list-cmp" :dateSelected="Date.parse(dateSelected)" :bgButtons="schedule.styleApptsList.background"/>
         </section>
     </section>
 </template>

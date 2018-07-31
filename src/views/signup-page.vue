@@ -60,7 +60,7 @@
 
 <script>
 0;
-import { ACT_ADD_USER , GETTER_TEMP_USER} from "@/store/userModule.js";
+import { ACT_ADD_USER, GETTER_TEMP_USER, ACT_LOAD_USER } from "@/store/userModule.js";
 import userService from "@/services/userService.js";
 export default {
   $_veeValidate: {
@@ -86,18 +86,19 @@ export default {
       }
     };
   },
-created() {
-  var user = JSON.parse(JSON.stringify(this.$store.getters[GETTER_TEMP_USER]))
-  if(user){
-    this.user = user
-    delete this.user._id
-    console.log('new user',this.user);
-    
-  } else {
-    this.user = JSON.parse(JSON.stringify( userService.getDefaultUser()))
-    console.log('defualt user',this.user);
-  }
-},
+  created() {
+    var user = JSON.parse(
+      JSON.stringify(this.$store.getters[GETTER_TEMP_USER])
+    );
+    if (user) {
+      this.user = user;
+      delete this.user._id;
+      console.log("new user", this.user);
+    } else {
+      this.user = JSON.parse(JSON.stringify(userService.getDefaultUser()));
+      console.log("defualt user", this.user);
+    }
+  },
   mounted() {
     this.$validator.localize("he", this.dictionary);
   },
@@ -118,11 +119,17 @@ created() {
         if (res) {
           this.phone = this.phone;
           this.$store.dispatch({ type: ACT_ADD_USER, user: { ...this.user } })
-          .then(user =>{
-            console.log(user);
-          this.$router.push(`/${user._id}/editPage`)
-            
-          })
+            .then(user => {
+              console.log(user);
+              this.$store
+                .dispatch({
+                  type: ACT_LOAD_USER,
+                  loginInfo: { email: user.email, password: user.password }
+                })
+                .then(loggedInUser => {
+                  this.$router.push(`/${loggedInUser._id}/editPage`);
+                });
+            });
         }
       });
     },
@@ -131,7 +138,7 @@ created() {
       console.log(this.user);
     },
     getEmptyUser() {
-      return userService.getDefaultUser()
+      return userService.getDefaultUser();
     }
   }
 };
