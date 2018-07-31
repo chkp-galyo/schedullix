@@ -123,9 +123,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home-main{
-  // background-color: white;
-}
 .beautician-section,
 .doctor-section{
   display: flex;
@@ -133,7 +130,7 @@ export default {
   align-items: center;
   height: 70vh;
   width: 100%;
-  background-color: #b2b2b2;
+  background-color: white;
 }
 .barber-section{
   display: flex;
@@ -141,7 +138,7 @@ export default {
   align-items: center;
   height: 70vh;
   width: 100%;
-  background-color: white;
+  background-color: lightgrey;
 }
 .beautician-template ,
 .barber-template ,.doctor-template{

@@ -115,7 +115,7 @@ v-parallax {
   color: white;
   position: absolute;
   z-index: 1;
-  top: 15%;
+  top: 10%;
   // left: 25%;
   margin: 0 auto;
   //  width: 200px;
