@@ -65,4 +65,14 @@ export default {
   bottom: 5%;
   z-index: 100000;
 }
+
+@media only screen and (max-width: 600px) {
+    .edit-menu {
+        position: fixed;
+        flex-direction: row;
+        height: 80px;
+        top: 0;
+        left: 0;
+    }
+}
 </style>

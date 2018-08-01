@@ -291,10 +291,15 @@ h3 {
     
 }
 
-// @media only screen and (max-width: 600px) {
-//     body {
-//         background-color: lightblue;
-//     }
-// }
+@media only screen and (max-width: 600px) {
+    .toolbar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        right: 85vw;
+        top: 74vh;
+    }
+}
 
 </style>
