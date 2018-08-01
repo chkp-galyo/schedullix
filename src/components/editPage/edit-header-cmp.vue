@@ -54,7 +54,7 @@ export default {
   border: 1px solid black;
   height: 50vh;
   background-repeat: no-repeat !important;
-  background-size: cover 100% !important;
+  background-size: 100% 100% !important;
   background-position: center !important;
 }
 .open-toolbar {

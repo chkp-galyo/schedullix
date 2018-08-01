@@ -1,38 +1,44 @@
 <template>
 <section class="home-header">
       
-      <section class="carousel-container"><div class="side-carousel" >
-        <v-parallax height="fit-content" >
-          <v-layout
+      <section class="carousel-container">
+        <div class="side-carousel" >
+        <!-- <v-parallax height="fit-content" > -->
+          <!-- <v-layout
           
             column
             align-center
             justify-center
             class="white--text"
             style="align-self:center"
-          >
+          > -->
             <h1 class="white--text mb-2 display-1 text-xs-center">Create Beautiful Scheduling appointment page for your Business</h1>
-            <div class="white--text subheading mb-3 text-xs-center">Powered by The three dummies</div>
+            <p class="white--text subheading mb-2 text-xs-center">Powered by The three dummies</p>
             <v-btn
-              class="blue lighten-2 mt-5"
+              class="blue lighten-2 mt-0"
               dark
               large
               @click="getStarted"
             >
               Get Started
             </v-btn>
-          </v-layout>
-        </v-parallax>
+          <!-- </v-layout> -->
+        <!-- </v-parallax> -->
       </div>
-    <v-carousel hide-delimiters hide-controls class="carosela" >
+      <!-- <v-app class="sat" > -->
+
+    <v-carousel style="height:100%" hide-delimiters hide-controls class="carosela" >
       <v-carousel-item
+      class="carosela-item"
         v-for="(item,i) in items"
         :key="i"
         :src="item.src"
+        style="height:100%"
       >
       
       </v-carousel-item>
     </v-carousel>
+      <!-- </v-app> -->
       </section>
 </section>
 </template>
@@ -70,18 +76,21 @@ export default {
     getStarted() {
       var isLogin = this.$store.getters[GETTER_IS_LOGIN];
       console.log(isLogin);
-      
+
       if (isLogin) {
-        this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN})
+        this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
+          this.$router.push(`/${user._id}/editPage`);
+        });
+      } else {
+        this.$store
+          .dispatch({
+            type: ACT_LOAD_USER,
+            loginInfo: { email: "", password: "" }
+          })
           .then(user => {
             this.$router.push(`/${user._id}/editPage`);
           })
-      } else {
-        this.$store.dispatch({ type: ACT_LOAD_USER, loginInfo:{email:"",password:""} })
-            .then(user => {
-              this.$router.push(`/${user._id}/editPage`);
-            })
-            .catch();
+          .catch();
       }
     }
   }
@@ -89,45 +98,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen {
-  
+.carosela-item {
+  min-width: 100vw;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  max-width: 100vw !important;
 }
+
 .carosela {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  // min-height: 100%;
+  // position: absolute;
+  // top:0;
 }
 v-parallax {
   max-width: 100%;
   max-height: 100%;
 }
 .home-header {
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 65vh;
 }
 .side-carousel {
   display: flex;
-  width: 50%;
+  width: 80%;
+  padding: 1em;
+  margin: 0;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 35vh;
-  padding: 5em;
+  height: 40vh;
+  // padding: 5em;
   background-color: rgba(49, 44, 44, 0.5);
   color: white;
   position: absolute;
-  z-index: 1;
-  top: 10%;
-  // left: 25%;
-  margin: 0 auto;
-  //  width: 200px;
-  // height: 200px;
-  // position: absolute;
-  // right: 20px;
-  // z-index: 10000;
-  /* The points are: centered top, left bottom, right bottom */
-  // clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  z-index: 1000000000;
+  top: 4%;
+  
 }
 .carousel-container {
   display: flex;
@@ -136,5 +146,27 @@ v-parallax {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  
+}
+p {
+  font-size: 0.9em !important;
+  margin: 0;
+  padding: 0;
+}
+.display-1 {
+  font-size: 1.2em !important;
+}
+@media only screen and (min-width: 900px) {
+  .home-header {
+    height: 90vh;
+  }
+  .display-1 {
+    font-size: 2em !important;
+  }
+  .side-carousel{
+    height: 50vh;
+    top: 6%;
+    width: 50vw;
+  }
 }
 </style>

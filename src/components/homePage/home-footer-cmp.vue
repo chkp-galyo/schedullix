@@ -1,6 +1,6 @@
 <template>
     <section class="home-fotter">
-        <v-footer grid-list-xl class="blue darken-1" style="height:50vh">
+        <v-footer grid-list-xl class="blue darken-1" style="height:fit-content">
           <v-layout row wrap justify-center class="my-5">
             <v-flex xs12 sm4>
               <v-card class="elevation-0 transparent">
@@ -60,3 +60,9 @@
         
     }
 </script>
+<style lang="scss" scoped>
+
+@media only screen and (min-width: 700px){
+
+}
+</style>
