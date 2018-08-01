@@ -23,7 +23,7 @@
                 </section>
                 
                 <section>
-                    <button disabled="modePage === 'publish'" type="submit">Confirm</button>
+                    <button :disabled="modePage === 'edit'" type="submit">Confirm</button>
                     <button @click.prevent="cancelRegisterCustomer">Cancel</button>
                     <h4 v-if="modePage === 'edit'">This part works only after uot publish your page!</h4>
                 </section>

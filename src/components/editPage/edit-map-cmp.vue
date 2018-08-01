@@ -9,7 +9,7 @@
               <h2> {{this.address}}</h2>
           </div>
 
-          <gmap-map :center="center" :zoom="16" style="width:50vh;  height:50vh ;">
+          <gmap-map class="g-map" :center="center" :zoom="16"  >
             <gmap-marker :key="index" v-for="(m, index) in markers" 
                           :position="m.position" @click="center=m.position">
             </gmap-marker>
@@ -148,18 +148,36 @@ input {
 }
 .edit-map {
   padding: 1em;
-  display: block;
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
 }
-
+.g-map{
+  // margin-left: 2em;
+  // margin-right: 2em;
+  width: 90%;
+  height: 50vh;
+}
 .map-container {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .open-toolbar {
   position: absolute;
   right: 1%;
   z-index: 10;
+}
+@media only screen and (min-width: 900px){
+  .map-container{
+    flex-direction: row
+  }
+  .g-map{
+    width: 70%
+  }
 }
 </style>

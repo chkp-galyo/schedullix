@@ -56,6 +56,11 @@ export default new Router({
       component: bussinessPage
     },
     {
+      path: '/:businessName',
+      name: 'publishPage',
+      component: editPage
+    },
+    {
       path: '/*',
       redirect: '/'
     },

@@ -81,7 +81,8 @@ import {
   GETTER_USER,
   GETTER_IS_LOGIN,
   ACT_UPDATE_USER,
-  MUT_SET_TEMP_USER
+  MUT_SET_TEMP_USER,
+  ACT_LOAD_USER_BY_BUSINESS_NAME
 } from "../store/userModule.js";
 
 export default {
@@ -102,6 +103,17 @@ export default {
     };
   },
   created() {
+    var businessName = this.$route.params.businessName
+    if (businessName) {
+      this.modePage = 'publish'
+      this.$store.dispatch({ type: ACT_LOAD_USER_BY_BUSINESS_NAME, businessName })
+            .then(res => {
+              if (!res) this.$router.push('/')
+            })
+            .catch(err => {
+              console.log('not good', err)
+            })
+    }
     this.registerToEventBus();
   },
   computed: {

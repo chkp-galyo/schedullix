@@ -7,6 +7,8 @@ export const ACT_ADD_CUSTOMER = 'user/actions/addCustomer'
 export const ACT_ADD_USER = 'user/actions/addUser'
 export const ACT_UPDATE_USER = 'user/actions/updateUser'
 export const ACT_CHECK_USER_LOGIN = 'user/actions/checkLoginUser'
+export const ACT_LOAD_USER_BY_BUSINESS_NAME = 'user/actions/loadUserByBusinessName'
+
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -83,7 +85,7 @@ export default {
         },
 
         [GETTER_USER_ID](state) {
-            return state.user ? state.user._id : null
+            return userService.getUserLoggedinId()
         },
 
         [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -119,9 +121,7 @@ export default {
             state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
         },
 
-        [MUT_SET_USER](state, {
-            user
-        }) {
+        [MUT_SET_USER](state, {user}) {
             state.user = user;
         },
         [MUT_SET_TEMP_USER](state, {
@@ -171,6 +171,7 @@ export default {
     },
     actions: {
         [ACT_LOAD_USER](context, payload) {
+            console.log('act load user', payload.loginInfo)
             return userService.login(payload.loginInfo)
                 .then(user => {
                     context.commit({
@@ -180,6 +181,7 @@ export default {
                     context.commit({
                         type: MUT_LOGIN_USER
                     })
+                    console.log('act load return user', user)
                     return user;
                 })
                 .catch(
@@ -193,14 +195,14 @@ export default {
             console.log('store load customers');
             console.log('store load customers, context', context);
             
-            return userService.getUserCustomers(context.state.user._id)
+            return userService.getUserCustomers(context.getters[GETTER_USER_ID])
                 .then(customers =>{
                     console.log('store customers:',customers);
                     context.commit({
                         type: MUT_UPDATE_CUSTOMER ,
                         customers
                     })
-                    return {timePerCustomer:context.state.user.timePerCustomer,customers};
+                    return {timePerCustomer: context.state.user.timePerCustomer, customers};
                 })
         },
 
@@ -237,16 +239,26 @@ export default {
                 })
         },
         [ACT_CHECK_USER_LOGIN](context) {
-            if(context.state.isLogin) {
+            if (context.state.isLogin) {
                 return userService.getLoggedInUser()
                     .then(user => {
-                        console.log('ACT_CHECK_USER_LOGIN', user)
                         context.commit({
                             type: MUT_SET_USER,
                             user
                         })
+                    return user
                     })
             }
+        },
+        [ACT_LOAD_USER_BY_BUSINESS_NAME](context, {businessName}) {
+            return userService.getUserByBusinessName(businessName)
+                .then(user => {
+                    context.commit({
+                        type: MUT_SET_USER,
+                        user   
+                })
+                return user
+            })
         }
     }
 }

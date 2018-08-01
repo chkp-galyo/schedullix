@@ -17,7 +17,9 @@ export default {
     addCustomer,
     getDefaultUser,
     getUserCustomers,
-    isLoggedinUser
+    isLoggedinUser,
+    getUserLoggedinId,
+    getUserByBusinessName
 }
 
 function updateUser(user) {
@@ -63,7 +65,7 @@ function getUserCustomers(userId){
             return res.data
         })
         .catch(err => {
-            console.log(err)
+            console.log('didnt get customers',err)
         })
 }
 
@@ -72,11 +74,15 @@ function logout() {
 }
 
 function getLoggedInUser() {
-    console.log('this is loggedin user', loggedinUser)
-
     return axios.get(`${URL}/${loggedinUser}`)
         .then((res) => {
-            console.log('Got user logged in', res.data)
+            return res.data
+        })
+}
+
+function getUserByBusinessName(businessName) {
+    return axios.get(`${URL}/business/${businessName}`)
+        .then(res => {
             return res.data
         })
 }
@@ -86,15 +92,21 @@ function isLoggedinUser() {
     else return true
 }
 
+function getUserLoggedinId() {
+    return loggedinUser
+}
+
 function _setLoggedinUser(user) {
     loggedinUser = user._id;
     storageService.saveToStorage(STORAGE_KEY, loggedinUser)
 }
 
 function login(loginInfo) {
+    console.log('userService login info', loginInfo)
     return axios.post(URL + '/login', loginInfo)
         .then(res => {
             _setLoggedinUser(res.data)
+            console.log('user service login res', res.data)
             return (res.data)
         })
         .catch(err => {
