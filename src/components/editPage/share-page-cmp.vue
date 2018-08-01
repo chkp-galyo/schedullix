@@ -1,15 +1,32 @@
 <template>
     <section class="share-page" :class="{'open':isShow}">
-        <h1>Share your Business Page:</h1>
 
-        <v-btn fab dark color="blue" title="Copy Business URL" v-clipboard:copy="businessUrl" >
-            <v-icon dark>file_copy</v-icon>
-        </v-btn> 
+        <h1>Share your page</h1>
 
-        <button @click="toggleShareMenu">
-            {{isShow? 'Close': 'Open'}}
-        </button>
+        <section class="btns-share-container">
+            <v-btn fab small dark color="indigo" title="Copy Business URL" >
+                <v-icon dark>fab fa-facebook-square</v-icon>
+            </v-btn> 
 
+            <v-btn fab small dark color="pink" title="Copy Business URL" >
+                <v-icon dark>fab fa-instagram</v-icon>
+            </v-btn> 
+
+            <v-btn fab small dark color="green" title="Copy Business URL" >
+                <v-icon dark>fab fa-whatsapp</v-icon>
+            </v-btn> 
+
+            
+        </section>
+
+        
+        <section class="address-page-container">
+            <h3>{{businessUrl}}</h3>
+            <v-btn fab small dark color="indigo" title="Copy Business URL" v-clipboard:copy="businessUrl" >
+                <v-icon dark>file_copy</v-icon>
+            </v-btn> 
+        </section>
+        
     </section>
 </template>
 
@@ -32,7 +49,7 @@ export default {
   watch: {},
   computed: {
     businessUrl() {
-      return `http://localhost:8080/#/${
+      return `http://schedullix.herokuapp.com/${
         this.$store.getters[GETTER_BUSINESS_NAME]
       }`;
     }
@@ -42,7 +59,7 @@ export default {
 
 <style scoped lang="scss">
 .share-page {
-  background-color: red;
+  background-color: #403b3bc4;
   width: 40vw;
   height: 150px;
   color: white;
@@ -50,12 +67,24 @@ export default {
   position: fixed;
   z-index: 100;
   border-radius: 5px;
-  left: -150px;
+  left: 15px;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.open {
-  background-color: orange;
-//   left: 3150px;
+.address-page-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
+h3 {
+  border: 1px solid black;
+  padding: 8px;
+  background-color: #bdbdbd47;
+  border-radius: 3px;
+}
 </style>
