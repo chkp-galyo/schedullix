@@ -1,6 +1,6 @@
 <template>
     <div v-if="user" class="edit-page">
-          <sharePage></sharePage>
+          
 
           <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" v-if="isShowEditMenu"/>
 
@@ -20,16 +20,16 @@
           <!-- HEARDER component -->
           <section class="header" :class="{cmp: modePage === 'edit','edit-cmp': selectedCmp === 'header'}"
                        style="order: 1" draggable="false" @dragstart="dragCmp"
-                        @drop="dropCmp"  @dragover="allowDrop"  ref="header"
-                          v-if="user.configElements.header.isActive">
+                          @drop="dropCmp"  @dragover="allowDrop"  ref="header"
+                              v-if="user.configElements.header.isActive">
               <header-cmp :modePage="modePage" :headerConfig="user.configElements.header" />
           </section>
 
           <!-- ABOUT component -->
           <section class="about" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'about'}"
                        style="order: 2" draggable="true" @dragstart="dragCmp"
-                        @drop="dropCmp"  @dragover="allowDrop"  ref="about"
-                          v-if="user.configElements.about.isActive">
+                          @drop="dropCmp"  @dragover="allowDrop"  ref="about"
+                              v-if="user.configElements.about.isActive">
               <about-cmp :modePage="modePage" :workingHours="user.workingHours" :aboutConfig="user.configElements.about"/> 
           </section>
 
@@ -62,8 +62,6 @@ import toolbarService from "@/services/toolbarService.js";
 import editMenuCmp from "@/components/editPage/edit-menu-cmp.vue";
 import editWorkingHours from "@/components/editPage/edit-work-hours-cmp.vue";
 import registerCustomer from "@/components/register-customer-cmp.vue";
-import sharePage from "@/components/editPage/share-page-cmp.vue";
-
 
 import {
   eventBus,
@@ -230,8 +228,7 @@ export default {
     toolbarCmp,
     registerCustomer,
     editMenuCmp,
-    editWorkingHours,
-    sharePage
+    editWorkingHours
   }
 };
 </script>
