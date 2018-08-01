@@ -26,7 +26,9 @@ import { ACT_UPDATE_USER } from "@/store/userModule.js";
 import {
   eventBus,
   EVENT_UPDATE_USER,
-  EVENT_CHANGE_MODE_PAGE
+  EVENT_CHANGE_MODE_PAGE,
+  EVENT_OPEN_TOOL_BAR,
+  EVENT_TOGGLE_HEADER_PAGE
 } from "@/services/event-bus-service.js";
 
 export default {
@@ -44,6 +46,11 @@ export default {
     },
     changeMode(mode) {
       eventBus.$emit(EVENT_CHANGE_MODE_PAGE, mode);
+      eventBus.$emit(EVENT_SHOW_HEADER_PAGE); 
+      if (mode === "publish") {
+        eventBus.$emit(EVENT_OPEN_TOOL_BAR, null); // In publish mode -> close tool bar
+        
+      }
     }
   },
   created() {}

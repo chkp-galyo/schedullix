@@ -4,7 +4,7 @@
             MODE PAGE: {{modePage}}
           </h1>
 
-          <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" v-if="isLogin"/>
+          <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" v-if="isShowEditMenu"/>
 
           <section>
             <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>
@@ -120,6 +120,15 @@ export default {
     user() {
       return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]));
     }
+    ,
+    isShowEditMenu(){
+      if (!this.isLogin || this.$route.name === 'publishPage')
+      {
+          return false;
+      }
+      return true;
+// "isLogin && this.$route.name === publishPage"
+    }
   },
   mounted() {
     // console.log("headerTop:", this.$refs.header.offsetTop);
@@ -164,8 +173,8 @@ export default {
 
       eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
         if (
-          (this.selectedCmp === selectedCmp || !selectedCmp) &&
-          this.isToolbarShow
+          ((this.selectedCmp === selectedCmp || !selectedCmp) &&
+          this.isToolbarShow) || !selectedCmp
         ) {
           this.isToolbarShow = false;
           this.selectedCmp = null;

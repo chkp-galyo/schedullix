@@ -1,47 +1,34 @@
 <template>
     <div id="app">
-
-        <div id="nav" class="">
+        <div id="nav" class="" v-if="isShowHeader">
             <v-app  style="min-height:0vh">
+                <v-toolbar dark tabs style="min-height:0vh">
 
-            <v-toolbar dark   tabs style="min-height:0vh">
-                <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
+                    <v-toolbar-title>Schedullix</v-toolbar-title>
 
-                <v-toolbar-title>Schedullix</v-toolbar-title>
+                    <v-tabs slot="extension" color="transparent" fixed-tabs slider-color="white">
+                        <v-tab @click="changeLoction('/')">
+                            Home
+                        </v-tab>
 
-                <!-- <v-spacer></v-spacer> -->
+                        <v-menu v-if="loggedInUserId" color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
+                            <a slot="activator" class="v-tabs__item">
+                                Bussiness
+                                <v-icon>arrow_drop_down</v-icon>
+                            </a>
 
-                <!-- <v-btn icon>
-                    <v-icon>search</v-icon>
-                </v-btn>
+                            <v-list>
+                                <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${loggedInUserId}/${item.route}`)">
+                                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                                </v-list-tile>
+                            </v-list>
+                        </v-menu>
 
-                <v-btn icon>
-                    <v-icon>more_vert</v-icon>
-                </v-btn> -->
-
-                <v-tabs slot="extension" color="transparent" fixed-tabs slider-color="white">
-                    <v-tab @click="changeLoction('/')">
-                        Home
-                    </v-tab>
-                    
-                    <v-menu color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
-                        <a slot="activator" class="v-tabs__item">
-                            Bussiness
-                            <v-icon>arrow_drop_down</v-icon>
-                        </a>
-
-                        <v-list>
-                            <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${loggedInUserId}/${item.route}`)">
-                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                            </v-list-tile>
-                        </v-list>
-                    </v-menu>
-
-                    <v-tab v-if="!loggedInUserId" @click="changeLoction('/login')">
-                        login
-                    </v-tab>
-                </v-tabs>
-            </v-toolbar>
+                        <v-tab v-if="!loggedInUserId" @click="changeLoction('/login')">
+                            login
+                        </v-tab>
+                    </v-tabs>
+                </v-toolbar>
             </v-app>
         </div>
         <router-view />
@@ -50,7 +37,17 @@
 
 <script>
 import userService from "@/services/userService.js";
-import { ACT_CHECK_USER_LOGIN, GETTER_IS_LOGIN, GETTER_USER_ID } from './store/userModule';
+import {
+  ACT_CHECK_USER_LOGIN,
+  GETTER_IS_LOGIN,
+  GETTER_USER_ID
+} from "./store/userModule";
+
+import {
+  eventBus,
+  EVENT_TOGGLE_HEADER_PAGE
+} from "@/services/event-bus-service.js";
+
 export default {
   data() {
     return {
@@ -63,20 +60,28 @@ export default {
     };
   },
   created() {
-      this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN })
-        .then(user => {
-          console.log('APP VUE >', user)
-          this.user = user
-        })
+    eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
+      this.isShowHeader = !this.isShowHeader;
+    });
+
+    this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
+      this.user = user;
+    });
   },
   methods: {
     changeLoction(url) {
-      this.$router.push(`${url}`);
+      this.$router.push(url);
     }
   },
   computed: {
     loggedInUserId() {
-      return this.$store.getters[GETTER_USER_ID];
+      return this.$store.getters[GETTER_IS_LOGIN];
+    },
+    isShowHeader() {
+      if (!this.loggedInUserId && this.$route.name === "publishPage") {
+        return false;
+      }
+      return true;
     }
   }
 };
