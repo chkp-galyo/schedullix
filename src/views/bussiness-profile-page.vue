@@ -32,7 +32,7 @@
             required
             ></v-text-field>
            
-            <v-text-field
+            <!-- <v-text-field
             v-validate="'required|max:30'"
             v-model="user.businessName"
             :counter="30"
@@ -40,7 +40,7 @@
             label="Business Name"
             data-vv-name="businessName"
             required
-            ></v-text-field>
+            ></v-text-field> -->
             <!-- <v-checkbox
               v-validate="'required'"
 

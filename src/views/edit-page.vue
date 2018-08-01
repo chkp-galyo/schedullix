@@ -21,7 +21,7 @@
 
           <!-- HEARDER component -->
           <section class="header" :class="{cmp: modePage === 'edit','edit-cmp': selectedCmp === 'header'}"
-                       style="order: 1" draggable="true" @dragstart="dragCmp"
+                       style="order: 1" draggable="false" @dragstart="dragCmp"
                         @drop="dropCmp"  @dragover="allowDrop"  ref="header"
                           v-if="user.configElements.header.isActive">
               <header-cmp :modePage="modePage" :headerConfig="user.configElements.header" />

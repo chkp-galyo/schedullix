@@ -13,6 +13,7 @@ import VeeValidate from 'vee-validate';
 import '@/assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import FullCalendar from 'vue-full-calendar'
+
 // Axios
 
 axios.defaults = {

@@ -14,7 +14,7 @@
             <h1 class="white--text mb-2 display-1 text-xs-center">Create Beautiful Scheduling appointment page for your Business</h1>
             <div class="white--text subheading mb-3 text-xs-center">Powered by The three dummies</div>
             <v-btn
-              class="blue lighten-2 mt-5"
+              class="green mt-5"
               dark
               large
               @click="getStarted"
