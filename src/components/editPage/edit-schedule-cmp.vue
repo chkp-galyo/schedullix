@@ -1,6 +1,6 @@
 <template>
     <section class="edit-schedule animated bounceInRight" :style="schedule.styleObj">
-        <section>
+        <section class="btn-container">
             <v-btn fab dark color="indigo" class="open-toolbar" v-if="modePage === 'edit'" 
                     title="Open toolbar" @click.stop="openToolbar">
                 <v-icon dark>edit</v-icon>
@@ -8,10 +8,10 @@
         </section>
 
         <section class="schedule-container">
-          <v-app>
-            <v-date-picker @input="handleInput" :color="schedule.styleDate.colorHeader" 
+          <v-app class="date-picker">
+            <v-date-picker  @input="handleInput" :color="schedule.styleDate.colorHeader" 
                               :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
-                                :dark="schedule.styleDate.dark" :width="400"  v-model="dateSelected"
+                                :dark="schedule.styleDate.dark" full-width v-model="dateSelected"
                                 :min="minDate"/>
           </v-app>
             <list-daily-appts class="list-cmp" :dateSelected="Date.parse(dateSelected)" :bgButtons="schedule.styleApptsList.background"/>
@@ -61,14 +61,18 @@ export default {
 
 <style lang="scss" scoped>
 .edit-schedule {
-  display: block;
+  display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  height: 50vh;
+  height: 120vh;
   border: 1px solid black;
 }
-
+.btn-container{
+  position: absolute;
+  top:0;
+  right: 3px;
+}
 .open-toolbar {
   position: absolute;
   right: 1%;
@@ -78,11 +82,36 @@ export default {
 .schedule-container {
   display: flex;
   justify-content: space-around;
-  height: 80%;
-}
-
-.list-cmp {
+  flex-direction: column;
+  // flex-wrap: wrap;
   height: 100%;
-  width: 30vw;
+}
+.date-picker{
+  width: 100%;
+  height: fit-content;
+  z-index: 0;
+  margin-top: 2em;
+}
+.list-cmp {
+  height: 57%;
+  width: 90vw;
+  padding: 2em;
+  margin: 0 auto;
+}
+@media only screen and (min-width: 900px){
+  .edit-schedule{
+    height: 80vh;
+  }
+ .schedule-container{
+   flex-direction: row;
+   height: 80%;
+ }
+ .list-cmp{
+   width: 50vw;
+   height: 100%;
+ }
+ .date-picker{
+   width: 50%;
+ }
 }
 </style>

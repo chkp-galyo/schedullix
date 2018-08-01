@@ -58,12 +58,12 @@ export default {
 <style scoped lang="scss">
 .edit-header {
   display: flex;
-  justify-content: center;
-
+  align-items: center;
+  flex-direction: column;
   border: 1px solid black;
-  height: 80vh;
+  height: 50vh;
   background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-size: 100% 100% !important;
   background-position: center !important;
 }
 .open-toolbar {
@@ -85,12 +85,21 @@ export default {
 
 .header-text {
   background-color: rgba(0, 0, 0, 0);
-  font-size: 72px;
+  font-size: 36px;
   align-items: center;
   height: 90%;
   width: 90%;
   resize: none;
   outline: none;
   overflow: auto;
+}
+@media only screen and (min-width: 900px) {
+  .edit-header {
+    height: 80vh;
+    background-size: cover !important;
+  }
+  .header-text{
+    font-size: 72px;
+  }
 }
 </style>

@@ -42,14 +42,7 @@
               <v-btn large color="primary">Try beautician template</v-btn>
             </div>
           </div>
-          <v-flex xs12 sm4 class="my-3">
-            <div class="text-xs-center">
-              <h2 class="headline">Help Us Help You</h2>
-              <span class="subheading">
-                Barber ?, doctor ?, or any other postion that based on scheduled apointment try us , and you will never regret
-              </span>
-            </div>
-          </v-flex>
+          <div class="divider"></div>
           <v-flex xs12>
             <v-container grid-list-xl>
               <v-layout row wrap align-center>
@@ -123,20 +116,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.divider{
+  width: 100vw;
+  background-color:lightgray;
+  height: 1px; 
+}
+.home-main{
+  // background-color: white;
+}
 .beautician-section,
 .doctor-section{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  flex-direction: column;
+  height: fit-content;
   width: 100%;
-  background-color: white;
+  // background-color: white;
 }
 .barber-section{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  flex-direction: column-reverse;
+  height: fit-content;
   width: 100%;
   background-color: lightgrey;
 }
@@ -146,18 +149,45 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 30vw;
+  width: 50%;
   padding: 2em;
 }
 .beautician-template img ,
 .barber-template img ,.doctor-template img{
   width: 100%;
-  height: 80%;
+  height: 20vh;
+  margin: 0 auto;
 }
 .beautician-side,
 .barber-side ,.doctor-side{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  width: 100%;
+  padding: 5em;
+  font-size: 1em;
+}
+@media only screen and (min-width: 700px){
+  .beautician-side,
+.barber-side ,.doctor-side{
   width: 50vw;
   padding: 2em;
-  font-size: 2em;
+  font-size: 1.5em;
+}
+.beautician-template img ,
+.barber-template img ,.doctor-template img{
+  height: 80%;
+
+}
+.beautician-template ,
+.barber-template ,.doctor-template{
+  width: 30vw;
+
+}
+.beautician-section,
+.doctor-section , .barber-section{
+  flex-direction: row
+}
 }
 </style>

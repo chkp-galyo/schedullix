@@ -1,6 +1,5 @@
 <template>
   <div class="edit-about animated bounceInRight" :style="styleObjContainer">
-
       <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
               @click.stop="openToolbar" v-if="modePage === 'edit'">
         <v-icon dark>edit</v-icon>
@@ -9,7 +8,7 @@
       <section class="about-container">
           <div class="about-text">
               <h1>{{aboutConfig.titleTxt}}</h1>
-              <textarea :disabled="modePage === 'publish'" ref="txt" @input="updateMainTxt" :value="aboutConfig.mainTxt">
+              <textarea rows="4" cols="50" :disabled="modePage === 'publish'" ref="txt" @input="updateMainTxt" :value="aboutConfig.mainTxt">
               </textarea>
           </div>
 
@@ -87,42 +86,77 @@ textarea {
   overflow: auto;
   font-size: 20px;
 }
+.btn-container{
+  position: absolute;
+  top:0;
+  right: 3px;
+}
 .edit-about {
-  border:1px solid black;
+  border: 1px solid black;
   display: block;
   padding: 20px;
-  height: 70vh;
   width: 100%;
 }
 
 .about-text {
   display: flex;
   flex-direction: column;
-  width: 33%;
+  width: 100%;
+  height: 100%;
   line-height: 1.6;
   background-color: #795548;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2em;
 }
 
 .about-container {
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
 
 .img-container {
-  width: 33%;
-  height: 90%;
+  width: 100%;
+  height: 50vh;
   border: 1px solid black;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;
+  margin-bottom: 2em;
 }
 
 .open-toolbar {
   position: absolute;
   right: 1%;
   z-index: 10;
+}
+.working-hours{
+  // height: 100%;
+}
+@media only screen and (min-width: 900px) {
+  .img-container {
+    width: 33%;  
+    height: 100%;
+    margin: 0;
+  }
+  .edit-about{
+    height: 80vh;
+    margin: 0;
+  }
+  .about-container{
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+  }
+  .about-text{
+    width: 33%;
+    height: 100%;
+    margin: 0;
+  }
+  textarea{
+    // width: 100vw;
+  }
 }
 </style>
