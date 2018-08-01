@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div id="nav" class="" v-if="isShowHeader">
+        <div id="nav" class="nav" v-if="isShowHeader">
             <v-app  style="min-height:0vh">
                 <v-toolbar dark tabs style="min-height:0vh">
 
@@ -92,8 +92,8 @@ a.v-list__tile,
 a .v-list__tile--link {
   color: #2c3e50 !important;
 }
-.application,
-.theme--light {
+.nav .application,
+.nav .theme--light {
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 .v-toolbar,

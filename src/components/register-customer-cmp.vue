@@ -84,8 +84,11 @@ export default {
 
       this.isRegisterComplited = true;
 
+
       setTimeout(() => {
         eventBus.$emit(EVENT_TOGGLE_REG_MENU);
+        // eventBus.$emit(EVENT_UPDATE_NEW_CUSTOMER, 'hello')
+
         this.customer = null;
       }, 2000);
     },

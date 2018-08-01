@@ -117,6 +117,7 @@ export default {
         // if (!this.checkbox) return;
         console.log(res);
         if (res) {
+          this.user.businessName = this.user.businessName.split(' ').join('')
           this.phone = this.phone;
           this.$store.dispatch({ type: ACT_ADD_USER, user: { ...this.user } })
             .then(user => {

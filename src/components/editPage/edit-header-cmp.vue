@@ -8,12 +8,16 @@
         @click.stop="openToolbar" v-if="modePage === 'edit'">
         <v-icon dark>edit</v-icon>
     </v-btn>
-
+    <v-btn fab dark color="yellow" class="drag-header" title="Drag me"
+        @mousedown="dragHeader">
+        <v-icon dark>move</v-icon>
+    </v-btn>
     <!-- <h1 contenteditable="true">{{headerConfig.titleTxt}}</h1> -->
   </div>
 </template>
 
 <script>
+import toolbarService from "@/services/toolbarService.js";
 import {
   MUT_UPDATE_HEADER_IMG,
   MUT_UPDATE_HEADER_TITLE
@@ -41,6 +45,11 @@ export default {
         type: MUT_UPDATE_HEADER_TITLE,
         title: ev.target.value
       });
+    },
+    dragHeader(ev){
+      console.log(ev.target.parentNode.parentNode.parentNode.parentNode)
+      var elmnt = ev.target.parentNode.parentNode.parentNode
+      toolbarService.dragElement(elmnt)
     }
   }
 };
@@ -54,7 +63,7 @@ export default {
   border: 1px solid black;
   height: 50vh;
   background-repeat: no-repeat !important;
-  background-size: cover 100% !important;
+  background-size: 100% 100% !important;
   background-position: center !important;
 }
 .open-toolbar {
@@ -65,11 +74,21 @@ export default {
   z-index: 10;
 }
 
+.drag-header {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 1%;
+  top: 10%;
+  z-index: 10;
+}
+
 .header-text {
   background-color: rgba(0, 0, 0, 0);
   font-size: 36px;
   align-items: center;
   height: 90%;
+  width: 90%;
   resize: none;
   outline: none;
   overflow: auto;
