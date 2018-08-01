@@ -17,6 +17,7 @@ export const GETTER_TEMP_USER = 'user/getters/tempUser'
 export const GETTER_USER_ID = 'user/getters/userId'
 export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
 export const GETTER_IS_LOGIN = 'user/getters/isLogin'
+export const GETTER_BUSINESS_NAME = 'user/getters/businessName'
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 export const MUT_UPDATE_CUSTOMER = 'user/mutations/updateCustomer'
@@ -46,6 +47,10 @@ export default {
         isLogin: userService.isLoggedinUser()
     },
     getters: {
+        [GETTER_BUSINESS_NAME](state) {
+            return state.user.businessName;
+        },
+
         [GETTER_IS_LOGIN](state) {
             return state.isLogin;
         },

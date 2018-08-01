@@ -12,10 +12,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import homeHeader from '@/components/homePage/home-header-cmp.vue'
-import homeMain from '@/components/homePage/home-main-cmp.vue'
-import homeFooter from '@/components/homePage/home-footer-cmp.vue'
+import homeHeader from "@/components/homePage/home-header-cmp.vue";
+import homeMain from "@/components/homePage/home-main-cmp.vue";
+import homeFooter from "@/components/homePage/home-footer-cmp.vue";
 export default {
   name: "home",
   components: {
@@ -37,5 +36,4 @@ export default {
   top: 0;
   z-index: -1;
 }
-
 </style>

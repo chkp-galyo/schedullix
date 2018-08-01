@@ -1,8 +1,6 @@
 <template>
     <div v-if="user" class="edit-page">
-          <h1>
-            MODE PAGE: {{modePage}}
-          </h1>
+          <sharePage></sharePage>
 
           <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" v-if="isShowEditMenu"/>
 
@@ -64,6 +62,8 @@ import toolbarService from "@/services/toolbarService.js";
 import editMenuCmp from "@/components/editPage/edit-menu-cmp.vue";
 import editWorkingHours from "@/components/editPage/edit-work-hours-cmp.vue";
 import registerCustomer from "@/components/register-customer-cmp.vue";
+import sharePage from "@/components/editPage/share-page-cmp.vue";
+
 
 import {
   eventBus,
@@ -103,31 +103,29 @@ export default {
     };
   },
   created() {
-    var businessName = this.$route.params.businessName
+    var businessName = this.$route.params.businessName;
     if (businessName) {
-      this.modePage = 'publish'
-      this.$store.dispatch({ type: ACT_LOAD_USER_BY_BUSINESS_NAME, businessName })
-            .then(res => {
-              if (!res) this.$router.push('/')
-            })
-            .catch(err => {
-              console.log('not good', err)
-            })
+      this.modePage = "publish";
+      this.$store
+        .dispatch({ type: ACT_LOAD_USER_BY_BUSINESS_NAME, businessName })
+        .then(res => {
+          if (!res) this.$router.push("/");
+        })
+        .catch(err => {
+          console.log("not good", err);
+        });
     }
     this.registerToEventBus();
   },
   computed: {
     user() {
       return JSON.parse(JSON.stringify(this.$store.getters[GETTER_USER]));
-    }
-    ,
-    isShowEditMenu(){
-      if (!this.isLogin || this.$route.name === 'publishPage')
-      {
-          return false;
+    },
+    isShowEditMenu() {
+      if (!this.isLogin || this.$route.name === "publishPage") {
+        return false;
       }
       return true;
-// "isLogin && this.$route.name === publishPage"
     }
   },
   mounted() {
@@ -174,7 +172,8 @@ export default {
       eventBus.$on(EVENT_OPEN_TOOL_BAR, selectedCmp => {
         if (
           ((this.selectedCmp === selectedCmp || !selectedCmp) &&
-          this.isToolbarShow) || !selectedCmp
+            this.isToolbarShow) ||
+          !selectedCmp
         ) {
           this.isToolbarShow = false;
           this.selectedCmp = null;
@@ -231,7 +230,8 @@ export default {
     toolbarCmp,
     registerCustomer,
     editMenuCmp,
-    editWorkingHours
+    editWorkingHours,
+    sharePage
   }
 };
 </script>
@@ -263,9 +263,9 @@ export default {
 
 .edit-cmp {
   outline: 1px dashed rgb(248, 120, 120);
-  -webkit-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 14px 7px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 14px 7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 14px 7px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 14px 7px rgba(0, 0, 0, 0.75);
   z-index: 1;
 }
 .register-container {

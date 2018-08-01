@@ -13,6 +13,9 @@ import VeeValidate from 'vee-validate';
 import '@/assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import FullCalendar from 'vue-full-calendar'
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
 // Axios
 
 axios.defaults = {
