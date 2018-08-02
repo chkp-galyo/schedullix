@@ -63,6 +63,8 @@ export default {
   },
   computed: {
     isRegisterUser() {
+      console.log(this.$store.getters[GETTER_IS_REGISTER_USER]);
+      
       return this.$store.getters[GETTER_IS_REGISTER_USER];
     }
   },

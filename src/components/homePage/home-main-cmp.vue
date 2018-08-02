@@ -13,7 +13,7 @@
               natus rem consectetur
                itaque dolorum autem, cumque quo repudiandae ad laborum maxime sunt iure. Voluptatum, quod in!
               </p>
-              <v-btn large color="primary" @click="loadDefaultUser(1)">Try doctor template</v-btn>
+              <v-btn large color="primary" @click="loadDefaultUser('1')">Try doctor template</v-btn>
             </div>
           </div>
           <div class="barber-section">
@@ -23,7 +23,7 @@
               natus rem consectetur
                itaque dolorum autem, cumque quo repudiandae ad laborum maxime sunt iure. Voluptatum, quod in!
               </p>
-              <v-btn large color="primary" @click="loadDefaultUser(2)">Try barber template</v-btn>
+              <v-btn large color="primary" @click="loadDefaultUser('2')">Try barber template</v-btn>
             </div>
             <div class="barber-template">
               <img src="http://pluspng.com/img-png/barber-shop-png-4-png-2741.png" alt="">
@@ -39,7 +39,7 @@
               natus rem consectetur
                itaque dolorum autem, cumque quo repudiandae ad laborum maxime sunt iure. Voluptatum, quod in!
               </p>
-              <v-btn large color="primary" @click="loadDefaultUser(3)">Try beautician template</v-btn>
+              <v-btn large color="primary" @click="loadDefaultUser('3')">Try beautician template</v-btn>
             </div>
           </div>
           <div class="divider"></div>
@@ -101,6 +101,10 @@
   </template>
 
 <script>
+import {
+  ACT_LOAD_USER
+} from "@/store/userModule.js";
+
 export default {
   data() {
     return {};
