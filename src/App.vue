@@ -3,11 +3,12 @@
         <div id="nav" class="nav" v-if="isShowHeader">
             <v-app >
                 <v-toolbar dark tabs >
-                        <!-- <v-tabs slot="extension" color="transparent" fixed-tabs slider-color="white"> -->
+                        <!-- <v-tab slot="extension" color="transparent" fixed-tabs slider-color="white"> -->
                     <v-toolbar-title @click="changeLoction('/')">
-                    <img src="/img/logo.png" alt="" srcset="">
+                    <img src="/img/logo.png">
                     </v-toolbar-title>
                     <div class="main-nav">
+                      <v-tabs color="transparent">
                             <v-tab @click="changeLoction('/')">
                                 Home
                             </v-tab>
@@ -22,9 +23,11 @@
                                     </v-list-tile>
                                 </v-list>
                             </v-menu>
+                      </v-tabs >
                     </div>
                     <div class="login">
-
+                      <v-tabs slider-color="transparent" color="transparent" >
+                        
                     <v-tab flat  v-if="!loggedInUserId" @click="changeLoction('/login')">
                         login
                     </v-tab>
@@ -37,8 +40,9 @@
                     </v-avatar>
                     </v-tab>
                         <!-- </v-tabs> -->
-                    </div>
 
+                      </v-tabs>
+                    </div>
                   </v-toolbar>
             </v-app>
         </div>
@@ -67,10 +71,14 @@ export default {
         { title: "Bussiness Calender", route: "bussinessCalender" },
         { title: "Bussiness Profile", route: "bussinessProfile" },
         { title: "Bussiness Page", route: "editPage" }
-      ],
+      ]
     };
   },
   created() {
+    eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
+      this.isShowHeader = !this.isShowHeader;
+    });
+
     this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
       this.user = user;
     });
@@ -152,12 +160,11 @@ a .v-list__tile--link {
   text-align: center;
   color: #2c3e50;
 }
-.nav {
+#nav {
   position: fixed;
   width: 100%;
   margin: 0;
   padding: 0;
-  z-index: 5;
   // text-decoration: ;
   a {
     font-weight: bold;
