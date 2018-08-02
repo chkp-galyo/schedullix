@@ -8,10 +8,6 @@
         @click.stop="openToolbar" v-if="modePage === 'edit'">
         <v-icon dark>edit</v-icon>
     </v-btn>
-    <v-btn fab dark color="yellow" class="drag-header" title="Drag me"
-        @mousedown="dragHeader">
-        <v-icon dark>move</v-icon>
-    </v-btn>
     <!-- <h1 contenteditable="true">{{headerConfig.titleTxt}}</h1> -->
   </div>
 </template>
@@ -46,11 +42,6 @@ export default {
         title: ev.target.value
       });
     },
-    dragHeader(ev){
-      console.log(ev.target.parentNode.parentNode.parentNode.parentNode)
-      var elmnt = ev.target.parentNode.parentNode.parentNode
-      toolbarService.dragElement(elmnt)
-    }
   }
 };
 </script>

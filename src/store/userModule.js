@@ -85,6 +85,7 @@ export default {
         [GETTER_USER](state) {
             return state.user ? state.user : null;
         },
+
         [GETTER_TEMP_USER](state) {
             return state.tempUser;
         },
@@ -98,6 +99,7 @@ export default {
                 return new Date(customer.time).toLocaleDateString() === new Date(dateSelectedTimestamp).toLocaleDateString()
             });
         },
+        
         [GETTER_CALENDER_COLOR](state) {
             return state.user ? state.user.configElements.schedule.styleDate.colorHeader : null
         }
