@@ -62,6 +62,7 @@ export default {
   display: flex;
   flex-direction: column;
   right: 1%;
+  top: 12%;
   z-index: 10;
 }
 

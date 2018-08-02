@@ -1,8 +1,8 @@
 <template>
     <section class="sign-up">
+      <div class="sign-up-container">
         <h1 class="black-text mb-5 display-4 text-xs-center">Sign Up</h1>
         <form class="sign-up-form" >
-           
             <v-text-field
             v-validate="'required|email'"
             v-model="user.email"
@@ -52,9 +52,10 @@
               @change="$v.checkbox.$touch()"
               @blur="$v.checkbox.$touch()"
             ></v-checkbox> -->
-            <v-btn @click="submit">submit</v-btn>
-            <v-btn @click="clear">clear</v-btn>
+            <v-btn color="primary" @click="submit">submit</v-btn>
+            <v-btn color="primary" @click="clear">clear</v-btn>
         </form>
+      </div>
     </section>
 </template>
 
@@ -146,18 +147,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sign-up {
-  margin: 0;
-  padding: 0;
-  width: 100%;
+h1{
+  // padding-top: 2em;
+  font-size: 4em!important;
+  font-weight: normal;  
+  //  background-color: white;
+  // padding: 1em;
 }
-.sign-up-form {
-  //   flex-direction: column;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   margin: 0px;
-  width: 70vw;
+.sign-up form {
+  width: 50vw;
   margin: 0 auto;
+}
+.sign-up-container{
+  background-color: rgba(255, 255, 255, 0.507);
+  padding: 3em;
+  width: 60vw;
+  margin: 0 auto;
+}
+.sign-up{
+  padding:6em; 
+  height: 100vh;
+  background-image: url('https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d');
+  background-size:100% 100%; 
+
 }
 </style>

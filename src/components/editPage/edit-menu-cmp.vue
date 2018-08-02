@@ -5,7 +5,8 @@
                 <v-icon dark>save</v-icon>
             </v-btn>
 
-            <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" v-if="modePage === 'edit'">
+            <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" 
+                    v-if="modePage === 'edit'">
                 <v-icon dark>publish</v-icon>
             </v-btn> 
 
@@ -13,14 +14,20 @@
                 <v-icon dark>edit</v-icon>
             </v-btn> 
 
-            <!-- <v-btn fab dark color="blue" class="open-toolbar" title="Add area">
-                <v-icon dark>add</v-icon>
-            </v-btn> -->
+            <section class="share-container" v-if="modePage === 'publish'">
+                <v-btn fab dark color="green" title="share" @click="openShareMenu" >
+                  <v-icon dark>share</v-icon>
+                </v-btn> 
+                <sharePage></sharePage>
+            </section>
+ 
+
         </section>
     </section>
 </template>
 
 <script>
+import sharePage from "@/components/editPage/share-page-cmp.vue";
 import { ACT_UPDATE_USER } from "@/store/userModule.js";
 
 import {
@@ -28,6 +35,7 @@ import {
   EVENT_UPDATE_USER,
   EVENT_CHANGE_MODE_PAGE,
   EVENT_OPEN_TOOL_BAR,
+  EVENT_TOGGLE_SHARE_MENU,
   EVENT_TOGGLE_HEADER_PAGE
 } from "@/services/event-bus-service.js";
 
@@ -36,11 +44,14 @@ export default {
   props: {
     modePage: String
   },
-  components: {},
+  components: { sharePage },
   data() {
     return {};
   },
   methods: {
+    openShareMenu() {
+      eventBus.$emit(EVENT_TOGGLE_SHARE_MENU);
+    },
     saveUserPage() {
       eventBus.$emit(EVENT_UPDATE_USER);
     },
@@ -49,7 +60,6 @@ export default {
       eventBus.$emit(EVENT_TOGGLE_HEADER_PAGE); 
       if (mode === "publish") {
         eventBus.$emit(EVENT_OPEN_TOOL_BAR, null); // In publish mode -> close tool bar
-        
       }
     }
   },
@@ -67,12 +77,12 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
-    .edit-menu {
-        position: fixed;
-        flex-direction: row;
-        height: 80px;
-        top: 0;
-        left: 0;
-    }
+  .edit-menu {
+    position: fixed;
+    flex-direction: row;
+    height: 80px;
+    top: 0;
+    left: 0;
+  }
 }
 </style>
