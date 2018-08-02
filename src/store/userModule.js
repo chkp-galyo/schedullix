@@ -39,7 +39,7 @@ export const MUT_TOGGLE_CALENDER_LANDSCAPE = 'user/mutations/toggleCalenderLands
 export const MUT_UPDATE_APPT_LIST_COLOR_CMP = 'user/mutations/updateApptListColor'
 export const MUT_UPDATE_IS_ACTIVE_CMP = 'user/mutations/updateCmpIsActive'
 export const MUT_LOGIN_USER = 'user/mutations/loginUser'
-
+export const MUT_LOGOUT_USER = 'user/mutations/logoutUser'
 
 export default {
     state: {
@@ -189,6 +189,9 @@ export default {
             cmp
         }) {
             state.user.configElements[cmp].isActive = !state.user.configElements[cmp].isActive
+        },
+        [MUT_LOGOUT_USER](state) {
+            state.user = {}
         }
     },
     actions: {

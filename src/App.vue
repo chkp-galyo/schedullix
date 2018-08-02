@@ -31,7 +31,7 @@
                     <v-tab flat  v-if="!loggedInUserId" @click="changeLoction('/login')">
                         login
                     </v-tab>
-                    <v-tab flat v-if="loggedInUserId" >
+                    <v-tab flat v-if="loggedInUserId" @click="logout()">
                         logout
                     </v-tab>
                     <v-tab v-if="loggedInUserId">
@@ -55,7 +55,8 @@ import userService from "@/services/userService.js";
 import {
   ACT_CHECK_USER_LOGIN,
   GETTER_IS_LOGIN,
-  GETTER_USER_ID
+  GETTER_USER_ID,
+  MUT_LOGOUT_USER
 } from "./store/userModule";
 
 import {
@@ -98,7 +99,9 @@ export default {
       return true;
     },
     logout(){
+      console.log('Loggin oout')
       userService.logout()
+      this.$store.commit({type: MUT_LOGOUT_USER})
       this.$router.push('/')
     }
   }
@@ -163,11 +166,12 @@ a .v-list__tile--link {
   text-align: center;
   color: #2c3e50;
 }
-#nav {
+.nav {
   position: fixed;
   width: 100%;
   margin: 0;
   padding: 0;
+  z-index: 5;
   // text-decoration: ;
   a {
     font-weight: bold;
