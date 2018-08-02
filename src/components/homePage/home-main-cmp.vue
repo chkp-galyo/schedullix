@@ -101,31 +101,25 @@
   </template>
 
 <script>
-
 export default {
   data() {
-    return {
-    
-    };
+    return {};
   },
-  methods: {
-   
-  },
-  
+  methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
-.divider{
+.divider {
   width: 100vw;
-  background-color:lightgray;
-  height: 1px; 
+  background-color: lightgray;
+  height: 1px;
 }
-.home-main{
+.home-main {
   // background-color: white;
 }
 .beautician-section,
-.doctor-section{
+.doctor-section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,7 +128,7 @@ export default {
   width: 100%;
   // background-color: white;
 }
-.barber-section{
+.barber-section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,8 +137,9 @@ export default {
   width: 100%;
   background-color: lightgrey;
 }
-.beautician-template ,
-.barber-template ,.doctor-template{
+.beautician-template,
+.barber-template,
+.doctor-template {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,42 +147,46 @@ export default {
   width: 50%;
   padding: 2em;
 }
-.beautician-template img ,
-.barber-template img ,.doctor-template img{
+.beautician-template img,
+.barber-template img,
+.doctor-template img {
   width: 100%;
   height: 20vh;
   margin: 0 auto;
 }
 .beautician-side,
-.barber-side ,.doctor-side{
+.barber-side,
+.doctor-side {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   padding: 5em;
   font-size: 1em;
 }
-@media only screen and (min-width: 700px){
+@media only screen and (min-width: 700px) {
   .beautician-side,
-.barber-side ,.doctor-side{
-  width: 50vw;
-  padding: 2em;
-  font-size: 1.5em;
-}
-.beautician-template img ,
-.barber-template img ,.doctor-template img{
-  height: 80%;
-
-}
-.beautician-template ,
-.barber-template ,.doctor-template{
-  width: 30vw;
-
-}
-.beautician-section,
-.doctor-section , .barber-section{
-  flex-direction: row
-}
+  .barber-side,
+  .doctor-side {
+    width: 50vw;
+    padding: 2em;
+    font-size: 1.5em;
+  }
+  .beautician-template img,
+  .barber-template img,
+  .doctor-template img {
+    height: 80%;
+  }
+  .beautician-template,
+  .barber-template,
+  .doctor-template {
+    width: 30vw;
+  }
+  .beautician-section,
+  .doctor-section,
+  .barber-section {
+    flex-direction: row;
+  }
 }
 </style>

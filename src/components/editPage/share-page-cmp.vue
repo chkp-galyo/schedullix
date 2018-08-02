@@ -17,7 +17,6 @@
             </v-btn> 
         </section>
 
-        
         <section class="address-page-container">
             <h3>{{businessUrl}}</h3>
             <v-btn fab small dark color="indigo" title="Copy Business URL" v-clipboard:copy="businessUrl" >

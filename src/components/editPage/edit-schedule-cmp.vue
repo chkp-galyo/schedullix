@@ -10,9 +10,9 @@
         <section class="schedule-container">
           <v-app class="date-picker">
             <v-date-picker  @input="handleInput" :color="schedule.styleDate.colorHeader" 
-                              :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
-                                :dark="schedule.styleDate.dark" full-width v-model="dateSelected"
-                                :min="minDate"/>
+                            :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
+                            :dark="schedule.styleDate.dark" full-width v-model="dateSelected"
+                            :min="minDate"/>
           </v-app>
             <list-daily-appts class="list-cmp" :dateSelected="Date.parse(dateSelected)" :bgButtons="schedule.styleApptsList.background"/>
         </section>
@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.open-toolbar:hover {
+  transition: all 0.5s ease;
+  transform: scale(1.1);
+}
 .edit-schedule {
   display: flex;
   justify-content: space-around;
@@ -68,9 +72,9 @@ export default {
   height: 120vh;
   border: 1px solid black;
 }
-.btn-container{
+.btn-container {
   position: absolute;
-  top:0;
+  top: 0;
   right: 3px;
 }
 .open-toolbar {
@@ -86,7 +90,7 @@ export default {
   // flex-wrap: wrap;
   height: 100%;
 }
-.date-picker{
+.date-picker {
   width: 100%;
   height: fit-content;
   z-index: 0;
@@ -98,20 +102,20 @@ export default {
   padding: 2em;
   margin: 0 auto;
 }
-@media only screen and (min-width: 900px){
-  .edit-schedule{
+@media only screen and (min-width: 900px) {
+  .edit-schedule {
     height: 80vh;
   }
- .schedule-container{
-   flex-direction: row;
-   height: 80%;
- }
- .list-cmp{
-   width: 50vw;
-   height: 100%;
- }
- .date-picker{
-   width: 50%;
- }
+  .schedule-container {
+    flex-direction: row;
+    height: 80%;
+  }
+  .list-cmp {
+    width: 50vw;
+    height: 100%;
+  }
+  .date-picker {
+    width: 50%;
+  }
 }
 </style>

@@ -290,9 +290,12 @@ export default {
         [ACT_REMOVE_CUSTOMER](context, {
             time
         }) {
-            return userService.removeCustomerByTime(time)
+            return userService.removeCustomerByTime(context.state.user._id, time)
                 .then(() => {
                     console.log('customer deleted')
+                })
+                .catch(() => {
+                    console.log('customer no deleted')
                 })
         }
     }
