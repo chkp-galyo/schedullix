@@ -127,15 +127,6 @@ export default {
     }
   },
   mounted() {
-    // console.log("headerTop:", this.$refs.header.offsetTop);
-    // console.log("headerHeight:", this.$refs.header.offsetHeight);
-    // console.log("aboutTop:", this.$refs.about.offsetTop);
-    // console.log("aboutHeight:", this.$refs.about.offsetHeight);
-
-    // console.log("scheduleTop:", this.$refs.schedule.offsetTop);
-    // console.log("scheduleHeight:", this.$refs.schedule.offsetHeight);
-    // console.log("mapTop:", this.$refs.map.offsetTop);
-    // console.log("mapHeight:", this.$refs.map.offsetHeight);
     this.cmps.push(
       this.$refs.header,
       this.$refs.about,
