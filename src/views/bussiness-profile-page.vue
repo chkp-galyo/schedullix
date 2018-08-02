@@ -1,6 +1,7 @@
 <template>
     <section class="bussniess-profile">
-                <h3 class="black-text mb-5 mt-5 display-4 text-xs-center">My Bussniess Profile</h3>
+      <div class="update-user-container">
+          <h3 class="black-text mb-5 mt-5 display-4 text-xs-center">My Bussniess Profile</h3>
           <form class="update-user-form" >
             <v-text-field
             v-validate="'required|email'"
@@ -54,6 +55,7 @@
             <v-btn @click="submit">submit</v-btn>
             <v-btn @click="clear">clear</v-btn>
         </form>
+      </div>
     </section>
 </template>
 
@@ -143,13 +145,19 @@ h3.display-4{
   padding: 0;
   width: 100%;
 }
+.update-user-container{
+  background-color: rgba(255, 255, 255, 0.507);
+  padding: 3em;
+  width: 60vw;
+  margin: 0 auto;
+}
 .update-user-form {
   //   flex-direction: column;
   //   display: flex;
   //   justify-content: center;
   //   align-items: center;
   //   margin: 0px;
-  width: 70vw;
-  margin: 0 auto;
+  // width: 70vw;
+  // margin: 0 auto;
 }
 </style>

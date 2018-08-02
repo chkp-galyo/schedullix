@@ -1,46 +1,23 @@
 <template>
-<section class="home-header">
-      
-      <section class="carousel-container">
-        <div class="side-carousel" >
-        <!-- <v-parallax height="fit-content" > -->
-          <!-- <v-layout
-          
-            column
-            align-center
-            justify-center
-            class="white--text"
-            style="align-self:center"
-          > -->
-            <h1 class="white--text mb-2 display-1 text-xs-center">Create Beautiful Scheduling appointment page for your Business</h1>
-            <p class="white--text subheading mb-2 text-xs-center">Powered by The three dummies</p>
-            <v-btn
-              class="green mt-5"
-              dark
-              large
-              @click="getStarted"
-            >
-              Get Started
-            </v-btn>
-          <!-- </v-layout> -->
-        <!-- </v-parallax> -->
+  <section class="home-header">
+    <section class="carousel-container">
+      <div class="side-carousel" >
+        <h1 class="white--text mb-2 display-1 text-xs-center">Create Beautiful Scheduling appointment page for your Business</h1>
+        <p class="white--text subheading mb-2 text-xs-center">Powered by The three dummies</p>
+        <v-btn  color="primary" dark large @click="getStarted"> Get Started </v-btn>
       </div>
-      <!-- <v-app class="sat" > -->
-
-    <v-carousel style="height:100%" hide-delimiters hide-controls class="carosela" >
-      <v-carousel-item
-      class="carosela-item"
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.src"
-        style="height:100%"
-      >
-      
-      </v-carousel-item>
-    </v-carousel>
-      <!-- </v-app> -->
-      </section>
-</section>
+      <v-carousel style="height:100%" hide-delimiters hide-controls class="carosela" >
+          <v-carousel-item
+          class="carosela-item"
+          v-for="(item,i) in items"
+          :key="i"
+          :src="item.src"
+          style="height:100%"
+          >
+          </v-carousel-item>
+        </v-carousel>
+    </section>
+  </section>
 </template>
  
 <script>
@@ -107,7 +84,8 @@ export default {
 
 .carosela {
   width: 100%;
-  // min-height: 100%;
+  // max-height: 700px;
+  // min-height: 700px
   // position: absolute;
   // top:0;
 }
@@ -123,21 +101,20 @@ v-parallax {
   height: 65vh;
 }
 .side-carousel {
+  position: absolute;
+  // top: 3%;
+  z-index: 1000000000;
   display: flex;
-  width: 80%;
-  padding: 1em;
-  margin: 0;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40vh;
-  // padding: 5em;
+  width: 100%;
+  height: 65vh;
+  padding: 1em;
+  margin: 0;
   background-color: rgba(49, 44, 44, 0.5);
   color: white;
-  position: absolute;
-  z-index: 1000000000;
-  top: 4%;
-  
+  // padding: 5em;
 }
 .carousel-container {
   display: flex;
@@ -146,7 +123,6 @@ v-parallax {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  
 }
 p {
   font-size: 0.9em !important;
@@ -158,15 +134,19 @@ p {
 }
 @media only screen and (min-width: 900px) {
   .home-header {
-    height: 90vh;
+    height: 100vh;
+    // max-height: 600px
   }
   .display-1 {
     font-size: 2em !important;
   }
-  .side-carousel{
-    height: 50vh;
-    top: 6%;
-    width: 50vw;
+  .carosela {
+  }
+  .side-carousel {
+    height: 100vh;
+    // top: 6%;
+    width: 100%;
+    min-height: 250px;
   }
 }
 </style>
