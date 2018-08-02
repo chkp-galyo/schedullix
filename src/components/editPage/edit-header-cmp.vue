@@ -1,15 +1,15 @@
 <template>
-  <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
-    <div class="cmp-cover">
-    <textarea :disabled="modePage === 'publish'" class="header-text" :value="headerConfig.titleTxt" @input="updateTitle"> </textarea>
-
+    <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
+        <div class="cmp-cover">
+            <textarea :disabled="modePage === 'publish'" class="header-text"
+                      :value="headerConfig.titleTxt" @input="updateTitle">
+            </textarea>
+        </div>
+        <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
+                @click.stop="openToolbar" v-if="modePage === 'edit'">
+            <v-icon dark>edit</v-icon>
+        </v-btn>
     </div>
-    <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-        @click.stop="openToolbar" v-if="modePage === 'edit'">
-        <v-icon dark>edit</v-icon>
-    </v-btn>
-    <!-- <h1 contenteditable="true">{{headerConfig.titleTxt}}</h1> -->
-  </div>
 </template>
 
 <script>
@@ -41,12 +41,16 @@ export default {
         type: MUT_UPDATE_HEADER_TITLE,
         title: ev.target.value
       });
-    },
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
+.open-toolbar:hover {
+  transition: all 0.5s ease;
+  transform: scale(1.1);
+}
 .edit-header {
   display: flex;
   align-items: center;
@@ -90,7 +94,7 @@ export default {
     height: 80vh;
     background-size: cover !important;
   }
-  .header-text{
+  .header-text {
     font-size: 72px;
   }
 }

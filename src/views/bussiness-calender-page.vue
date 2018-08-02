@@ -5,7 +5,7 @@
             <register-customer :timeCustomer="timeCustomer" />
         </div>
         <h3 class="black-text mb-5 mt-5 display-4 text-xs-center">My Bussniess Calender</h3> 
-        <v-btn v-if="apptSelected" color="success" @click="addCustomer">Add Appointment</v-btn>
+        <v-btn v-if="newAppt" color="success" @click="addCustomer">Add Appointment</v-btn>
 
         <v-btn v-if="apptSelected" @click="removeAppt" color="error">Remove Appointment</v-btn>
 
@@ -16,8 +16,11 @@
 </template>
 
 <script>
-import { GETTER_USER, ACT_LOAD_USER_CUSTOMER,
-        ACT_REMOVE_CUSTOMER } from "@/store/userModule.js";
+import {
+  GETTER_USER,
+  ACT_LOAD_USER_CUSTOMER,
+  ACT_REMOVE_CUSTOMER
+} from "@/store/userModule.js";
 import {
   eventBus,
   EVENT_TOGGLE_REG_MENU,
@@ -32,20 +35,20 @@ export default {
     return {
       events: [],
       config: {
-        locale: "en",
+        locale: "en"
       },
       apptSelected: null,
       showRegisterMenu: false,
-      timeCustomer: null
+      timeCustomer: null,
+      newAppt: null
     };
   },
   computed: {},
   created() {
     eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
       this.showRegisterMenu = !this.showRegisterMenu;
-    // this.renderCustomers();
-        this.refreshEvents()
-
+      // this.renderCustomers();
+      this.refreshEvents();
     });
     this.renderCustomers();
   },
@@ -71,23 +74,28 @@ export default {
       console.log("seleceted", ev);
       console.log("$refs", this.$refs.removeAppt);
       console.log("$refs", this.$refs.calender);
-
+      this.newAppt = false
       this.apptSelected = ev;
       var cuurAppt = this.apptSelected;
       var cal = this.$refs.calender;
+            var currTime = ev.start._d;
+      this.timeCustomer = currTime.setHours(currTime.getHours() - 3);
     },
     removeAppt() {
-    //   console.log(Date.parse(this.apptSelected.start._d));
-      if (this.apptSelected._id){
-          this.$refs.calendar.$emit("remove-event", this.apptSelected._id);
-            this.$store.dispatch({ type: ACT_REMOVE_CUSTOMER, time: this.apptSelected.start._d})
-          this.apptSelected = {};
+      if (this.apptSelected._id) {
+        this.$refs.calendar.$emit("remove-event", this.apptSelected._id);
+        this.$store.dispatch({
+          type: ACT_REMOVE_CUSTOMER,
+          time: this.timeCustomer
+        });
+        this.apptSelected = {};
       }
     },
     eventCreated(ev) {
       var currTime = ev.start._d;
-      this.timeCustomer = currTime.setHours(currTime.getHours()-3);
-      this.apptSelected = ev;
+      this.timeCustomer = currTime.setHours(currTime.getHours() - 3);
+      this.newAppt = true
+      // this.apptSelected = ev;
     },
     addCustomer() {
       this.showRegisterMenu = true;
@@ -153,6 +161,5 @@ h3.display-4 {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 </style>

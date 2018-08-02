@@ -1,19 +1,20 @@
 <template>
     <div class="edit-map animated bounceInRight" :style="mapConfig.styleObj">
         <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
-            @click.stop="openToolbar" v-if="modePage === 'edit'">
+                @click.stop="openToolbar" v-if="modePage === 'edit'">
             <v-icon dark>edit</v-icon>
         </v-btn>
-        <section class="map-container">
-          <div class="side-map">
-              <h2> {{this.address}}</h2>
-          </div>
 
-          <gmap-map class="g-map" :center="center" :zoom="16"  >
-            <gmap-marker :key="index" v-for="(m, index) in markers" 
-                          :position="m.position" @click="center=m.position">
-            </gmap-marker>
-          </gmap-map>
+        <section class="map-container">
+            <div class="side-map">
+                <h2> {{this.address}}</h2>
+            </div>
+
+            <gmap-map class="g-map" :center="center" :zoom="16"  >
+                <gmap-marker :key="index" v-for="(m, index) in markers" 
+                              :position="m.position" @click="center=m.position">
+                </gmap-marker>
+            </gmap-map>
         </section>
     </div>
 </template>
@@ -52,7 +53,6 @@ export default {
   mounted() {
     this.geolocate();
     if (this.location) {
-      console.log(this.location);
       this.currentPlace = this.location;
       mapService.getAddress(this.location).then(address => {
         this.address = address;
@@ -121,6 +121,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.open-toolbar:hover {
+  transition: all 0.5s ease;
+  transform: scale(1.1);
+}
 .side-map {
   width: 50%;
   min-width: 300px;
@@ -152,7 +156,7 @@ input {
   flex-direction: column;
   // border: 1px solid black;
 }
-.g-map{
+.g-map {
   // margin-left: 2em;
   // margin-right: 2em;
   width: 90%;
@@ -172,12 +176,12 @@ input {
   right: 1%;
   z-index: 10;
 }
-@media only screen and (min-width: 900px){
-  .map-container{
-    flex-direction: row
+@media only screen and (min-width: 900px) {
+  .map-container {
+    flex-direction: row;
   }
-  .g-map{
-    width: 70%
+  .g-map {
+    width: 70%;
   }
 }
 </style>
