@@ -8,13 +8,15 @@
       <section class="about-container">
           <div class="about-text">
               <h1>{{aboutConfig.titleTxt}}</h1>
-              <textarea rows="4" cols="50" :disabled="modePage === 'publish'" ref="txt" @input="updateMainTxt" :value="aboutConfig.mainTxt">
+              <textarea rows="4" cols="50" :disabled="modePage === 'publish'" ref="txt" 
+                        @input="updateMainTxt" :value="aboutConfig.mainTxt">
               </textarea>
           </div>
 
           <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
 
-          <div class="img-container" :style="{'background-image': aboutConfig.styleObj['background-image']}" @click="openInputFile">
+          <div class="img-container" :style="{'background-image': aboutConfig.styleObj['background-image']}" 
+                @click="openInputFile">
           </div>
 
           <div class="working-hours">
@@ -86,13 +88,13 @@ textarea {
   overflow: auto;
   font-size: 20px;
 }
-.btn-container{
+.btn-container {
   position: absolute;
-  top:0;
+  top: 0;
   right: 3px;
 }
 .edit-about {
-  border: 1px solid black;
+  // border: 1px solid black;
   display: block;
   padding: 20px;
   width: 100%;
@@ -104,9 +106,9 @@ textarea {
   width: 100%;
   height: 100%;
   line-height: 1.6;
-  background-color: #795548;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  // border-radius: 10px;
+  // box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   margin-bottom: 2em;
 }
 
@@ -120,7 +122,7 @@ textarea {
 .img-container {
   width: 100%;
   height: 50vh;
-  border: 1px solid black;
+  // border: 1px solid black;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;
@@ -132,31 +134,36 @@ textarea {
   right: 1%;
   z-index: 10;
 }
-.working-hours{
+.working-hours {
   // height: 100%;
 }
 @media only screen and (min-width: 900px) {
   .img-container {
-    width: 33%;  
-    height: 100%;
-    margin: 0;
-  }
-  .edit-about{
-    height: 80vh;
-    margin: 0;
-  }
-  .about-container{
-    flex-direction: row;
-    align-items: center;
-    margin: 0;
-  }
-  .about-text{
     width: 33%;
     height: 100%;
     margin: 0;
   }
-  textarea{
+  .edit-about {
+    height: 80vh;
+    margin: 0;
+  }
+  .about-container {
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+  }
+  .about-text {
+    width: 33%;
+    height: 100%;
+    margin: 0;
+  }
+  textarea {
     // width: 100vw;
   }
+}
+
+.open-toolbar:hover {
+  transition: all 0.5s ease;
+  transform: scale(1.1);
 }
 </style>

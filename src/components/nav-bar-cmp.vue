@@ -3,7 +3,7 @@
                 <v-toolbar dark tabs >
                         <!-- <v-tab slot="extension" color="transparent" fixed-tabs slider-color="white"> -->
                     <v-toolbar-title @click="changeLoction('/')">
-                    <img src="/img/logo.png">
+                    <img class="animated tada" src="/img/logo.png">
                     </v-toolbar-title>
                     <div class="main-nav">
                       <v-tabs color="transparent">
@@ -74,9 +74,9 @@ export default {
   },
 
   created() {
-    eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
-      this.isShowHeader = !this.isShowHeader;
-    });
+    // eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
+    //   this.isShowHeader = !this.isShowHeader;
+    // });
 
     this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
       this.user = user;
@@ -172,7 +172,7 @@ a .v-list__tile--link {
   a {
     font-weight: bold;
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     &.router-link-exact-active {
       color: #42b983;
     }
@@ -180,6 +180,9 @@ a .v-list__tile--link {
   a:hover {
     color: #e23c52;
   }
+}
+@media only screen and (min-width: 700px) {
+
 }
 </style>
 

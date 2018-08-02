@@ -6,7 +6,7 @@
             </v-btn>
 
             <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" 
-                    v-if="modePage === 'edit'">
+                    v-if="modePage === 'edit' && isRegisterUser">
                 <v-icon dark>publish</v-icon>
             </v-btn> 
 
@@ -16,7 +16,7 @@
 
             <section class="share-container" v-if="modePage === 'publish'">
                 <v-btn fab dark color="green" title="share" @click="openShareMenu" >
-                  <v-icon dark>share</v-icon>
+                    <v-icon dark>share</v-icon>
                 </v-btn> 
                 <sharePage></sharePage>
             </section>
@@ -26,7 +26,7 @@
 
 <script>
 import sharePage from "@/components/editPage/share-page-cmp.vue";
-import { ACT_UPDATE_USER, } from "@/store/userModule.js";
+import { ACT_UPDATE_USER, GETTER_IS_REGISTER_USER} from "@/store/userModule.js";
 
 import {
   eventBus,
@@ -61,6 +61,13 @@ export default {
       }
     }
   },
+  computed: {
+    isRegisterUser() {
+      console.log(this.$store.getters[GETTER_IS_REGISTER_USER]);
+      
+      return this.$store.getters[GETTER_IS_REGISTER_USER];
+    }
+  },
   created() {}
 };
 </script>
@@ -79,7 +86,7 @@ export default {
     position: fixed;
     flex-direction: row;
     height: 80px;
-    top: 0;
+    top: 60px;
     left: 0;
   }
 }

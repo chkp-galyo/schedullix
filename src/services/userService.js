@@ -56,21 +56,29 @@ function addUser(user) {
         })
 }
 
-function removeCustomerByTime(customerTime) {
-    return axios.delete(URL + '/removeCustomer', customerTime)
+function removeCustomerByTime(userId, customerTime) {
+    var removeInfo = {
+        userId,
+        customerTime
+    }
+    return axios.post(URL + '/removeCustomer', removeInfo)
+        .then(res => {
+            return (res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
-function getUserCustomers(userId){
-    console.log('user service, user ID:',userId);
-    
-    return axios.post(URL + '/customers', {userId})
-        .then(res =>{
-            console.log('res from backend',res.data );
-            
+function getUserCustomers(userId) {
+    return axios.post(URL + '/customers', {
+            userId
+        })
+        .then(res => {
             return res.data
         })
         .catch(err => {
-            console.log('didnt get customers',err)
+            console.log('didnt get customers', err)
         })
 }
 
@@ -109,11 +117,9 @@ function _setLoggedinUser(user) {
 }
 
 function login(loginInfo) {
-    console.log('userService login info', loginInfo)
     return axios.post(URL + '/login', loginInfo)
         .then(res => {
             _setLoggedinUser(res.data)
-            console.log('user service login res', res.data)
             return (res.data)
         })
         .catch(err => {
@@ -123,193 +129,193 @@ function login(loginInfo) {
 
 function getDefaultUser() {
     var a = {
-        email:"",
-       password: "",
-       phone: null,
-       businessName: "",
-       location: {
-           lat: 36.778259,
-           lng: -119.417931
-       },
-       timePerCustomer: 30,
-       workingHours: [{
-               isOpen: true,
-               day: 'Mon',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 30
-                   }
-               }
-           },
-           {
-               isOpen: true,
-               day: 'Tue',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 30
-                   }
-               }
-           },
-           {
-               isOpen: true,
-               day: 'Wed',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 30
-                   }
-               }
-           },
-           {
-               isOpen: true,
-               day: 'Thu',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 30
-                   }
-               }
-           },
-           {
-               isOpen: true,
-               day: 'Fri',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 0
-                   }
-               }
-           },
-           {
-               isOpen: true,
-               day: 'Sat',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 30
-                   }
-               }
-           },
-           {
-               isOpen: true,
-               day: 'Sun',
-               hoursOpen: {
-                   startTime: {
-                       hours: 8,
-                       minutes: 30
-                   },
-                   endTime: {
-                       hours: 17,
-                       minutes: 30
-                   }
-               }
-           },
-       ],
-       customers: [{
-               name: "AliBaba",
-               Phone: "065-423",
-               time: 1532583000000,
-               isDone: true
-           },
-           {
-               "name": "Pipi",
-               "Phone": "065gdfgdfg54",
-               "time": 1532599200000,
-               "isDone": false
-           }
-       ],
+        email: "",
+        password: "",
+        phone: null,
+        businessName: "",
+        location: {
+            lat: 36.778259,
+            lng: -119.417931
+        },
+        timePerCustomer: 30,
+        workingHours: [{
+                isOpen: true,
+                day: 'Mon',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Tue',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Wed',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Thu',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Fri',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 0
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Sat',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+            {
+                isOpen: true,
+                day: 'Sun',
+                hoursOpen: {
+                    startTime: {
+                        hours: 8,
+                        minutes: 30
+                    },
+                    endTime: {
+                        hours: 17,
+                        minutes: 30
+                    }
+                }
+            },
+        ],
+        customers: [{
+                name: "AliBaba",
+                Phone: "065-423",
+                time: 1532583000000,
+                isDone: true
+            },
+            {
+                "name": "Pipi",
+                "Phone": "065gdfgdfg54",
+                "time": 1532599200000,
+                "isDone": false
+            }
+        ],
         configElements: {
-           header: {
-               isActive: true,
-               titleTxt: "Welcome to my Bussiness!",
-               styleObj: {
-                   color: "white",
-                   background: "red",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "700",
-                   'text-align': "center",
-                   'background-image': "url('https://media.ultimahora.com/adjuntos/161/imagenes/000/705/0000705263.jpg')",
-               }
-           },
-           about: {
-               isActive: true,
-               titleTxt: "About us:",
-               mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-               styleObj: {
-                   color: "white",
-                   background: "#4b3e3b",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "200",
-                   'text-align': "center",
-                   'background-image': "url('http://www.mimejornegocio.com/wp-content/uploads/2017/08/Barbershop_034smoke_c_Lupi_Spuma-2-570x342.jpg')",
+            header: {
+                isActive: true,
+                titleTxt: "Welcome to my Bussiness!",
+                styleObj: {
+                    color: "white",
+                    background: "red",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                    'background-image': "url('https://media.ultimahora.com/adjuntos/161/imagenes/000/705/0000705263.jpg')",
+                }
+            },
+            about: {
+                isActive: true,
+                titleTxt: "About us:",
+                mainTxt: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+                styleObj: {
+                    color: "white",
+                    background: "#4b3e3b",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "200",
+                    'text-align': "center",
+                    'background-image': "url('http://www.mimejornegocio.com/wp-content/uploads/2017/08/Barbershop_034smoke_c_Lupi_Spuma-2-570x342.jpg')",
 
-               }
-           },
-           schedule: {
-               isActive: true,
-               colorHeader: "blue",
-               colorAvailable: "",
-               colorBusy: "",
-               styleObj: {
-                   color: "white",
-                   background: "#4b3e3b",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "700",
-                   'text-align': "center",
-               },
-               styleDate: {
-                   colorHeader: "brown",
-                   landscape: true,
-                   dark: true,
-                   light: false,
-               },
-               styleApptsList: {
-                   background: "red"
-               }
-           },
-           map: {
-               isActive: true,
-               titleTxt: "....",
-               styleObj: {
-                   color: "white",
-                   background: "#4b3e3b",
-                   'font-size': "16px",
-                   'font-family': "Arial",
-                   'font-weight': "700",
-                   'text-align': "center",
-               }
-           }
-       }
-   }
-   // console.log(JSON.stringify(a));
-   return a;
-} 
+                }
+            },
+            schedule: {
+                isActive: true,
+                colorHeader: "blue",
+                colorAvailable: "",
+                colorBusy: "",
+                styleObj: {
+                    color: "white",
+                    background: "#4b3e3b",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                },
+                styleDate: {
+                    colorHeader: "brown",
+                    landscape: true,
+                    dark: true,
+                    light: false,
+                },
+                styleApptsList: {
+                    background: "red"
+                }
+            },
+            map: {
+                isActive: true,
+                titleTxt: "....",
+                styleObj: {
+                    color: "white",
+                    background: "#4b3e3b",
+                    'font-size': "16px",
+                    'font-family': "Arial",
+                    'font-weight': "700",
+                    'text-align': "center",
+                }
+            }
+        }
+    }
+    // console.log(JSON.stringify(a));
+    return a;
+}
