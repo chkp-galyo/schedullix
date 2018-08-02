@@ -95,8 +95,8 @@ export default {
     var user = JSON.parse(
       JSON.stringify(this.$store.getters[GETTER_TEMP_USER])
     );
-    user.password = ''
     if (user) {
+    user.password = ''
       this.user = user;
       delete this.user._id;
       console.log("new user", this.user);
