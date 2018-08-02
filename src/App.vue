@@ -56,14 +56,10 @@ export default {
         { title: "Bussiness Calender", route: "bussinessCalender" },
         { title: "Bussiness Profile", route: "bussinessProfile" },
         { title: "Bussiness Page", route: "editPage" }
-      ]
+      ],
     };
   },
   created() {
-    eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
-      this.isShowHeader = !this.isShowHeader;
-    });
-
     this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
       this.user = user;
     });

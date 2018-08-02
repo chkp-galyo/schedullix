@@ -5,16 +5,17 @@
         </div>
         <h3 class="black-text mb-5 mt-5 display-4 text-xs-center">My Bussniess Calender</h3> 
         <v-btn v-if="apptSelected" color="success" @click="addCustomer">Add Appointment</v-btn>
-        <div ref="removeAppt">
-        <!-- <v-btn v-if="apptSelected" @click="removeAppt" color="error">Remove Appointment</v-btn> -->
-        </div>
-        <full-calendar ref="calendar" class="full-calendar" @reload-events="refreshEvents" :events="events" @event-selected="eventSelected"
-                        @event-created="eventCreated" :config="config"></full-calendar>
+
+        <v-btn v-if="apptSelected" @click="removeAppt" color="error">Remove Appointment</v-btn>
+
+        <full-calendar ref="calendar" class="full-calendar"
+                      :events="events" @event-selected="eventSelected" @event-created="eventCreated"></full-calendar>
     </section>         
 </template>
 
 <script>
-import { GETTER_USER, ACT_LOAD_USER_CUSTOMER } from "@/store/userModule.js";
+import { GETTER_USER, ACT_LOAD_USER_CUSTOMER,
+        ACT_REMOVE_CUSTOMER } from "@/store/userModule.js";
 import {
   eventBus,
   EVENT_TOGGLE_REG_MENU,
@@ -30,9 +31,6 @@ export default {
       events: [],
       config: {
         locale: "en",
-        eventClick: event => {
-          this.apptSelected = event;
-        }
       },
       apptSelected: null,
       showRegisterMenu: false,
@@ -43,7 +41,8 @@ export default {
   created() {
     eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
       this.showRegisterMenu = !this.showRegisterMenu;
-    this.renderCustomers();
+    // this.renderCustomers();
+        this.refreshEvents()
 
     });
     this.renderCustomers();
@@ -65,18 +64,7 @@ export default {
         });
       });
     },
-    refreshEvents() {
-    //   this.$refs.calendar.$emit('refetch-events')
-    },
-    addCustomer() {
-      var newEvent = {
-        title: ev.name,
-        start: moment(ev.time).format(),
-        end: moment(ev.time + userData.timePerCustomer * 60 * 1000).format(),
-        allDay: false
-      };
-      this.events.push(newEvent);
-    },
+
     eventSelected(ev) {
       console.log("seleceted", ev);
       console.log("$refs", this.$refs.removeAppt);
@@ -87,22 +75,19 @@ export default {
       var cal = this.$refs.calender;
     },
     removeAppt() {
-      console.log(this.apptSelected);
-    //   this.$refs.calendar.$emit("remove-event", this.apptSelected);
-      this.apptSelected = {};
+    //   console.log(Date.parse(this.apptSelected.start._d));
+      if (this.apptSelected._id){
+          this.$refs.calendar.$emit("remove-event", this.apptSelected._id);
+            this.$store.dispatch({ type: ACT_REMOVE_CUSTOMER, time: this.apptSelected.start._d})
+          this.apptSelected = {};
+      }
     },
     eventCreated(ev) {
-      console.log("created", ev);
       var currTime = ev.start._d;
-      console.log(currTime.setHours(currTime.getHours() - 3));
-      this.timeCustomer = currTime.setHours(currTime.getHours());
-      //   console.log('timecutomer', this.timeCustomer)
-
+      this.timeCustomer = currTime.setHours(currTime.getHours()-3);
       this.apptSelected = ev;
     },
     addCustomer() {
-      console.log(this.apptSelected);
-
       this.showRegisterMenu = true;
     },
 
@@ -117,7 +102,7 @@ export default {
           console.log("success to add customer");
         })
         .catch(_ => {
-          onsole.log("Fail to add customer");
+          console.log("Fail to add customer");
         });
     }
   },

@@ -8,7 +8,7 @@ export const ACT_ADD_USER = 'user/actions/addUser'
 export const ACT_UPDATE_USER = 'user/actions/updateUser'
 export const ACT_CHECK_USER_LOGIN = 'user/actions/checkLoginUser'
 export const ACT_LOAD_USER_BY_BUSINESS_NAME = 'user/actions/loadUserByBusinessName'
-
+export const ACT_REMOVE_CUSTOMER = 'user/actions/removeCustomer'
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -264,6 +264,12 @@ export default {
                 })
                 return user
             })
+        },
+        [ACT_REMOVE_CUSTOMER](context, {time}) {
+            return userService.removeCustomerByTime(time)
+                .then(() => {
+                    console.log('customer deleted')
+                })
         }
     }
 }

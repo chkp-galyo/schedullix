@@ -19,7 +19,8 @@ export default {
     getUserCustomers,
     isLoggedinUser,
     getUserLoggedinId,
-    getUserByBusinessName
+    getUserByBusinessName,
+    removeCustomerByTime
 }
 
 function updateUser(user) {
@@ -55,6 +56,10 @@ function addUser(user) {
         })
 }
 
+function removeCustomerByTime(customerTime) {
+    return axios.delete(URL + '/removeCustomer', customerTime)
+}
+
 function getUserCustomers(userId){
     console.log('user service, user ID:',userId);
     
@@ -68,6 +73,8 @@ function getUserCustomers(userId){
             console.log('didnt get customers',err)
         })
 }
+
+
 
 function logout() {
     storageService.clearStorage(STORAGE_KEY)

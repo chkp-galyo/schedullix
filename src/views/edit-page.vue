@@ -27,7 +27,7 @@
 
           <!-- ABOUT component -->
           <section class="about" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'about'}"
-                       style="order: 2" draggable="true" @dragstart="dragCmp"
+                       style="order: 2" draggable="false" @dragstart="dragCmp"
                         @drop="dropCmp"  @dragover="allowDrop"  ref="about"
                           v-if="user.configElements.about.isActive">
               <about-cmp :modePage="modePage" :workingHours="user.workingHours" :aboutConfig="user.configElements.about"/> 
@@ -35,7 +35,7 @@
 
           <!-- SCHEDULE component -->
           <section class="schedule" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'schedule'}"
-                       style="order: 3" draggable="true" @dragstart="dragCmp"
+                       style="order: 3" draggable="false" @dragstart="dragCmp"
                           @drop="dropCmp"  @dragover="allowDrop"  ref="schedule"
                               v-if="user.configElements.about.isActive">
               <schedule-cmp :modePage="modePage" :schedule="user.configElements.schedule" />
@@ -43,7 +43,7 @@
 
           <!-- MAP component -->
           <section class="map" :class="{cmp: modePage === 'edit','edit-cmp' : selectedCmp === 'map'}"
-                       style="order: 4" draggable="true" @dragstart="dragCmp"
+                       style="order: 4" draggable="false" @dragstart="dragCmp"
                           @drop="dropCmp"  @dragover="allowDrop"  ref="map"
                               v-if="user.configElements.about.isActive">
               <edit-map-cmp :modePage="modePage" :location="user.location" :mapConfig="user.configElements.map" />

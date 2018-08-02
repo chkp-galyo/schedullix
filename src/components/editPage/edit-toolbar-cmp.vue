@@ -161,7 +161,6 @@ export default {
         this.$store.commit({type: MUT_TOGGLE_CALENDER_LANDSCAPE})
     },
     updateFont(ev) {
-        console.log('font family: ',ev)
         this.$store.commit({type: MUT_UPDATE_COLOR_CMP, cmp: this.selectedCmp, propertyToUpdate: 'font-family', value: ev.target.innerText })        
     },
     onInputFile() {
@@ -298,7 +297,7 @@ h3 {
         left: 0;
         width: 100%;
         right: 85vw;
-        top: 74vh;
+        top: 68vh;
     }
 }
 
