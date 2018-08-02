@@ -66,7 +66,7 @@ export default {
   align-items: center;
   padding: 10px;
   height: 120vh;
-  border: 1px solid black;
+  // border: 1px solid black;
 }
 .btn-container{
   position: absolute;

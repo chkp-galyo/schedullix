@@ -51,7 +51,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: 1px solid black;
+  // border: 1px solid black;
   height: 50vh;
   background-repeat: no-repeat !important;
   background-size: 100% 100% !important;

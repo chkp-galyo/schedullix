@@ -35,13 +35,16 @@ table tr td {
   margin: 5px;
   border-bottom: 1px solid black;
 }
+table tr{
+  // border: 1px solid black;
+}
 table {
   margin: 0 auto;
   width: 80%;
   // height: fit-content;
-  border: 1px solid black;
-  border-radius: 6px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  // border: 1px solid black;
+  // border-radius: 6px;
+  // box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 @media only screen and (min-width: 900px) {
   table{
