@@ -5,7 +5,8 @@
                 <v-icon dark>save</v-icon>
             </v-btn>
 
-            <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" v-if="modePage === 'edit'">
+            <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" 
+                    v-if="modePage === 'edit'">
                 <v-icon dark>publish</v-icon>
             </v-btn> 
 
