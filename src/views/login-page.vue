@@ -98,6 +98,6 @@ h1{
   padding:6em; 
   height: 100vh;
   background-image: url('https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d');
-  background-size:100% 100%; 
+  background-size:100vw 100vh; 
 }
 </style>

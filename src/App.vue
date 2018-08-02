@@ -42,7 +42,6 @@ export default {
 }
 .app .application--wrap{
 min-height: 0vh!important;
-height: 0vh!important;
 }
 
 </style>
