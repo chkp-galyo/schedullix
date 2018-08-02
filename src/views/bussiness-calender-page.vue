@@ -162,4 +162,7 @@ h3.display-4 {
   justify-content: center;
   align-items: center;
 }
+@media only screen and (min-width: 700px) {
+  
+}
 </style>

@@ -158,7 +158,7 @@ a .v-list__tile--link {
   a {
     font-weight: bold;
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     &.router-link-exact-active {
       color: #42b983;
     }
@@ -166,6 +166,9 @@ a .v-list__tile--link {
   a:hover {
     color: #e23c52;
   }
+}
+@media only screen and (min-width: 700px) {
+
 }
 </style>
 
