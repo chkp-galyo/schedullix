@@ -50,7 +50,7 @@ export default {
     getters: {
 
         [GETTER_IS_REGISTER_USER](state) {
-            return (state.isLogin && !userService.getUserLoggedinId() === "000000000000000000000000")
+            return (state.isLogin && userService.getUserLoggedinId() !== "000000000000000000000000")
         },
 
         [GETTER_BUSINESS_NAME](state) {
@@ -214,9 +214,6 @@ export default {
                 )
         },
         [ACT_LOAD_USER_CUSTOMER](context) {
-            console.log('store load customers');
-            console.log('store load customers, context', context);
-
             return userService.getUserCustomers(context.getters[GETTER_USER_ID])
                 .then(customers => {
                     console.log('store customers:', customers);
@@ -253,8 +250,6 @@ export default {
         },
 
         [ACT_UPDATE_USER](context, payload) {
-            console.log(payload.user);
-
             return userService.updateUser(payload.user)
                 .then(() => {
                     context.commit({

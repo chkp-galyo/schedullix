@@ -69,9 +69,9 @@ export default {
     };
   },
   created() {
-    eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
-      this.isShowHeader = !this.isShowHeader;
-    });
+    // eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
+    //   this.isShowHeader = !this.isShowHeader;
+    // });
 
     this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
       this.user = user;
