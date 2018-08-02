@@ -84,7 +84,7 @@ export default {
     position: fixed;
     flex-direction: row;
     height: 80px;
-    top: 0;
+    top: 60px;
     left: 0;
   }
 }

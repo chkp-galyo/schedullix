@@ -61,7 +61,11 @@
 
 <script>
 0;
-import { ACT_ADD_USER, GETTER_TEMP_USER, ACT_LOAD_USER } from "@/store/userModule.js";
+import {
+  ACT_ADD_USER,
+  GETTER_TEMP_USER,
+  ACT_LOAD_USER
+} from "@/store/userModule.js";
 import userService from "@/services/userService.js";
 export default {
   $_veeValidate: {
@@ -118,9 +122,10 @@ export default {
         // if (!this.checkbox) return;
         console.log(res);
         if (res) {
-          this.user.businessName = this.user.businessName.split(' ').join('')
+          this.user.businessName = this.user.businessName.split(" ").join("");
           this.phone = this.phone;
-          this.$store.dispatch({ type: ACT_ADD_USER, user: { ...this.user } })
+          this.$store
+            .dispatch({ type: ACT_ADD_USER, user: { ...this.user } })
             .then(user => {
               console.log(user);
               this.$store
@@ -155,20 +160,35 @@ h1{
   // padding: 1em;
 }
 .sign-up form {
-  width: 50vw;
+  width: 100%;
   margin: 0 auto;
 }
 .sign-up-container{
   background-color: rgba(255, 255, 255, 0.507);
-  padding: 3em;
-  width: 60vw;
+   padding: 2em;
+  width: 100%;
+  height: fit-content;
   margin: 0 auto;
 }
 .sign-up{
-  padding:6em; 
+  padding: 2em;
+  padding-top: 6em;
   height: 100vh;
   background-image: url('https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d');
   background-size:100% 100%; 
 
+}
+@media only screen and (min-width: 700px) {
+  .sign-up form {
+    width: 70%;
+    margin: 0 auto;
+  }
+  
+  .sign-up-container{
+    width: 60vw;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 5em
+  }
 }
 </style>

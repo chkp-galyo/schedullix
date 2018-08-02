@@ -94,7 +94,7 @@ textarea {
   right: 3px;
 }
 .edit-about {
-  border: 1px solid black;
+  // border: 1px solid black;
   display: block;
   padding: 20px;
   width: 100%;
@@ -106,9 +106,9 @@ textarea {
   width: 100%;
   height: 100%;
   line-height: 1.6;
-  background-color: #795548;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  // border-radius: 10px;
+  // box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   margin-bottom: 2em;
 }
 
@@ -122,7 +122,7 @@ textarea {
 .img-container {
   width: 100%;
   height: 50vh;
-  border: 1px solid black;
+  // border: 1px solid black;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-position: center !important;

@@ -154,7 +154,7 @@ input {
   padding: 1em;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  // border: 1px solid black;
 }
 .g-map {
   // margin-left: 2em;

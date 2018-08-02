@@ -55,16 +55,15 @@ export default {
   },
   methods: {
     login() {
-      if(this.loginInfo.email || this.loginInfo.password){
+      if (this.loginInfo.email || this.loginInfo.password) {
         this.$store
-        .dispatch({ type: ACT_LOAD_USER, loginInfo: this.loginInfo })
-        .then(user => {
-          this.$router.push(`/${user._id}/editPage`);
-        })
-        .catch();
-      } else{
-        console.log('inavlid user name');
-        
+          .dispatch({ type: ACT_LOAD_USER, loginInfo: this.loginInfo })
+          .then(user => {
+            this.$router.push(`/${user._id}/editPage`);
+          })
+          .catch();
+      } else {
+        console.log("inavlid user name");
       }
     },
     clear() {
@@ -77,27 +76,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1{
+h1 {
   // padding-top: 2em;
-  font-size: 4em!important;
+  font-size: 4em !important;
   font-weight: normal;
   //  background-color: white;
   // padding: 1em;
 }
 .login form {
-  width: 50vw;
+  width: 100%;
   margin: 0 auto;
 }
-.login-container{
+.login-container {
   background-color: rgba(255, 255, 255, 0.507);
-  padding: 3em;
-  width: 60vw;
+  padding: 2em;
+  width: 100%;
+  height: fit-content;
   margin: 0 auto;
 }
-.login{
-  padding:6em; 
+.login {
+  padding: 2em;
+  padding-top: 6em;
   height: 100vh;
-  background-image: url('https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d');
-  background-size:100% 100%; 
+  background-image: url("https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d");
+  background-size: 100vw 100vh;
+}
+@media only screen and (min-width: 700px) {
+  .login form {
+    width: 70%;
+    margin: 0 auto;
+  }
+  
+  .login-container{
+    width: 60vw;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 5em
+  }
 }
 </style>

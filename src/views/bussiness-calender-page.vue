@@ -1,5 +1,6 @@
 <template>
     <section class="bussiness-calender">  
+      <div class="calender-container">
         <div v-if="showRegisterMenu" class="register-container">
             <register-customer :timeCustomer="timeCustomer" />
         </div>
@@ -10,6 +11,7 @@
 
         <full-calendar ref="calendar" class="full-calendar"
                       :events="events" @event-selected="eventSelected" @event-created="eventCreated"></full-calendar>
+      </div>
     </section>         
 </template>
 
@@ -123,9 +125,25 @@ export default {
 
 <style lang="scss" scoped>
 @import "~fullcalendar/dist/fullcalendar.css";
+.bussiness-calender{
+   height: 100%;
+   width: 100%;
+  background-image: url('https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d');
+  background-size:100% 100%; 
+  padding: 3em;
+  padding-top:6em; 
+  // margin-bsottom: 5em;
+}
+.calender-container{
+background-color: rgba(255, 255, 255,0.9);
+  padding: 1em;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
 h3.display-4 {
-  font-size: 5em !important;
-  margin: 25px !important;
+  font-size: 4em !important;
+  margin-top: 25px !important;
 }
 .full-calendar {
   width: 100%;
