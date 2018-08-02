@@ -52,8 +52,8 @@
               @change="$v.checkbox.$touch()"
               @blur="$v.checkbox.$touch()"
             ></v-checkbox> -->
-            <v-btn @click="submit">submit</v-btn>
-            <v-btn @click="clear">clear</v-btn>
+            <v-btn color="primary" @click="submit">submit</v-btn>
+            <v-btn color="primary" @click="clear">clear</v-btn>
         </form>
       </div>
     </section>
@@ -138,26 +138,22 @@ export default {
  
 <style lang="scss" scoped>
 h3.display-4{
-    font-size: 5em !important;
+  font-size: 4em!important;
+  font-weight: normal;  
 }
 .bussniess-profile {
   margin: 0;
   padding: 0;
   width: 100%;
+  padding:6em; 
+  height: 100vh;
+  background-image: url('https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d');
+  background-size:100% 100%; 
 }
 .update-user-container{
   background-color: rgba(255, 255, 255, 0.507);
   padding: 3em;
   width: 60vw;
   margin: 0 auto;
-}
-.update-user-form {
-  //   flex-direction: column;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   margin: 0px;
-  // width: 70vw;
-  // margin: 0 auto;
 }
 </style>

@@ -50,7 +50,7 @@ export default {
     getters: {
 
         [GETTER_IS_REGISTER_USER](state) {
-            return (state.isLogin && userService.getUserLoggedinId() !== "000000000000000000000000")
+            return (state.isLogin && userService.getUserLoggedinId() !== "000000000000000000000000") || !state.isLogin
         },
 
         [GETTER_BUSINESS_NAME](state) {

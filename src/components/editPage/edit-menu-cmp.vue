@@ -26,7 +26,7 @@
 
 <script>
 import sharePage from "@/components/editPage/share-page-cmp.vue";
-import { ACT_UPDATE_USER } from "@/store/userModule.js";
+import { ACT_UPDATE_USER, } from "@/store/userModule.js";
 
 import {
   eventBus,
