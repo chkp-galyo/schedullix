@@ -20,8 +20,6 @@
                 </v-btn> 
                 <sharePage></sharePage>
             </section>
- 
-
         </section>
     </section>
 </template>
@@ -57,7 +55,7 @@ export default {
     },
     changeMode(mode) {
       eventBus.$emit(EVENT_CHANGE_MODE_PAGE, mode);
-      eventBus.$emit(EVENT_TOGGLE_HEADER_PAGE); 
+      eventBus.$emit(EVENT_TOGGLE_HEADER_PAGE);
       if (mode === "publish") {
         eventBus.$emit(EVENT_OPEN_TOOL_BAR, null); // In publish mode -> close tool bar
       }
