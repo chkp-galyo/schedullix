@@ -14,6 +14,9 @@ import '@/assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import FullCalendar from 'vue-full-calendar'
 import VueClipboard from 'vue-clipboard2'
+import SocialSharing from 'vue-social-sharing';
+ 
+Vue.use(SocialSharing);
 
 Vue.use(VueClipboard)
 // Axios

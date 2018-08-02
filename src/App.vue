@@ -28,7 +28,7 @@
                     <v-tab flat  v-if="!loggedInUserId" @click="changeLoction('/login')">
                         login
                     </v-tab>
-                    <v-tab flat v-if="loggedInUserId">
+                    <v-tab flat v-if="loggedInUserId" >
                         logout
                     </v-tab>
                     <v-tab v-if="loggedInUserId">
@@ -58,7 +58,6 @@ import {
   eventBus,
   EVENT_TOGGLE_HEADER_PAGE
 } from "@/services/event-bus-service.js";
-
 export default {
   data() {
     return {
@@ -89,6 +88,10 @@ export default {
         return false;
       }
       return true;
+    },
+    logout(){
+      userService.logout()
+      this.$router.push('/')
     }
   }
 };

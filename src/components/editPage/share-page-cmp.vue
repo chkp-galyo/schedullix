@@ -1,31 +1,37 @@
 <template>
-    <section class="share-page" v-if="isShow">
+<section class="share-page" v-if="isShow">
 
-        <h1>Share your page</h1>
-
-        <section class="btns-share-container">
-            <v-btn fab small dark color="indigo" title="Copy Business URL" >
-                <v-icon dark>fab fa-facebook-square</v-icon>
-            </v-btn> 
-
-            <v-btn fab small dark color="pink" title="Copy Business URL" >
-                <v-icon dark>fab fa-instagram</v-icon>
-            </v-btn> 
-
-            <v-btn fab small dark color="green" title="Copy Business URL" >
-                <v-icon dark>fab fa-whatsapp</v-icon>
-            </v-btn> 
-        </section>
-
-        
-        <section class="address-page-container">
-            <h3>{{businessUrl}}</h3>
-            <v-btn fab small dark color="indigo" title="Copy Business URL" v-clipboard:copy="businessUrl" >
-                <v-icon dark>file_copy</v-icon>
-            </v-btn> 
-        </section>
-        
+    <h1>Share your page</h1>
+    <section class="btns-share-container">
+        <social-sharing :url="businessUrl" title="The Progressive JavaScript Framework" description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+            quote="Vue is a progressive framework for building user interfaces." hashtags="vuejs,javascript,framework" twitter-user="vuejs"
+            inline-template>
+            <div>
+                <network network="facebook">
+                    <v-btn fab small dark color="indigo" title="Copy Business URL">
+                        <v-icon dark>fab fa-facebook-square</v-icon>
+                    </v-btn>
+                </network>
+                <network network="whatsapp">
+                    <v-btn fab small dark color="green" title="Copy Business URL">
+                        <v-icon dark>fab fa-whatsapp</v-icon>
+                    </v-btn>
+                </network>
+            </div>
+        </social-sharing>
+        <v-btn fab small dark color="pink" title="Copy Business URL">
+            <v-icon dark>fab fa-instagram</v-icon>
+        </v-btn>
     </section>
+
+    <section class="address-page-container">
+        <h3>{{businessUrl}}</h3>
+        <v-btn fab small dark color="indigo" title="Copy Business URL" v-clipboard:copy="businessUrl">
+            <v-icon dark>file_copy</v-icon>
+        </v-btn>
+    </section>
+
+</section>
 </template>
 
 <script>
