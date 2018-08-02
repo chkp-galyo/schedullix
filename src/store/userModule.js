@@ -18,6 +18,7 @@ export const GETTER_USER_ID = 'user/getters/userId'
 export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
 export const GETTER_IS_LOGIN = 'user/getters/isLogin'
 export const GETTER_BUSINESS_NAME = 'user/getters/businessName'
+export const GETTER_IS_REGISTER_USER = 'user/getters/registerUser'
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 export const MUT_UPDATE_CUSTOMER = 'user/mutations/updateCustomer'
@@ -47,10 +48,16 @@ export default {
         isLogin: userService.isLoggedinUser()
     },
     getters: {
+
+        [GETTER_IS_REGISTER_USER](state) {
+            return (state.isLogin && !userService.getUserLoggedinId() === "000000000000000000000000")
+        },
+
         [GETTER_BUSINESS_NAME](state) {
             return state.user.businessName;
         },
 
+        // return true - if user is login, else return false. 
         [GETTER_IS_LOGIN](state) {
             return state.isLogin;
         },
@@ -91,7 +98,7 @@ export default {
         },
 
         [GETTER_USER_ID](state) {
-            return userService.getUserLoggedinId()
+            return userService.getUserLoggedinId();
         },
 
         [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -99,7 +106,7 @@ export default {
                 return new Date(customer.time).toLocaleDateString() === new Date(dateSelectedTimestamp).toLocaleDateString()
             });
         },
-        
+
         [GETTER_CALENDER_COLOR](state) {
             return state.user ? state.user.configElements.schedule.styleDate.colorHeader : null
         }
@@ -119,7 +126,7 @@ export default {
         }) {
             state.user.configElements.about.mainTxt = aboutTxt
         },
-        [MUT_LOGIN_USER](state){
+        [MUT_LOGIN_USER](state) {
             state.isLogin = !state.isLogin
         },
         [MUT_UPDATE_HEADER_IMG](state, {
@@ -128,7 +135,9 @@ export default {
             state.user.configElements.header.styleObj['background-image'] = `url(${imgUrl})`
         },
 
-        [MUT_SET_USER](state, {user}) {
+        [MUT_SET_USER](state, {
+            user
+        }) {
             state.user = user;
         },
         [MUT_SET_TEMP_USER](state, {
@@ -141,7 +150,9 @@ export default {
         }) {
             state.user.workingHours = workingHours
         },
-        [MUT_UPDATE_CUSTOMER](state, {customers}) {
+        [MUT_UPDATE_CUSTOMER](state, {
+            customers
+        }) {
             state.user.customers = customers
         },
         [MUT_UPDATE_COLOR_CMP](state, payload) {
@@ -167,12 +178,16 @@ export default {
         },
         [MUT_TOGGLE_CALENDER_LANDSCAPE](state) {
             var styleDate = state.user.configElements.schedule.styleDate
-            styleDate.landscape = !styleDate.landscape 
+            styleDate.landscape = !styleDate.landscape
         },
-        [MUT_UPDATE_APPT_LIST_COLOR_CMP](state, {color}) {
+        [MUT_UPDATE_APPT_LIST_COLOR_CMP](state, {
+            color
+        }) {
             state.user.configElements.schedule.styleApptsList.background = color
         },
-        [MUT_UPDATE_IS_ACTIVE_CMP](state, {cmp}) {
+        [MUT_UPDATE_IS_ACTIVE_CMP](state, {
+            cmp
+        }) {
             state.user.configElements[cmp].isActive = !state.user.configElements[cmp].isActive
         }
     },
@@ -198,18 +213,21 @@ export default {
                     }
                 )
         },
-        [ACT_LOAD_USER_CUSTOMER](context){
+        [ACT_LOAD_USER_CUSTOMER](context) {
             console.log('store load customers');
             console.log('store load customers, context', context);
-            
+
             return userService.getUserCustomers(context.getters[GETTER_USER_ID])
-                .then(customers =>{
-                    console.log('store customers:',customers);
+                .then(customers => {
+                    console.log('store customers:', customers);
                     context.commit({
-                        type: MUT_UPDATE_CUSTOMER ,
+                        type: MUT_UPDATE_CUSTOMER,
                         customers
                     })
-                    return {timePerCustomer: context.state.user.timePerCustomer, customers};
+                    return {
+                        timePerCustomer: context.state.user.timePerCustomer,
+                        customers
+                    };
                 })
         },
 
@@ -253,21 +271,25 @@ export default {
                             type: MUT_SET_USER,
                             user
                         })
-                    return user
+                        return user
                     })
             }
         },
-        [ACT_LOAD_USER_BY_BUSINESS_NAME](context, {businessName}) {
+        [ACT_LOAD_USER_BY_BUSINESS_NAME](context, {
+            businessName
+        }) {
             return userService.getUserByBusinessName(businessName)
                 .then(user => {
                     context.commit({
                         type: MUT_SET_USER,
-                        user   
+                        user
+                    })
+                    return user
                 })
-                return user
-            })
         },
-        [ACT_REMOVE_CUSTOMER](context, {time}) {
+        [ACT_REMOVE_CUSTOMER](context, {
+            time
+        }) {
             return userService.removeCustomerByTime(time)
                 .then(() => {
                     console.log('customer deleted')
