@@ -1,6 +1,6 @@
 <template>
 <!-- <v-app class="app"> -->
-    <v-app id="app">
+    <v-app class="app">
             <nav-bar></nav-bar>
         <router-view />
     </v-app>
@@ -33,12 +33,16 @@ export default {
   background-color: transparent;
   width:100%;
 }
-#app {
-  min-height: 0vh !important;
-  height: 0vh !important;
+.app {
+  
+  
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
+}
+.app .application--wrap{
+min-height: 0vh!important;
+height: 0vh!important;
 }
 
 </style>
