@@ -31,9 +31,11 @@
                     <v-tab flat v-if="loggedInUserId">
                         logout
                     </v-tab>
-                    <v-avatar  v-if="loggedInUserId" @click="changeLoction(`/${loggedInUserId}/bussinessProfile`)">
+                    <v-tab v-if="loggedInUserId">
+                    <v-avatar @click="changeLoction(`/${loggedInUserId}/bussinessProfile`)">
                     <div class="profile"></div>
                     </v-avatar>
+                    </v-tab>
                         <!-- </v-tabs> -->
                     </div>
 
