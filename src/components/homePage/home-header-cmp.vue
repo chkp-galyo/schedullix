@@ -103,7 +103,7 @@ v-parallax {
 .side-carousel {
   position: absolute;
   // top: 3%;
-  z-index: 1000000000;
+  z-index: 1000000000 !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
