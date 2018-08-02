@@ -50,7 +50,16 @@ export default {
     getters: {
 
         [GETTER_IS_REGISTER_USER](state) {
-            return (state.isLogin && userService.getUserLoggedinId() !== "000000000000000000000000")
+            if (state.isLogin) {
+                var userId = userService.getUserLoggedinId();
+                if (userId === "000000000000000000000000" ||
+                    userId === "000000000000000000000001" ||
+                    userId === "000000000000000000000002" ||
+                    userId === "000000000000000000000003")
+
+                    return false;
+            }
+            return true;
         },
 
         [GETTER_BUSINESS_NAME](state) {

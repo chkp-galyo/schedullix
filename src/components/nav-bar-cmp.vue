@@ -3,7 +3,7 @@
                 <v-toolbar dark tabs >
                         <!-- <v-tab slot="extension" color="transparent" fixed-tabs slider-color="white"> -->
                     <v-toolbar-title @click="changeLoction('/')">
-                    <img src="/img/logo.png">
+                    <img class="animated tada" src="/img/logo.png">
                     </v-toolbar-title>
                     <div class="main-nav">
                       <v-tabs color="transparent">
