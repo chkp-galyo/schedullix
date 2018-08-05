@@ -5,19 +5,24 @@
     
     <section class="btns-share-container">
         <social-sharing :url="businessUrl" title="The Progressive JavaScript Framework"
-                        description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
-                        quote="Vue is a progressive framework for building user interfaces."
-                        hashtags="vuejs,javascript,framework" twitter-user="vuejs" inline-template>
+                        :description="txtMsgShare" :quote="txtMsgShare"
+                        hashtags="vuejs,javascript,framework" inline-template>
             <div>
                 <network network="facebook">
-                    <v-btn fab small dark color="indigo" title="Copy Business URL">
+                    <v-btn fab small dark color="indigo" title="Share in Facebook!">
                         <v-icon dark>fab fa-facebook-square</v-icon>
                     </v-btn>
                 </network>
 
                 <network network="whatsapp">
-                    <v-btn fab small dark color="green" title="Copy Business URL">
+                    <v-btn fab small dark color="green" title="Share in Whatsapp!">
                         <v-icon dark>fab fa-whatsapp</v-icon>
+                    </v-btn>
+                </network>
+
+                <network network="sms">
+                    <v-btn fab small dark color="orange" title="Send in SMS!">
+                        <v-icon dark>fa-comments</v-icon>
                     </v-btn>
                 </network>
             </div>
@@ -43,7 +48,7 @@ import toolTip from "@/components/tool-tip-cmp.vue";
 
 import {
   eventBus,
-  EVENT_TOGGLE_SHARE_MENU,
+  EVENT_TOGGLE_SHARE_MENU
 } from "@/services/event-bus-service.js";
 
 export default {
@@ -52,7 +57,9 @@ export default {
   data() {
     return {
       isShow: false,
-      visibleToolTipText: false
+      visibleToolTipText: false,
+      txtMsgShare:
+        "I invite you to visit my home business page.\n You can easily schedule an available appointment 24/7."
     };
   },
   created() {
