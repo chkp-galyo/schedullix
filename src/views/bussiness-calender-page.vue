@@ -18,7 +18,7 @@
             </v-btn>
 
             <full-calendar ref="calendar" class="full-calendar" :events="events"
-                            @event-selected="eventSelected" @event-created="eventCreated">
+                            @event-selected="eventSelected" @event-created="eventCreated" :config="config" >
             </full-calendar>
         </section>
     </section>
@@ -52,7 +52,26 @@ export default {
       apptSelected: null,
       showRegisterMenu: false,
       timeCustomer: null,
-      newAppt: null
+      newAppt: null,
+      contentHeight: 500,
+      config: {
+        header: {
+          left: "prev,next today",
+          center: "title",
+          right: "month,agendaWeek,agendaDay"
+        },
+        height: 600
+        //  editable: true,
+        // droppable: true, // this allows things to be dropped onto the calendar
+        // dragRevertDuration: 0,
+        // drop: function() {
+        //   // is the "remove after drop" checkbox checked?
+        //   if ($("#drop-remove").is(":checked")) {
+        //     // if so, remove the element from the "Draggable Events" list
+        //     $(this).remove();
+        //   }
+        // }
+      }
     };
   },
   computed: {},
@@ -63,13 +82,20 @@ export default {
     });
     this.renderCustomers();
   },
+  mounted() {
+    this.$refs.calendar.contentHeight = "9999";
+    // this.$refs.calendar.handleWindowResize= true
+    // this.$refs.calendar.contentHeight= 1850
+    // this.$refs.calendar.minTime= '8'
+    // this.$refs.calendar.maxTime= '22'
+  },
   methods: {
     renderCustomers() {
       this.$store
         .dispatch({ type: ACT_LOAD_USER_CUSTOMER })
         .then(userCustomers => {
           console.log(userCustomers);
-          
+
           this.events = userCustomers.customers.map(customer => {
             return {
               title: customer.name,
@@ -133,14 +159,12 @@ export default {
 .bussiness-calender {
   height: 100%;
   width: 100%;
-  background-image: url("https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d");
-  background-size: 100% 100%;
-  padding: 3em;
   padding-top: 6em;
+  background-color: rgba(255, 255, 255, 0.9);
 }
+
 .calender-container {
   background-color: rgba(255, 255, 255, 0.9);
-  padding: 1em;
   width: 100%;
   height: 100%;
   margin: 0 auto;
@@ -151,8 +175,8 @@ h3.display-4 {
 }
 .full-calendar {
   width: 100%;
-  float: right;
-  padding: 1em;
+  height: fit-content;
+  // padding: 1em;
 }
 
 .register-container {
@@ -167,5 +191,16 @@ h3.display-4 {
   align-items: center;
 }
 @media only screen and (min-width: 700px) {
+  .calender-container {
+    padding: 1em;
+  }
+  .full-calendar {
+    }
+  .bussiness-calender {
+    background-image: url("https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d");
+    background-size: 100% 100%;
+    padding: 3em;
+    padding-top: 6em;
+  }
 }
 </style>
