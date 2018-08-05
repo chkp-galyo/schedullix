@@ -35,13 +35,13 @@
                     <v-icon dark>format_color_text</v-icon>
                 </v-btn>
 
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal', 'flex-start')">
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal', 'left')">
                     <v-icon dark>format_align_left</v-icon>
                 </v-btn>                
                 <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal','center')">
                     <v-icon dark>format_align_center</v-icon>
                 </v-btn>
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal','flex-end')">
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal','right')">
                     <v-icon dark>format_align_right</v-icon>
                 </v-btn>
                 <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('vertical','flex-start')">

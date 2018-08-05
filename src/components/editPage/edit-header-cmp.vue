@@ -1,10 +1,11 @@
 <template>
     <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
-        <div class="cmp-cover flex" :style="{'justify-content':headerConfig['justify-content'], 'align-items': headerConfig['align-items']}">
-            <!-- <input type="text" :disabled="modePage === 'publish'" class="header-text"
-                      :value="headerConfig.titleTxt" @input="updateTitle" /> -->
-                      <h1 contenteditable="true" class="header-text"
-                      @input="updateTitle">{{title}}</h1>
+        <div class="cmp-cover flex" :style="{'align-items': headerConfig['align-items']}">
+            <input type="text" :disabled="modePage === 'publish'" class="header-text"
+                      :value="headerConfig.titleTxt" @input="updateTitle"
+                      :style="{'text-align': headerConfig['text-align']}" placeholder="Enter your header here" />
+                      <!-- <h1 contenteditable="true" class="header-text"
+                      @keyup="updateTitle">{{title}}</h1> -->
         </div>
         <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
                 @click.stop="openToolbar" v-if="modePage === 'edit'">
@@ -39,7 +40,11 @@ export default {
       eventBus.$emit(EVENT_OPEN_TOOL_BAR, "header");
     },
     updateTitle(ev) {
-      this.title = ev.target.innerText
+      console.log(ev)
+      if (ev.keyCode == 13){
+return
+      } 
+      this.title = ev.target.value
       this.$store.commit({
         type: MUT_UPDATE_HEADER_TITLE,
         title: this.title
@@ -64,6 +69,9 @@ export default {
   background-size: 100% 100% !important;
   background-position: center !important;
 }
+
+
+
 .open-toolbar {
   position: absolute;
   display: flex;
@@ -87,11 +95,12 @@ export default {
   font-size: 36px;
   // align-items: center;
   // height: 36px;
-  // width: 90%;
+  width: 100vw;
   // resize: none;
   outline: none;
   // overflow: auto;
 }
+
 @media only screen and (min-width: 900px) {
   .edit-header {
     height: 80vh;

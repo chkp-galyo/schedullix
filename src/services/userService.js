@@ -255,7 +255,7 @@ function getDefaultUser() {
                 isActive: true,
                 titleTxt: "Welcome to my Bussiness!",
                 'align-items': 'center',
-                'justify-content': 'center',
+                'text-align': 'center',
                 styleObj: {
                     color: "white",
                     background: "red",

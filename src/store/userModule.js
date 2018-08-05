@@ -209,7 +209,7 @@ export default {
             
             if (payload.direction === 'vertical') {
                 state.user.configElements.header['align-items'] = payload.alignment
-            } else state.user.configElements.header['justify-content'] = payload.alignment
+            } else state.user.configElements.header['text-align'] = payload.alignment
             console.log(state.user.configElements.header)
         }
     },
