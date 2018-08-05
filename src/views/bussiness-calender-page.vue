@@ -76,7 +76,7 @@ export default {
   },
   computed: {},
   created() {
-    eventBus.$on(EVENT_TOGGLE_REG_MENU, _ => {
+    eventBus.$on(EVENT_TOGGLE_REG_MENU, () => {
       this.showRegisterMenu = !this.showRegisterMenu;
       this.refreshEvents();
     });

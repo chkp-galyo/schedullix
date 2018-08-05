@@ -1,14 +1,15 @@
 <template>
     <div class="time-slider flex mb-0">
-          <div class="switch-container">
-        <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}" v-model="value.isOpen" @change="updateWorkingHours">
-        </v-switch>
-          </div>
+        <div class="switch-container">
+            <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}"
+                      v-model="value.isOpen" @change="updateWorkingHours">
+            </v-switch>
+        </div>
 
         <div class="slider-container">
-
             <h3>{{startTimeToShow}}</h3>
-            <v-range-slider class="range-slider"  @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
+            <v-range-slider :disabled="!value.isOpen" class="range-slider"  @change="updateWorkingHours"
+                            v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
             <h3>{{endTimeToShow}}</h3>
         </div>
     </div>
@@ -20,13 +21,29 @@ export default {
   props: ["value"],
   data() {
     return {
-      times: [8, 17],
-      startTimeToShow: "08:00",
-      endTimeToShow: "17:00"
+      times: [0, 0],
+      startTimeToShow:
+        this.value.hoursOpen.startTime.hours.toString() +
+        ":" +
+        this.value.hoursOpen.startTime.minutes.toString(),
+      endTimeToShow:
+        this.value.hoursOpen.endTime.hours.toString() +
+        ":" +
+        this.value.hoursOpen.endTime.minutes.toString()
     };
   },
-  created() {},
+  created() {
+    this.initTimes();
+  },
   methods: {
+    initTimes() {
+      this.times = [
+        this.value.hoursOpen.startTime.hours +
+          this.value.hoursOpen.startTime.minutes * 100 / 60 / 100,
+        this.value.hoursOpen.endTime.hours +
+          this.value.hoursOpen.endTime.minutes * 100 / 60 / 100
+      ];
+    },
     updateWorkingHours() {
       var newVal = JSON.parse(JSON.stringify(this.value));
       this.$emit("input", newVal);
@@ -66,7 +83,7 @@ export default {
   align-items: center;
   justify-content: space-around;
 }
-.switch-container{
+.switch-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,13 +92,13 @@ export default {
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  width:70%;
+  width: 70%;
   padding: 0;
 }
-h3{
-  padding-top:4px ;
-  max-width:30px ;
-  min-width:30px ;
+h3 {
+  padding-top: 4px;
+  max-width: 30px;
+  min-width: 30px;
 }
 .sliders {
   height: 0;
@@ -105,7 +122,6 @@ h3{
 }
 
 .range-slider {
-  
   min-width: 60%;
   max-width: 60%;
 }

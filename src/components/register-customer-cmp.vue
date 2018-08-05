@@ -29,7 +29,6 @@
                 </section>
             </form>
         </div>
-
         <successCheck v-if="isRegisterComplited"></successCheck>
 
   </section>
@@ -79,7 +78,7 @@ export default {
           console.log("success to add customer");
         })
         .catch(_ => {
-          onsole.log("Fail to add customer");
+          console.log("Fail to add customer");
         });
 
       this.isRegisterComplited = true;

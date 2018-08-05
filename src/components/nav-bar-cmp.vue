@@ -16,7 +16,7 @@
                                     <v-icon>arrow_drop_down</v-icon>
                                 </a>
                                 <v-list>
-                                    <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${loggedInUserId}/${item.route}`)">
+                                    <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${user._id}/${item.route}`)">
                                         <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                                     </v-list-tile>
                                 </v-list>
@@ -26,13 +26,13 @@
                     <div class="login">
                       <v-tabs slider-color="transparent" color="transparent" >
                         
-                    <v-tab flat  v-if="(loggedInUserId && !isRegisteredUser) || !loggedInUserId" @click="changeLoction('/login')">
+                    <v-tab flat  v-if="!isRegisteredUser" @click="changeLoction('/login')">
                         login
                     </v-tab>
-                    <v-tab flat v-if="loggedInUserId && isRegisteredUser" @click="logout">
+                    <v-tab flat v-if="isRegisteredUser" @click="logout">
                         logout
                     </v-tab>
-                    <v-tab v-if="loggedInUserId && isRegisteredUser">
+                    <v-tab v-if="isRegisteredUser">
                     <v-avatar @click="changeLoction(`/${loggedInUserId}/bussinessProfile`)">
                     <div class="profile"></div>
                     </v-avatar>

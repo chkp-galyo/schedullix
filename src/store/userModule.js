@@ -9,6 +9,7 @@ export const ACT_UPDATE_USER = 'user/actions/updateUser'
 export const ACT_CHECK_USER_LOGIN = 'user/actions/checkLoginUser'
 export const ACT_LOAD_USER_BY_BUSINESS_NAME = 'user/actions/loadUserByBusinessName'
 export const ACT_REMOVE_CUSTOMER = 'user/actions/removeCustomer'
+
 //------------------------------ GETTERS ------------------------------
 export const GETTER_TIMES_FOR_DATE = 'user/getters/timesForDate'
 export const GETTER_CUSTOMERS_FOR_DATE = 'user/getters/customersForDate'
@@ -40,6 +41,8 @@ export const MUT_UPDATE_APPT_LIST_COLOR_CMP = 'user/mutations/updateApptListColo
 export const MUT_UPDATE_IS_ACTIVE_CMP = 'user/mutations/updateCmpIsActive'
 export const MUT_LOGIN_USER = 'user/mutations/loginUser'
 export const MUT_LOGOUT_USER = 'user/mutations/logoutUser'
+export const MUT_ALIGN_HEADER_TEXT = 'user/mutations/alignHeaderText'
+
 
 export default {
     state: {
@@ -50,16 +53,16 @@ export default {
     getters: {
 
         [GETTER_IS_REGISTER_USER](state) {
-            if (state.isLogin) {
-                var userId = userService.getUserLoggedinId();
+            if (state.isLogin && state.user) {
+                var userId = state.user._id;
                 if (userId === "000000000000000000000000" ||
                     userId === "000000000000000000000001" ||
                     userId === "000000000000000000000002" ||
                     userId === "000000000000000000000003")
 
                     return false;
-            }
-            return true;
+                    else return true;
+            } else return false   
         },
 
         [GETTER_BUSINESS_NAME](state) {
@@ -136,7 +139,7 @@ export default {
             state.user.configElements.about.mainTxt = aboutTxt
         },
         [MUT_LOGIN_USER](state) {
-            state.isLogin = !state.isLogin
+            state.isLogin = true
         },
         [MUT_UPDATE_HEADER_IMG](state, {
             imgUrl
@@ -200,6 +203,14 @@ export default {
         [MUT_LOGOUT_USER](state) {
             state.user = {}
             state.isLogin = false
+        },
+        [MUT_ALIGN_HEADER_TEXT](state, payload) {
+        console.log('dir1', payload.direction, 'align1', payload.alignment)
+            
+            if (payload.direction === 'vertical') {
+                state.user.configElements.header['align-items'] = payload.alignment
+            } else state.user.configElements.header['text-align'] = payload.alignment
+            console.log(state.user.configElements.header)
         }
     },
     actions: {
