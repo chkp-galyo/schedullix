@@ -22,9 +22,9 @@
                     </v-text-field>
                 </section>
                 
-                <section>
-                    <button :disabled="modePage === 'edit'" type="submit">Confirm</button>
-                    <button @click.prevent="cancelRegisterCustomer">Cancel</button>
+                <section class="save-container">
+                    <v-btn color="primary" :disabled="modePage === 'edit'" type="submit">Confirm</v-btn>
+                    <v-btn color="primary" @click.prevent="cancelRegisterCustomer">Cancel</v-btn>
                     <h4 v-if="modePage === 'edit'">This part works only after uot publish your page!</h4>
                 </section>
             </form>
@@ -83,7 +83,6 @@ export default {
 
       this.isRegisterComplited = true;
 
-
       setTimeout(() => {
         eventBus.$emit(EVENT_TOGGLE_REG_MENU);
         // eventBus.$emit(EVENT_UPDATE_NEW_CUSTOMER, 'hello')
@@ -103,12 +102,12 @@ export default {
 .register-customer {
   border-radius: 6px;
   background-color: white;
-  width: 50vw;
-  height: 50vh;
+  width: 100vw;
+  height: 80vh;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 button {
@@ -126,7 +125,7 @@ form {
   flex-direction: column;
   align-items: center;
   margin: 0;
-  height: 200px;
+  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -135,6 +134,9 @@ form {
 .inputs-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 3em;
+}
+.save-container {
 }
 
 input {
@@ -156,5 +158,11 @@ h4 {
   // margin-top: 10px;
   color: red;
   font-size: 10px;
+}
+@media only screen and (min-width: 700px) {
+  .register-customer {
+    width: 50vw;
+    height: 70vh;
+  }
 }
 </style>
