@@ -17,8 +17,8 @@
                     </ul>
                 </v-layout>
                 <section class="btns">
-                    <button @click.stop="updateUser">Update</button>
-                    <button @click.stop="exitEditWorkingHours">Cancel</button>
+                    <v-btn color="primary" @click.stop="updateUser">Update</v-btn>
+                    <v-btn color="primary" @click.stop="exitEditWorkingHours">Cancel</v-btn>
                 </section>
             </v-container>
         </v-app>
@@ -76,13 +76,20 @@ export default {
   font-size: 2em!important
 }
 .edit-work-hours {
+  /* position: absolute; */
   border-radius: 6px;
   background-color: white;
-  width: 50vw;
-  min-height: 60vh;
+  width: 100vw;
+  height: 80vh;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  /* z-index: 100000000000000000!important; */
+}
+.days{
+  height: 70%;
 }
 li {
   display: flex;
@@ -121,5 +128,16 @@ select {
   border: 1px solid #aaa;
   color: #555;
   width: 40px;
+}
+@media only screen and (min-width: 900px) {
+  .edit-work-hours {
+  border-radius: 6px;
+  background-color: white;
+  width: 50vw;
+  min-height: 60vh;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: center;
+}
 }
 </style>
