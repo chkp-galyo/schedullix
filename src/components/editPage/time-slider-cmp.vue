@@ -1,14 +1,15 @@
 <template>
     <div class="time-slider flex mb-0">
-          <div class="switch-container">
-        <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}" v-model="value.isOpen" @change="updateWorkingHours">
-        </v-switch>
-          </div>
+        <div class="switch-container">
+            <v-switch :label="value.day" class="switch mt-0 mb-0" :class="{'active': value.isOpen}"
+                      v-model="value.isOpen" @change="updateWorkingHours">
+            </v-switch>
+        </div>
 
         <div class="slider-container">
-
             <h3>{{startTimeToShow}}</h3>
-            <v-range-slider :disabled="!value.isOpen" class="range-slider"  @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
+            <v-range-slider :disabled="!value.isOpen" class="range-slider"  @change="updateWorkingHours"
+                            v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
             <h3>{{endTimeToShow}}</h3>
         </div>
     </div>
@@ -21,8 +22,8 @@ export default {
   data() {
     return {
       times: [8, 17],
-      startTimeToShow: "08:00",
-      endTimeToShow: "17:00"
+      startTimeToShow: this.value.hoursOpen.startTime.hours.toString() + ":" + this.value.hoursOpen.startTime.minutes.toString(),
+      endTimeToShow: this.value.hoursOpen.endTime.hours.toString() + ":" + this.value.hoursOpen.endTime.minutes.toString()
     };
   },
   created() {},
