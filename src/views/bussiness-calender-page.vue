@@ -52,7 +52,8 @@ export default {
       apptSelected: null,
       showRegisterMenu: false,
       timeCustomer: null,
-      newAppt: null
+      newAppt: null,
+      contentHeight: 500,
     };
   },
   computed: {},
@@ -62,6 +63,7 @@ export default {
       this.refreshEvents();
     });
     this.renderCustomers();
+    this.$refs.calender.contentHeight= 600
   },
   methods: {
     renderCustomers() {
@@ -133,7 +135,7 @@ export default {
   width: 100%;
   background-image: url("https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d");
   background-size: 100% 100%;
-  padding: 3em;
+  // padding: 3em;
   padding-top: 6em;
 }
 .calender-container {

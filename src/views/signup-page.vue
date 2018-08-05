@@ -165,7 +165,7 @@ h1{
   margin: 0 auto;
 }
 .sign-up-container{
-  background-color: rgba(255, 255, 255, 0.71);
+  background-color: rgba(255, 255, 255, 0.8);
    padding: 2em;
   width: 100%;
   height: fit-content;
