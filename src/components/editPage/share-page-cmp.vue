@@ -2,16 +2,19 @@
 <section class="share-page" v-if="isShow">
 
     <h1>Share your page</h1>
+    
     <section class="btns-share-container">
-        <social-sharing :url="businessUrl" title="The Progressive JavaScript Framework" description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
-            quote="Vue is a progressive framework for building user interfaces." hashtags="vuejs,javascript,framework" twitter-user="vuejs"
-            inline-template>
+        <social-sharing :url="businessUrl" title="The Progressive JavaScript Framework"
+                        description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+                        quote="Vue is a progressive framework for building user interfaces."
+                        hashtags="vuejs,javascript,framework" twitter-user="vuejs" inline-template>
             <div>
                 <network network="facebook">
                     <v-btn fab small dark color="indigo" title="Copy Business URL">
                         <v-icon dark>fab fa-facebook-square</v-icon>
                     </v-btn>
                 </network>
+
                 <network network="whatsapp">
                     <v-btn fab small dark color="green" title="Copy Business URL">
                         <v-icon dark>fab fa-whatsapp</v-icon>
@@ -23,28 +26,33 @@
 
         <section class="address-page-container">
             <h3>{{businessUrl}}</h3>
-            <v-btn fab small dark color="indigo" title="Copy Business URL" v-clipboard:copy="businessUrl" >
-                <v-icon dark>file_copy</v-icon>
-            </v-btn> 
+            <tool-tip :visibleToolTipText="visibleToolTipText">    
+                <v-btn slot="object-tool-tip" fab small dark color="indigo"
+                        title="Copy Business URL" v-clipboard:copy="businessUrl" @click="onClickCopyAddress" >
+                  <v-icon dark>file_copy</v-icon>
+                </v-btn> 
+                <span slot="text-tool-tip">Address Copied!</span>
+            </tool-tip>
         </section>
-        
     </section>
-
 </template>
 
 <script>
 import { GETTER_BUSINESS_NAME } from "@/store/userModule.js";
+import toolTip from "@/components/tool-tip-cmp.vue";
 
 import {
   eventBus,
-  EVENT_TOGGLE_SHARE_MENU
+  EVENT_TOGGLE_SHARE_MENU,
 } from "@/services/event-bus-service.js";
 
 export default {
   name: "share-page-cmp",
+  components: { toolTip },
   data() {
     return {
-      isShow: false
+      isShow: false,
+      visibleToolTipText: false
     };
   },
   created() {
@@ -52,7 +60,14 @@ export default {
       this.isShow = !this.isShow;
     });
   },
-  methods: {},
+  methods: {
+    onClickCopyAddress() {
+      this.visibleToolTipText = true;
+      setTimeout(() => {
+        this.visibleToolTipText = false;
+      }, 2000);
+    }
+  },
   watch: {},
   computed: {
     businessUrl() {
