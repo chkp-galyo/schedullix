@@ -151,7 +151,7 @@ h3.display-4{
   background-size:100% 100%; 
 }
 .update-user-container{
-  background-color: rgba(255, 255, 255, 0.507);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 3em;
   width: 60vw;
   margin: 0 auto;

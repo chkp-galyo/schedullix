@@ -1,9 +1,17 @@
 <template>
     <section>
         <section class="edit-menu flex">
-            <v-btn fab dark color="green" title="Save" @click="saveUserPage">
+
+            <tool-tip :visibleToolTipText="visibleToolTipText">    
+                <v-btn slot="object-tool-tip" fab dark color="green" title="Save" @click="saveUserPage">
+                    <v-icon dark>save</v-icon>
+                </v-btn>
+                <span slot="text-tool-tip">Page Saved!</span>
+            </tool-tip>
+
+            <!-- <v-btn fab dark color="green" title="Save" @click="saveUserPage">
                 <v-icon dark>save</v-icon>
-            </v-btn>
+            </v-btn> -->
 
             <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" 
                     v-if="modePage === 'edit' && isRegisterUser">
@@ -26,7 +34,11 @@
 
 <script>
 import sharePage from "@/components/editPage/share-page-cmp.vue";
-import { ACT_UPDATE_USER, GETTER_IS_REGISTER_USER} from "@/store/userModule.js";
+import toolTip from "@/components/tool-tip-cmp.vue";
+import {
+  ACT_UPDATE_USER,
+  GETTER_IS_REGISTER_USER
+} from "@/store/userModule.js";
 
 import {
   eventBus,
@@ -42,9 +54,9 @@ export default {
   props: {
     modePage: String
   },
-  components: { sharePage },
+  components: { sharePage, toolTip },
   data() {
-    return {};
+    return { visibleToolTipText: false };
   },
   methods: {
     openShareMenu() {
@@ -52,6 +64,10 @@ export default {
     },
     saveUserPage() {
       eventBus.$emit(EVENT_UPDATE_USER);
+      this.visibleToolTipText = true;
+      setTimeout(() => {
+        this.visibleToolTipText = false;
+      }, 2000);
     },
     changeMode(mode) {
       eventBus.$emit(EVENT_CHANGE_MODE_PAGE, mode);
@@ -64,7 +80,7 @@ export default {
   computed: {
     isRegisterUser() {
       console.log(this.$store.getters[GETTER_IS_REGISTER_USER]);
-      
+
       return this.$store.getters[GETTER_IS_REGISTER_USER];
     }
   },
@@ -79,6 +95,7 @@ export default {
   left: 5%;
   bottom: 5%;
   z-index: 100000;
+  left: 18;
 }
 
 @media only screen and (max-width: 600px) {
@@ -87,7 +104,6 @@ export default {
     flex-direction: row;
     height: 80px;
     top: 60px;
-    left: 0;
   }
 }
 </style>

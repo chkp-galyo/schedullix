@@ -162,9 +162,7 @@ export default {
         }) {
             state.user.workingHours = workingHours
         },
-        [MUT_UPDATE_CUSTOMER](state, {
-            customers
-        }) {
+        [MUT_UPDATE_CUSTOMER](state, {customers}) {
             state.user.customers = customers
         },
         [MUT_UPDATE_COLOR_CMP](state, payload) {
@@ -240,7 +238,6 @@ export default {
         [ACT_LOAD_USER_CUSTOMER](context) {
             return userService.getUserCustomers(context.getters[GETTER_USER_ID])
                 .then(customers => {
-                    console.log('store customers:', customers);
                     context.commit({
                         type: MUT_UPDATE_CUSTOMER,
                         customers
