@@ -11,5 +11,6 @@ export const EVENT_ADDRESS_CHANGE = 'address-change'
 export const EVENT_CHANGE_MODE_PAGE = 'change-mode-page'
 export const EVENT_TOGGLE_HEADER_PAGE = 'toggle-header-page'
 export const EVENT_TOGGLE_SHARE_MENU = 'open-share-menu'
+export const EVENT_SHOW_TOOL_TIP_TEXT = 'show-tool-tip-text'
 
 export const eventBus = new Vue();
