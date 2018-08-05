@@ -6,22 +6,22 @@
     </section>
 
     <section class="days" v-if="workingHourEdit">
-        <v-app class="sliders" style="height:0px">
-            <v-container flex-list-md>
-                <v-layout row wrap>
-                    <ul class="flex space-between column">
+        <!-- <v-app class="sliders" style="height:0px"> -->
+            <!-- <v-container > -->
+                <!-- <v-layout> -->
+                    <ul>
                         <li v-for="(workDay ,idx) in workingHourEdit" :key="idx">
-                            <time-slider v-model="workingHourEdit[idx]">
+                            <time-slider class="time-slider" v-model="workingHourEdit[idx]">
                             </time-slider>
                         </li>
                     </ul>
-                </v-layout>
                 <section class="btns">
                     <v-btn color="primary" @click.stop="updateUser">Update</v-btn>
                     <v-btn color="primary" @click.stop="exitEditWorkingHours">Cancel</v-btn>
                 </section>
-            </v-container>
-        </v-app>
+                <!-- </v-layout> -->
+            <!-- </v-container> -->
+        <!-- </v-app> -->
     </section>
 </section>
 </template>
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     updateUser() {
-        console.log('update user')
+      console.log("update user");
       this.$store.commit({
         type: MUT_UPDATE_WORKING_HOURS,
         workingHours: this.workingHourEdit
@@ -70,43 +70,61 @@ export default {
 </script>
 
 <style scoped>
+
 .header {
 }
-.display-4{
-  font-size: 2em!important
+.display-4 {
+  font-size: 2em !important;
 }
 .edit-work-hours {
-  /* position: absolute; */
   border-radius: 6px;
   background-color: white;
   width: 100vw;
   height: 80vh;
-  padding: 10px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* z-index: 100000000000000000!important; */
 }
-.days{
+.days {
   height: 70%;
-}
-li {
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 45vw;
+  padding: 1em;
+  flex-direction: column;
+ 
+}
+.days ul {
+  position: relative;
+  left:-40px;
+        
+        width: 70vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+       
 }
 
+li {
+  
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1em; 
+}
+
+.time-slider {
+  width: 65%;
+}
 .hour-minute {
   border: 1px solid black;
-  width: 100px;
+  width: 100px; 
 }
-ul {
-  padding: 0;
-}
-h1 {
-  font-size: 12px;
-  /* margin: 0; */
+h3 {
+  font-size: 10px !important;
 }
 
 button {
@@ -129,15 +147,34 @@ select {
   color: #555;
   width: 40px;
 }
-@media only screen and (min-width: 900px) {
-  .edit-work-hours {
-  border-radius: 6px;
-  background-color: white;
-  width: 50vw;
-  min-height: 60vh;
-  padding: 10px;
-  justify-content: space-around;
-  align-items: center;
+.time-slider .slider-container {
+  width: 50vw !important;
 }
+@media only screen and (min-width: 400px){
+.days ul{
+  position: unset;
+  width: 100%;
+  margin: 0 auto;
+  /* left:30px; */
+  padding: 0;
+}
+li{
+  padding: 0
+}
+}
+@media only screen and (min-width: 700px) {
+  .edit-work-hours {
+    width: 50vw;
+    padding: 10px;
+    margin:0 auto
+  }
+  .days ul {
+    width: 100%;
+    padding: 0;
+    align-self:center
+  }
+  li {
+    width: 100%;
+  }
 }
 </style>
