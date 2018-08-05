@@ -19,9 +19,6 @@
                 </network>
             </div>
         </social-sharing>
-        <v-btn fab small dark color="pink" title="Copy Business URL">
-            <v-icon dark>fab fa-instagram</v-icon>
-        </v-btn>
     </section>
 
         <section class="address-page-container">
@@ -59,7 +56,7 @@ export default {
   watch: {},
   computed: {
     businessUrl() {
-      return `http://schedullix.herokuapp.com/${
+      return `http://schedullix.herokuapp.com/#/${
         this.$store.getters[GETTER_BUSINESS_NAME]
       }`;
     }
@@ -112,7 +109,7 @@ h1 {
 @media only screen and (max-width: 600px) {
   .share-page {
     left: 0px;
-    top: 80px;
+    top: 140px;
     width: 100vw;
   }
 }
