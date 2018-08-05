@@ -53,16 +53,16 @@ export default {
     getters: {
 
         [GETTER_IS_REGISTER_USER](state) {
-            if (state.isLogin) {
-                var userId = userService.getUserLoggedinId();
+            if (state.isLogin && state.user) {
+                var userId = state.user._id;
                 if (userId === "000000000000000000000000" ||
                     userId === "000000000000000000000001" ||
                     userId === "000000000000000000000002" ||
                     userId === "000000000000000000000003")
 
                     return false;
-            }
-            return true;
+                    else return true;
+            } else return false   
         },
 
         [GETTER_BUSINESS_NAME](state) {
@@ -139,7 +139,7 @@ export default {
             state.user.configElements.about.mainTxt = aboutTxt
         },
         [MUT_LOGIN_USER](state) {
-            state.isLogin = !state.isLogin
+            state.isLogin = true
         },
         [MUT_UPDATE_HEADER_IMG](state, {
             imgUrl

@@ -8,7 +8,7 @@
         <div class="slider-container">
 
             <h3>{{startTimeToShow}}</h3>
-            <v-range-slider class="range-slider"  @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
+            <v-range-slider :disabled="!value.isOpen" class="range-slider"  @change="updateWorkingHours" v-model="times" :max="24" :min="0" :step="0.25"></v-range-slider>
             <h3>{{endTimeToShow}}</h3>
         </div>
     </div>

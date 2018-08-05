@@ -38,7 +38,7 @@ function addCustomer(userId, customer) {
     return axios.put(`${URL}/${userId}/addCustomer`, customer)
         .then(res => {
             // _setLoggedinUser(res.data.email)
-            // return (res.data)
+            return (res.data)
         })
         .catch(err => {
             console.log(err)

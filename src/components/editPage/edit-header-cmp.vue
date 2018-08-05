@@ -99,6 +99,7 @@ return
   // resize: none;
   outline: none;
   // overflow: auto;
+  padding: 40px;
 }
 
 @media only screen and (min-width: 900px) {

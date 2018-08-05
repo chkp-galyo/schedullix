@@ -4,10 +4,11 @@
         <table>
             <tr v-for="workDay in workingHours" :key="workDay.day">
                 <td>{{workDay.day}} : </td>
-                <td>{{workDay.hoursOpen.startTime.hours | validTime}}:{{workDay.hoursOpen.startTime.minutes | validTime}}
+                <td v-if="workDay.isOpen">{{workDay.hoursOpen.startTime.hours | validTime}}:{{workDay.hoursOpen.startTime.minutes | validTime}}
                     -
                     {{workDay.hoursOpen.endTime.hours | validTime}}:{{workDay.hoursOpen.endTime.minutes | validTime}} 
-                </td>         
+                </td>        
+                <td v-else class="closed">Closed</td> 
             </tr>
         </table>
   </section>
@@ -46,6 +47,11 @@ table {
   // border-radius: 6px;
   // box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
+
+.closed {
+  color: red;
+}
+
 @media only screen and (min-width: 900px) {
   table{
     width: fit-content;

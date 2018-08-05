@@ -34,26 +34,6 @@
                 <v-btn fab dark small color="orange" title="Text color" @click.stop="openInputTxtColor">
                     <v-icon dark>format_color_text</v-icon>
                 </v-btn>
-
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal', 'left')">
-                    <v-icon dark>format_align_left</v-icon>
-                </v-btn>                
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal','center')">
-                    <v-icon dark>format_align_center</v-icon>
-                </v-btn>
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('horizontal','right')">
-                    <v-icon dark>format_align_right</v-icon>
-                </v-btn>
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('vertical','flex-start')">
-                    <v-icon dark>vertical_align_top</v-icon>
-                </v-btn>
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('vertical','center')">
-                    <v-icon dark>drag_handle</v-icon>
-                </v-btn>
-                <v-btn v-if="selectedCmp === 'header'" fab dark small color="orange" title="Text color" @click.stop="alignItems('vertical','flex-end')">
-                    <v-icon dark>vertical_align_bottom</v-icon>
-                </v-btn>
-
                 <v-btn v-if="selectedCmp !== 'header'" fab dark small color="blue" 
                         title="Background color" @click.stop="openInputBgColor">
                     <v-icon dark>format_color_fill</v-icon>
@@ -89,6 +69,25 @@
                         <v-icon dark>chrome_reader_mode</v-icon>
                     </v-btn>
                 </section>
+                <br />
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('horizontal', 'left')">
+                    <v-icon dark>format_align_left</v-icon>
+                </v-btn>                
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('horizontal','center')">
+                    <v-icon dark>format_align_center</v-icon>
+                </v-btn>
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('horizontal','right')">
+                    <v-icon dark>format_align_right</v-icon>
+                </v-btn>
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('vertical','flex-start')">
+                    <v-icon dark>vertical_align_top</v-icon>
+                </v-btn>
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('vertical','center')">
+                    <v-icon dark>drag_handle</v-icon>
+                </v-btn>
+                <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('vertical','flex-end')">
+                    <v-icon dark>vertical_align_bottom</v-icon>
+                </v-btn>
             </section>
         </section>
     </div>

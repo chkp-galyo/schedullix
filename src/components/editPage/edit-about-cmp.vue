@@ -7,10 +7,11 @@
 
       <section class="about-container">
           <div class="about-text">
-              <h1>{{aboutConfig.titleTxt}}</h1>
-              <textarea rows="4" cols="50" :disabled="modePage === 'publish'" ref="txt" 
+              <h2>{{aboutConfig.titleTxt}}</h2>
+              <textarea class="about-txt" v-if="modePage === 'edit'" rows="4" cols="50" :disabled="modePage === 'publish'" ref="txt" 
                         @input="updateMainTxt" :value="aboutConfig.mainTxt">
               </textarea>
+              <p v-else class="about-txt">{{aboutConfig.mainTxt}}</p>
           </div>
 
           <input type="file" class="hidden" ref="upload" accept="image/*" @input="onInputFile" />
@@ -79,7 +80,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-textarea {
+.about-txt {
   padding: 20px;
   height: 80%;
   word-wrap: break-word;
