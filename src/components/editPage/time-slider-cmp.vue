@@ -21,13 +21,29 @@ export default {
   props: ["value"],
   data() {
     return {
-      times: [8, 17],
-      startTimeToShow: this.value.hoursOpen.startTime.hours.toString() + ":" + this.value.hoursOpen.startTime.minutes.toString(),
-      endTimeToShow: this.value.hoursOpen.endTime.hours.toString() + ":" + this.value.hoursOpen.endTime.minutes.toString()
+      times: [0, 0],
+      startTimeToShow:
+        this.value.hoursOpen.startTime.hours.toString() +
+        ":" +
+        this.value.hoursOpen.startTime.minutes.toString(),
+      endTimeToShow:
+        this.value.hoursOpen.endTime.hours.toString() +
+        ":" +
+        this.value.hoursOpen.endTime.minutes.toString()
     };
   },
-  created() {},
+  created() {
+    this.initTimes();
+  },
   methods: {
+    initTimes() {
+      this.times = [
+        this.value.hoursOpen.startTime.hours +
+          this.value.hoursOpen.startTime.minutes * 100 / 60 / 100,
+        this.value.hoursOpen.endTime.hours +
+          this.value.hoursOpen.endTime.minutes * 100 / 60 / 100
+      ];
+    },
     updateWorkingHours() {
       var newVal = JSON.parse(JSON.stringify(this.value));
       this.$emit("input", newVal);
@@ -67,7 +83,7 @@ export default {
   align-items: center;
   justify-content: space-around;
 }
-.switch-container{
+.switch-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,13 +92,13 @@ export default {
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  width:70%;
+  width: 70%;
   padding: 0;
 }
-h3{
-  padding-top:4px ;
-  max-width:30px ;
-  min-width:30px ;
+h3 {
+  padding-top: 4px;
+  max-width: 30px;
+  min-width: 30px;
 }
 .sliders {
   height: 0;
@@ -106,7 +122,6 @@ h3{
 }
 
 .range-slider {
-  
   min-width: 60%;
   max-width: 60%;
 }
