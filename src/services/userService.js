@@ -254,6 +254,8 @@ function getDefaultUser() {
             header: {
                 isActive: true,
                 titleTxt: "Welcome to my Bussiness!",
+                'align-items': 'center',
+                'justify-content': 'center',
                 styleObj: {
                     color: "white",
                     background: "red",

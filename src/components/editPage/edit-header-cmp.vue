@@ -1,9 +1,10 @@
 <template>
     <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
-        <div class="cmp-cover">
-            <textarea :disabled="modePage === 'publish'" class="header-text"
-                      :value="headerConfig.titleTxt" @input="updateTitle">
-            </textarea>
+        <div class="cmp-cover flex" :style="{'justify-content':headerConfig['justify-content'], 'align-items': headerConfig['align-items']}">
+            <!-- <input type="text" :disabled="modePage === 'publish'" class="header-text"
+                      :value="headerConfig.titleTxt" @input="updateTitle" /> -->
+                      <h1 contenteditable="true" class="header-text"
+                      @input="updateTitle">{{title}}</h1>
         </div>
         <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
                 @click.stop="openToolbar" v-if="modePage === 'edit'">
@@ -29,7 +30,8 @@ export default {
   },
   data() {
     return {
-      isEditHeaderTxt: false
+      isEditHeaderTxt: false,
+      title: this.headerConfig.titleTxt
     };
   },
   methods: {
@@ -37,9 +39,10 @@ export default {
       eventBus.$emit(EVENT_OPEN_TOOL_BAR, "header");
     },
     updateTitle(ev) {
+      this.title = ev.target.innerText
       this.$store.commit({
         type: MUT_UPDATE_HEADER_TITLE,
-        title: ev.target.value
+        title: this.title
       });
     }
   }
@@ -52,9 +55,9 @@ export default {
   transform: scale(1.1);
 }
 .edit-header {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
   // border: 1px solid black;gia
   height: 50vh;
   background-repeat: no-repeat !important;
@@ -82,12 +85,12 @@ export default {
 .header-text {
   background-color: rgba(0, 0, 0, 0);
   font-size: 36px;
-  align-items: center;
-  height: 90%;
-  width: 90%;
-  resize: none;
+  // align-items: center;
+  // height: 36px;
+  // width: 90%;
+  // resize: none;
   outline: none;
-  overflow: auto;
+  // overflow: auto;
 }
 @media only screen and (min-width: 900px) {
   .edit-header {
