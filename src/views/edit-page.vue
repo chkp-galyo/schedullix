@@ -2,7 +2,8 @@
     <div v-if="user" class="edit-page">
           
 
-          <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" v-if="isShowEditMenu"/>
+          <editMenuCmp :modePage="modePage" :selectedCmp = "selectedCmp" 
+                        v-if="isShowEditMenu && (!showRegisterMenu && !showEditWorkingHours)"/>
 
           <section>
             <toolbar-cmp v-show="isToolbarShow" :selectedCmp="selectedCmp"/>

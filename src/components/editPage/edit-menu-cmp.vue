@@ -9,10 +9,6 @@
                 <span slot="text-tool-tip">Page Saved!</span>
             </tool-tip>
 
-            <!-- <v-btn fab dark color="green" title="Save" @click="saveUserPage">
-                <v-icon dark>save</v-icon>
-            </v-btn> -->
-
             <v-btn fab dark color="green" title="Publish" @click="changeMode('publish')" 
                     v-if="modePage === 'edit' && isRegisterUser">
                 <v-icon dark>publish</v-icon>
