@@ -8,6 +8,12 @@
                         :description="txtMsgShare" :quote="txtMsgShare"
                         hashtags="vuejs,javascript,framework" inline-template>
             <div>
+                <network network="googleplus">
+                    <v-btn fab small dark color="red" title="Share in Linkdin!">
+                        <v-icon dark>fab fa-google-plus-g</v-icon>
+                    </v-btn>
+                </network>
+
                 <network network="facebook">
                     <v-btn fab small dark color="indigo" title="Share in Facebook!">
                         <v-icon dark>fab fa-facebook-square</v-icon>
@@ -23,6 +29,12 @@
                 <network network="sms">
                     <v-btn fab small dark color="orange" title="Send in SMS!">
                         <v-icon dark>fa-comments</v-icon>
+                    </v-btn>
+                </network>
+
+                <network network="telegram">
+                    <v-btn fab small dark color="primary" title="Share in Telegram!">
+                        <v-icon dark> fab fa-telegram-plane</v-icon>
                     </v-btn>
                 </network>
             </div>
