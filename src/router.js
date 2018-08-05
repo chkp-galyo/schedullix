@@ -3,12 +3,11 @@ import Router from 'vue-router'
 import home from './views/home-page.vue'
 import login from './views/login-page.vue'
 import signUp from './views/signup-page.vue'
-// import myBussiness from './views/my-bussiness-page.vue'
 import editPage from './views/edit-page.vue'
 import preview from './views/preview-page.vue'
 import bussinessProfile from './views/bussiness-profile-page.vue'
 import bussinessCalender from './views/bussiness-calender-page.vue'
-import bussinessPage from './views/bussiness-page.vue'
+
 
 
 
@@ -49,11 +48,6 @@ export default new Router({
       path: '/:userId/bussinessCalender',
       name: 'bussinessCalender',
       component: bussinessCalender
-    },
-    {
-      path: '/:userId/bussinessPage',
-      name: 'bussinessPage',
-      component: bussinessPage
     },
     {
       path: '/:businessName',

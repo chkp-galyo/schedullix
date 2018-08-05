@@ -77,18 +77,15 @@ export default {
 
 <style lang="scss" scoped>
 h1 {
-  // padding-top: 2em;
   font-size: 4em !important;
   font-weight: normal;
-  //  background-color: white;
-  // padding: 1em;
 }
 .login form {
   width: 100%;
   margin: 0 auto;
 }
 .login-container {
-  background-color: rgba(255, 255, 255, 0.507);
+  background-color: rgba(255, 255, 255, 0.71);
   padding: 2em;
   width: 100%;
   height: fit-content;
@@ -106,12 +103,12 @@ h1 {
     width: 70%;
     margin: 0 auto;
   }
-  
-  .login-container{
+
+  .login-container {
     width: 60vw;
     height: fit-content;
     margin: 0 auto;
-    padding: 5em
+    padding: 5em;
   }
 }
 </style>

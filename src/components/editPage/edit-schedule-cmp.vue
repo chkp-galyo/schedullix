@@ -25,6 +25,9 @@ import moment from "moment";
 import { eventBus, EVENT_OPEN_TOOL_BAR } from "@/services/event-bus-service.js";
 
 export default {
+  components: {
+    listDailyAppts
+  },
   props: {
     schedule: Object,
     modePage: String
@@ -50,9 +53,6 @@ export default {
       this.dateSelected = ev;
     }
   },
-  components: {
-    listDailyAppts
-  },
   mounted() {
     this.dateSelected = this.minDate;
   }
@@ -70,7 +70,6 @@ export default {
   align-items: center;
   padding: 10px;
   height: 120vh;
-  // border: 1px solid black;
 }
 .btn-container {
   position: absolute;
@@ -87,7 +86,6 @@ export default {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  // flex-wrap: wrap;
   height: 100%;
 }
 .date-picker {
