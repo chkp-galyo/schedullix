@@ -265,6 +265,7 @@ export default {
     },
 
     openWorkingHoursEditor() {
+      this.closeToolbar()
       eventBus.$emit(EVENT_OPEN_EDITOR_WORKING_HOURS);
     },
 
@@ -276,7 +277,6 @@ export default {
       eventBus.$emit(EVENT_OPEN_TOOL_BAR, null);
     },
     alignItems(direction, alignment) {
-        console.log('dir', direction, 'align', alignment)
         this.$store.commit({type: MUT_ALIGN_HEADER_TEXT, direction, alignment})
     }
   }
