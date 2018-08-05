@@ -68,12 +68,14 @@ export default {
       this.$store
         .dispatch({ type: ACT_LOAD_USER_CUSTOMER })
         .then(userCustomers => {
+          console.log(userCustomers);
+          
           this.events = userCustomers.customers.map(customer => {
             return {
-              title: ev.name,
-              start: moment(ev.time).format(),
+              title: customer.name,
+              start: moment(customer.time).format(),
               end: moment(
-                ev.time + userCustomers.timePerCustomer * 60 * 1000
+                customer.time + userCustomers.timePerCustomer * 60 * 1000
               ).format(),
               allDay: false
             };
