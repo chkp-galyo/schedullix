@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import {
   GETTER_USER,
   ACT_LOAD_USER_CUSTOMER,
@@ -37,7 +38,6 @@ import {
   EVENT_UPDATE_NEW_CUSTOMER
 } from "@/services/event-bus-service.js";
 
-import moment from "moment";
 import { FullCalendar } from "vue-full-calendar";
 import registerCustomer from "@/components/register-customer-cmp.vue";
 
@@ -51,8 +51,9 @@ export default {
       events: [], // array of customers events
       apptSelected: null,
       showRegisterMenu: false,
-      timeCustomer: null,
+      timeCustomer: 0,
       newAppt: null,
+
       contentHeight: 500,
       config: {
         header: {
@@ -61,41 +62,25 @@ export default {
           right: "month,agendaWeek,agendaDay"
         },
         height: 600
-        //  editable: true,
-        // droppable: true, // this allows things to be dropped onto the calendar
-        // dragRevertDuration: 0,
-        // drop: function() {
-        //   // is the "remove after drop" checkbox checked?
-        //   if ($("#drop-remove").is(":checked")) {
-        //     // if so, remove the element from the "Draggable Events" list
-        //     $(this).remove();
-        //   }
-        // }
       }
     };
   },
   computed: {},
   created() {
+    this.renderCustomers();
     eventBus.$on(EVENT_TOGGLE_REG_MENU, () => {
       this.showRegisterMenu = !this.showRegisterMenu;
-      this.refreshEvents();
+      this.renderCustomers();
     });
-    this.renderCustomers();
   },
   mounted() {
     this.$refs.calendar.contentHeight = "9999";
-    // this.$refs.calendar.handleWindowResize= true
-    // this.$refs.calendar.contentHeight= 1850
-    // this.$refs.calendar.minTime= '8'
-    // this.$refs.calendar.maxTime= '22'
   },
   methods: {
     renderCustomers() {
       this.$store
         .dispatch({ type: ACT_LOAD_USER_CUSTOMER })
         .then(userCustomers => {
-          console.log(userCustomers);
-
           this.events = userCustomers.customers.map(customer => {
             return {
               title: customer.name,
@@ -195,7 +180,7 @@ h3.display-4 {
     padding: 1em;
   }
   .full-calendar {
-    }
+  }
   .bussiness-calender {
     background-image: url("https://c.pxhere.com/photos/0f/1e/collaborate_collaboration_creative_design_designer_group_groupware_hands-911060.jpg!d");
     background-size: 100% 100%;

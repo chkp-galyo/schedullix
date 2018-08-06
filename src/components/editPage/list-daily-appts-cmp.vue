@@ -37,7 +37,6 @@ import userService from "@/services/userService.js";
 
 export default {
   name: "list-daily-appts-cmp",
-  components: {},
   props: {
     dateSelected: Number,
     bgButtons: String
@@ -72,7 +71,7 @@ export default {
   created() {},
   methods: {
     addCustomer(timestampForCustomer) {
-      
+      console.log('add customer',timestampForCustomer);
       eventBus.$emit(EVENT_ADD_CUSTOMER, timestampForCustomer);
       eventBus.$emit(EVENT_TOGGLE_REG_MENU);
     }

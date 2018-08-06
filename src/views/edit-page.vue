@@ -94,7 +94,7 @@ export default {
       showRegisterMenu: false,
       showEditWorkingHours: false,
       isLogin: this.$store.getters[GETTER_IS_LOGIN],
-      timeCustomerReg: null,
+      timeCustomerReg: 0,
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
@@ -154,6 +154,9 @@ export default {
       });
 
       eventBus.$on(EVENT_ADD_CUSTOMER, time => {
+        console.log("eventBus, on");
+        console.log("time=", time);
+
         this.timeCustomerReg = time;
       });
 

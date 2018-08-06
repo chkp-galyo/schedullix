@@ -6,7 +6,7 @@
             <section>
               <p>Your oppintment will be scheduled at :</p>
               
-              <h3>{{customer.time | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</h3>
+              <h3>{{timeCustomer | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</h3>
             </section>
 
             <form @submit.prevent="registerCustomer">
@@ -54,12 +54,7 @@ export default {
   },
   data() {
     return {
-      customer: {
-        name: "",
-        phone: "",
-        time: this.timeCustomer,
-        isDone: false
-      },
+      customer: this.getEmptyCustomer(),
       isRegisterComplited: false
     };
   },
@@ -67,6 +62,9 @@ export default {
   created() {},
   methods: {
     registerCustomer() {
+      console.log("registerCustomer");
+
+      this.customer.time = this.timeCustomer;
       this.$store
         .dispatch({
           type: ACT_ADD_CUSTOMER,
@@ -75,23 +73,29 @@ export default {
         })
         .then(_ => {
           console.log("success to add customer");
+          this.customer = this.getEmptyCustomer();
         })
         .catch(_ => {
           console.log("Fail to add customer");
         });
 
       this.isRegisterComplited = true;
-
       setTimeout(() => {
         eventBus.$emit(EVENT_TOGGLE_REG_MENU);
-        // eventBus.$emit(EVENT_UPDATE_NEW_CUSTOMER, 'hello')
-
-        this.customer = null;
+        this.isRegisterComplited = false;
       }, 2000);
     },
     cancelRegisterCustomer() {
       eventBus.$emit(EVENT_TOGGLE_REG_MENU);
-      this.customer = null;
+      this.customer = this.getEmptyCustomer();
+    },
+    getEmptyCustomer() {
+      return {
+        name: "",
+        phone: "",
+        time: 0,
+        isDone: false
+      };
     }
   }
 };

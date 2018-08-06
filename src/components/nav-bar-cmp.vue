@@ -1,47 +1,45 @@
 <template>
     <div id="nav" class="nav" v-if="isShowHeader">
-                <v-toolbar dark tabs >
-                        <!-- <v-tab slot="extension" color="transparent" fixed-tabs slider-color="white"> -->
-                    <v-toolbar-title @click="changeLoction('/')">
-                    <img class="animated tada logo" src="/img/logo.png">
-                    </v-toolbar-title>
-                    <div class="main-nav">
-                      <v-tabs color="transparent">
-                            <v-tab @click="changeLoction('/')">
-                                Home
-                            </v-tab>
-                            <v-menu v-if="loggedInUserId && isRegisteredUser" color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
-                                <a slot="activator" class="v-tabs__item">
-                                    Bussiness
-                                    <v-icon>arrow_drop_down</v-icon>
-                                </a>
-                                <v-list>
-                                    <v-list-tile v-for="(item, index) in items" :key="index" @click="changeLoction(`/${user._id}/${item.route}`)">
-                                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-menu>
-                      </v-tabs >
-                    </div>
-                    <div class="login">
-                      <v-tabs slider-color="transparent" color="transparent" >
-                        
-                    <v-tab flat  v-if="!isRegisteredUser" @click="changeLoction('/login')">
+        <v-toolbar dark tabs>
+            <v-toolbar-title @click="changeLoction('/')">
+                <img class="animated tada logo" src="/img/logo.png">
+            </v-toolbar-title>
+            <div class="main-nav">
+                <v-tabs color="transparent">
+                    <v-tab @click="changeLoction('/')">
+                        Home
+                    </v-tab>
+                    <v-menu v-if="loggedInUserId && isRegisteredUser" color="white" offset-y open-on-hover activator lazy class="v-tabs__div">
+                        <a slot="activator" class="v-tabs__item">
+                            Bussiness
+                            <v-icon>arrow_drop_down</v-icon>
+                        </a>
+                        <v-list>
+                            <v-list-tile v-for="(item, index) in items" :key="index" 
+                                        @click="changeLoction(`/${user._id}/${item.route}`)">
+                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
+                </v-tabs>
+            </div>
+            <div class="login">
+                <v-tabs slider-color="transparent" color="transparent">
+
+                    <v-tab flat v-if="!isRegisteredUser" @click="changeLoction('/login')">
                         login
                     </v-tab>
                     <v-tab flat v-if="isRegisteredUser" @click="logout">
                         logout
                     </v-tab>
                     <v-tab v-if="isRegisteredUser">
-                    <v-avatar @click="changeLoction(`/${loggedInUserId}/bussinessProfile`)">
-                    <div class="profile"></div>
-                    </v-avatar>
+                        <v-avatar @click="changeLoction(`/${loggedInUserId}/bussinessProfile`)">
+                            <div class="profile"></div>
+                        </v-avatar>
                     </v-tab>
-                        <!-- </v-tabs> -->
-
-                      </v-tabs>
-                    </div>
-                  </v-toolbar>
+                </v-tabs>
+            </div>
+        </v-toolbar>
     </div>
 </template>
 
@@ -67,7 +65,7 @@ export default {
         { title: "Bussiness Calender", route: "bussinessCalender" },
         { title: "Bussiness Profile", route: "bussinessProfile" },
         { title: "Bussiness Page", route: "editPage" }
-      ],
+      ]
       // isRegisteredUser: this.$store.getters[GETTER_IS_REGISTER_USER],
       // loggedInUserId: this.$store.getters[GETTER_IS_LOGIN]
     };
@@ -87,10 +85,10 @@ export default {
       this.$router.push(url);
     },
     logout() {
-      console.log('logging out...')
-      this.$store.commit({ type: MUT_LOGOUT_USER })
-      userService.logout()
-      this.$router.push('/')
+      console.log("logging out...");
+      this.$store.commit({ type: MUT_LOGOUT_USER });
+      userService.logout();
+      this.$router.push("/");
     }
   },
   computed: {
@@ -103,8 +101,8 @@ export default {
       }
       return true;
     },
-      isRegisteredUser() {
-      return this.$store.getters[GETTER_IS_REGISTER_USER]
+    isRegisteredUser() {
+      return this.$store.getters[GETTER_IS_REGISTER_USER];
     }
   }
 };
@@ -187,7 +185,6 @@ a .v-list__tile--link {
   }
 }
 @media only screen and (min-width: 700px) {
-
 }
 </style>
 
