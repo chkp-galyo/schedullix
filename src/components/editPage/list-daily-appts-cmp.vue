@@ -72,8 +72,9 @@ export default {
   created() {},
   methods: {
     addCustomer(timestampForCustomer) {
-      eventBus.$emit(EVENT_TOGGLE_REG_MENU);
+      
       eventBus.$emit(EVENT_ADD_CUSTOMER, timestampForCustomer);
+      eventBus.$emit(EVENT_TOGGLE_REG_MENU);
     }
   }
 };

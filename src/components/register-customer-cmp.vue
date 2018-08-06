@@ -37,7 +37,6 @@
 <script>
 import {
   eventBus,
-  EVENT_ADD_CUSTOMER,
   EVENT_TOGGLE_REG_MENU
 } from "@/services/event-bus-service.js";
 import { ACT_ADD_CUSTOMER, GETTER_USER_ID } from "@/store/userModule.js";
