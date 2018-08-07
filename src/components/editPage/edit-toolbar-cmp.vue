@@ -65,9 +65,9 @@
                     <v-btn fab dark small color="blue" title="Text color" @click.stop="toggleCalenderTheme">
                         <v-icon dark>event</v-icon>
                     </v-btn>
-                    <v-btn fab dark small color="blue" title="Background color" @click.stop="toggleCalenderLandscape">
+                    <!-- <v-btn fab dark small color="blue" title="Background color" @click.stop="toggleCalenderLandscape">
                         <v-icon dark>chrome_reader_mode</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                 </section>
                 <br />
                 <v-btn v-if="selectedCmp === 'header'" fab dark small color="gray" title="Text color" @click.stop="alignItems('horizontal', 'left')">

@@ -52,7 +52,7 @@ export default {
       apptSelected: null,
       showRegisterMenu: false,
       timeCustomer: 0,
-      newAppt: null,
+      newAppt: false,
 
       contentHeight: 500,
       config: {
@@ -81,6 +81,7 @@ export default {
       this.$store
         .dispatch({ type: ACT_LOAD_USER_CUSTOMER })
         .then(userCustomers => {
+            console.log('userCustomers', userCustomers)
           this.events = userCustomers.customers.map(customer => {
             return {
               title: customer.name,
@@ -109,16 +110,18 @@ export default {
           type: ACT_REMOVE_CUSTOMER,
           time: this.timeCustomer
         });
-        this.apptSelected = {};
+        this.apptSelected = null
       }
     },
     eventCreated(ev) {
       var currTime = ev.start._d;
       this.timeCustomer = currTime.setHours(currTime.getHours() - 3);
+      this.apptSelected = null      
       this.newAppt = true;
     },
     addCustomer() {
       this.showRegisterMenu = true;
+      this.newAppt = false;      
     },
 
     registerCustomer() {

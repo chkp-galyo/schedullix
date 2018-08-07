@@ -97,6 +97,7 @@ function getLoggedInUser() {
 }
 
 function getUserByBusinessName(businessName) {
+    console.log('userService front', businessName)
     return axios.get(`${URL}/business/${businessName}`)
         .then(res => {
             return res.data
@@ -302,7 +303,7 @@ function getDefaultUser() {
                     light: false,
                 },
                 styleApptsList: {
-                    background: "red"
+                    background: "#424242"
                 }
             },
             map: {

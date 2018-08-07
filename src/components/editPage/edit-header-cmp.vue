@@ -1,11 +1,11 @@
 <template>
     <div class="edit-header animated bounceInRight" :style="headerConfig.styleObj" ref="divHeader">
         <div class="cmp-cover flex" :style="{'align-items': headerConfig['align-items']}">
-            <input type="text" :disabled="modePage === 'publish'" class="header-text"
+            <input v-if="modePage === 'edit'" type="text" :disabled="modePage === 'publish'" class="header-text"
                       :value="headerConfig.titleTxt" @input="updateTitle"
                       :style="{'text-align': headerConfig['text-align']}" placeholder="Enter your header here" />
-                      <!-- <h1 contenteditable="true" class="header-text"
-                      @keyup="updateTitle">{{title}}</h1> -->
+
+                      <h1 v-else class="header-text">{{headerConfig.titleTxt}}</h1>
         </div>
         <v-btn fab dark color="indigo" class="open-toolbar" title="Open toolbar"
                 @click.stop="openToolbar" v-if="modePage === 'edit'">

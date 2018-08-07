@@ -16,7 +16,7 @@
                         </a>
                         <v-list>
                             <v-list-tile v-for="(item, index) in items" :key="index" 
-                                        @click="changeLoction(`/${user._id}/${item.route}`)">
+                                        @click="changeLoction(`/${loggedInUserId}/${item.route}`)">
                                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                             </v-list-tile>
                         </v-list>
@@ -46,8 +46,6 @@
 <script>
 import userService from "@/services/userService.js";
 import {
-  ACT_CHECK_USER_LOGIN,
-  GETTER_IS_LOGIN,
   GETTER_USER_ID,
   GETTER_IS_REGISTER_USER,
   MUT_LOGOUT_USER
@@ -60,7 +58,6 @@ import {
 export default {
   data() {
     return {
-      user: "",
       items: [
         { title: "Bussiness Calender", route: "bussinessCalender" },
         { title: "Bussiness Profile", route: "bussinessProfile" },
@@ -72,13 +69,7 @@ export default {
   },
 
   created() {
-    // eventBus.$on(EVENT_TOGGLE_HEADER_PAGE, _ => {
-    //   this.isShowHeader = !this.isShowHeader;
-    // });
 
-    this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
-      this.user = user;
-    });
   },
   methods: {
     changeLoction(url) {
@@ -93,10 +84,10 @@ export default {
   },
   computed: {
     loggedInUserId() {
-      return this.$store.getters[GETTER_IS_LOGIN];
+      return this.$store.getters[GETTER_USER_ID];
     },
     isShowHeader() {
-      if (!this.loggedInUserId && this.$route.name === "publishPage") {
+      if (this.$route.name === "publishPage") {
         return false;
       }
       return true;

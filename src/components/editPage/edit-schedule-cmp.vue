@@ -10,7 +10,7 @@
         <section class="schedule-container">
           <v-app class="date-picker">
             <v-date-picker  @input="handleInput" :color="schedule.styleDate.colorHeader" 
-                            :landscape="schedule.styleDate.landscape" :light="schedule.styleDate.light"
+                            :landscape="false" :light="schedule.styleDate.light"
                             :dark="schedule.styleDate.dark" full-width v-model="dateSelected"
                             :min="minDate"/>
           </v-app>

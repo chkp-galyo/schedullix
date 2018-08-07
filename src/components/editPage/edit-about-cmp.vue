@@ -88,6 +88,7 @@ export default {
   outline: none;
   overflow: auto;
   font-size: 20px;
+  overflow: hidden;
 }
 .btn-container {
   position: absolute;

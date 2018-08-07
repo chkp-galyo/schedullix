@@ -39,8 +39,8 @@ import {
   eventBus,
   EVENT_TOGGLE_REG_MENU
 } from "@/services/event-bus-service.js";
-import { ACT_ADD_CUSTOMER, GETTER_USER_ID } from "@/store/userModule.js";
-
+import { ACT_ADD_CUSTOMER, GETTER_USER_BUSINESS_NAME } from "@/store/userModule.js";
+import textService from "@/services/textService.js";
 import successCheck from "@/components/success-check-cmp.vue";
 
 export default {
@@ -55,7 +55,8 @@ export default {
   data() {
     return {
       customer: this.getEmptyCustomer(),
-      isRegisterComplited: false
+      isRegisterComplited: false,
+      userBusinessName: this.$store.getters[GETTER_USER_BUSINESS_NAME]
     };
   },
   computed: {},
@@ -63,16 +64,19 @@ export default {
   methods: {
     registerCustomer() {
       console.log("registerCustomer");
-
-      this.customer.time = this.timeCustomer;
+      this.customer.time = this.timeCustomer;      
+      textService.sendMessage(this.customer, this.userBusinessName).then(res => {
+        console.log("sent sms");
+        console.log(res);
+      });
       this.$store
         .dispatch({
           type: ACT_ADD_CUSTOMER,
-          customer: this.customer,
-          userId: this.$store.getters[GETTER_USER_ID]
+          customer: this.customer
         })
         .then(_ => {
           console.log("success to add customer");
+
           this.customer = this.getEmptyCustomer();
         })
         .catch(_ => {

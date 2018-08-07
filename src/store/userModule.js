@@ -20,6 +20,7 @@ export const GETTER_CALENDER_COLOR = 'user/getters/calenderColor'
 export const GETTER_IS_LOGIN = 'user/getters/isLogin'
 export const GETTER_BUSINESS_NAME = 'user/getters/businessName'
 export const GETTER_IS_REGISTER_USER = 'user/getters/registerUser'
+export const GETTER_USER_BUSINESS_NAME = 'user/getters/businessName'
 //------------------------------ MUTATIONS ----------------------------
 export const MUT_ADD_CUSTOMER = 'user/mutations/addCustomer'
 export const MUT_UPDATE_CUSTOMER = 'user/mutations/updateCustomer'
@@ -110,7 +111,7 @@ export default {
         },
 
         [GETTER_USER_ID](state) {
-            return userService.getUserLoggedinId();
+            return state.user ? state.user._id : userService.getUserLoggedinId();
         },
 
         [GETTER_CUSTOMERS_FOR_DATE]: (state) => (dateSelectedTimestamp) => {
@@ -121,6 +122,9 @@ export default {
 
         [GETTER_CALENDER_COLOR](state) {
             return state.user ? state.user.configElements.schedule.styleDate.colorHeader : null
+        },
+        [GETTER_USER_BUSINESS_NAME](state) {
+            return state.user.businessName
         }
     },
     mutations: {
@@ -162,9 +166,9 @@ export default {
         }) {
             state.user.workingHours = workingHours
         },
-        [MUT_UPDATE_CUSTOMER](state, {customers}) {
-            state.user.customers = customers
-        },
+        // [MUT_UPDATE_CUSTOMER](state, {customers}) {
+        //     state.user.customers = customers
+        // },
         [MUT_UPDATE_COLOR_CMP](state, payload) {
             state.user.configElements[payload.cmp].styleObj[payload.propertyToUpdate] = payload.value
         },
@@ -237,14 +241,15 @@ export default {
         },
         [ACT_LOAD_USER_CUSTOMER](context) {
             return userService.getUserCustomers(context.getters[GETTER_USER_ID])
-                .then(customers => {
-                    // context.commit({
-                    //     type: MUT_UPDATE_CUSTOMER,
-                    //     customers
-                    // })
+                .then(user => {
+                    
+                    context.commit({
+                        type: MUT_SET_USER,
+                        user
+                    })
                     return {
                         timePerCustomer: context.state.user.timePerCustomer,
-                        customers
+                        customers: user.customers
                     };
                 })
         },
@@ -261,7 +266,8 @@ export default {
         },
 
         [ACT_ADD_CUSTOMER](context, payload) {
-            return userService.addCustomer(payload.userId, payload.customer)
+            console.log('context state', context.state.user._id)
+            return userService.addCustomer(context.state.user._id, payload.customer)
                 .then(() => {
                     context.commit({
                         type: MUT_ADD_CUSTOMER,
@@ -296,6 +302,7 @@ export default {
         }) {
             return userService.getUserByBusinessName(businessName)
                 .then(user => {
+                    console.log('user userModule >', user)
                     context.commit({
                         type: MUT_SET_USER,
                         user
