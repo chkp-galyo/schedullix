@@ -238,10 +238,10 @@ export default {
         [ACT_LOAD_USER_CUSTOMER](context) {
             return userService.getUserCustomers(context.getters[GETTER_USER_ID])
                 .then(customers => {
-                    context.commit({
-                        type: MUT_UPDATE_CUSTOMER,
-                        customers
-                    })
+                    // context.commit({
+                    //     type: MUT_UPDATE_CUSTOMER,
+                    //     customers
+                    // })
                     return {
                         timePerCustomer: context.state.user.timePerCustomer,
                         customers
