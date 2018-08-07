@@ -13,9 +13,11 @@
           <div class="register-container" v-if="showRegisterMenu || showEditWorkingHours" 
                   @click="showRegisterMenu = false, showEditWorkingHours = false">
               <!-- modal for register customer  -->
-              <register-customer :modePage="modePage" v-if="showRegisterMenu" :timeCustomer="timeCustomerReg"/>
-              <!-- modal for edit working hours of business user -->
-              <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours"/>
+              <register-customer :modePage="modePage" v-if="showRegisterMenu" :timeCustomer="timeCustomerReg">
+              </register-customer>
+              <!-- modal for edit working hours of business user  -->
+              <edit-working-hours v-if="showEditWorkingHours" :workingHours="user.workingHours">
+              </edit-working-hours>
           </div> 
 
           <!-- HEARDER component -->
@@ -92,7 +94,7 @@ export default {
       showRegisterMenu: false,
       showEditWorkingHours: false,
       isLogin: this.$store.getters[GETTER_IS_LOGIN],
-      timeCustomerReg: null,
+      timeCustomerReg: 0,
       dragOriginOrderCmp: null,
       dragDestOrderCmp: null,
       draggedCmp: null,
@@ -152,6 +154,9 @@ export default {
       });
 
       eventBus.$on(EVENT_ADD_CUSTOMER, time => {
+        console.log("eventBus, on");
+        console.log("time=", time);
+
         this.timeCustomerReg = time;
       });
 
