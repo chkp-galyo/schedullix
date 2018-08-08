@@ -5,7 +5,6 @@
         <home-header></home-header>
                 <home-main></home-main>
                 <home-footer></home-footer>
-
             </v-content>
         </v-app>
     </div>
@@ -15,6 +14,7 @@
 import homeHeader from "@/components/homePage/home-header-cmp.vue";
 import homeMain from "@/components/homePage/home-main-cmp.vue";
 import homeFooter from "@/components/homePage/home-footer-cmp.vue";
+
 export default {
   name: "home",
   components: {

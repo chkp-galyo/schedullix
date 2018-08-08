@@ -1,6 +1,5 @@
 <template>
 <section class="home-main">
-
       <section>
         <v-layout column wrap class="my-5" align-center>
           <div class="doctor-section">
