@@ -1,23 +1,24 @@
 <template>
-  <section class="home-header">
-    <section class="carousel-container">
-      <div class="side-carousel" >
-        <h1 class="white--text mb-2 display-1 text-xs-center">Create Beautiful Scheduling appointment page for your Business</h1>
-        <p class="white--text subheading mb-2 text-xs-center">Powered by The three dummies</p>
-        <v-btn  color="primary" dark large @click="getStarted"> Get Started </v-btn>
-      </div>
-      <v-carousel style="height:100%" hide-delimiters hide-controls class="carosela" >
-          <v-carousel-item
-          class="carosela-item"
-          v-for="(item,i) in items"
-          :key="i"
-          :src="item.src"
-          style="height:100%"
-          >
-          </v-carousel-item>
-        </v-carousel>
+    <section class="home-header">
+        <section class="carousel-container">
+            <div class="side-carousel">
+                <h1 class="white--text mb-2 display-1 text-xs-center">
+                    Create Beautiful Scheduling appointment page for your Business
+                </h1>
+                <p class="white--text subheading mb-2 text-xs-center">
+                  Powered by The three dummies
+                </p>
+                <v-btn color="primary" dark large @click="getStarted">
+                   Get Started 
+                </v-btn>
+            </div>
+            <v-carousel style="height:100%" hide-delimiters hide-controls class="carosela">
+                <v-carousel-item class="carosela-item" v-for="(imgCarousel, idx) in imgsCarosel" 
+                                  :key="idx" :src="`img/carosel${idx+1}.png`" style="height:100%">
+                </v-carousel-item>
+            </v-carousel>
+        </section>
     </section>
-  </section>
 </template>
  
 <script>
@@ -32,8 +33,7 @@ import {
 export default {
   data() {
     return {
-      title: "home page",
-      items: [
+      imgsCarosel: [
         {
           src: "img/carosel1.png"
         },
@@ -52,7 +52,6 @@ export default {
   methods: {
     getStarted() {
       var isLogin = this.$store.getters[GETTER_IS_LOGIN];
-      console.log(isLogin);
 
       if (isLogin) {
         this.$store.dispatch({ type: ACT_CHECK_USER_LOGIN }).then(user => {
@@ -84,10 +83,6 @@ export default {
 
 .carosela {
   width: 100%;
-  // max-height: 700px;
-  // min-height: 700px
-  // position: absolute;
-  // top:0;
 }
 v-parallax {
   max-width: 100%;
@@ -102,7 +97,6 @@ v-parallax {
 }
 .side-carousel {
   position: absolute;
-  // top: 3%;
   z-index: 1000000000 !important;
   display: flex;
   flex-direction: column;
@@ -114,7 +108,6 @@ v-parallax {
   margin: 0;
   background-color: rgba(49, 44, 44, 0.5);
   color: white;
-  // padding: 5em;
 }
 .carousel-container {
   display: flex;
@@ -135,16 +128,12 @@ p {
 @media only screen and (min-width: 900px) {
   .home-header {
     height: 100vh;
-    // max-height: 600px
   }
   .display-1 {
     font-size: 2em !important;
   }
-  .carosela {
-  }
   .side-carousel {
     height: 100vh;
-    // top: 6%;
     width: 100%;
     min-height: 250px;
   }
